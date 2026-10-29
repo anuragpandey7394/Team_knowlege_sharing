@@ -6,8 +6,8 @@
 - Current milestone/subtask: M00 / M00.01 (next; implementation not started)
 - Last completed subtask: none
 - Last implementation commit: none; repository has initial documents and Git push test only
-- Last verified remote checkpoint: f7193dd33b713e1d9f6305f462b70a0f672ad789 (prior push test, not a milestone)
-- Automation setup delivery: pending documentation commit/push; reconcile HEAD with origin/develop before implementation
+- Last verified remote checkpoint: 2d93f0b25c550dac6c62ee80090f445b54a12fb3 (automation setup; exact local/remote SHA comparison passed)
+- Automation setup delivery: verified; checkpoint-only follow-up commit must also be pushed and verified before implementation
 - Worktree: automation documentation changes; pre-existing .codex/ is intentionally excluded from staging
 - Last verification: documentation consistency checks; see docs/evidence/automation-setup.md
 - Current failure/blocker: none
@@ -20,7 +20,7 @@
 
 | ID | State | Evidence | Notes |
 |---|---|---|---|
-| Automation setup (outside milestone plan) | IN_PROGRESS | docs/evidence/automation-setup.md | Documentation only; commit/push confirmation pending |
+| Automation setup (outside milestone plan) | COMPLETE | docs/evidence/automation-setup.md | Documentation commit pushed and local/remote SHA matched |
 | M00.01–M00.06 | NOT_STARTED | None yet | Existing instructions/checkpoint are inputs, not proof that the full bootstrap gate passed |
 
 ## Handoff / unfinished work

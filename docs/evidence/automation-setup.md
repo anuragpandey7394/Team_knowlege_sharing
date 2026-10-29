@@ -10,3 +10,5 @@
 - Application tests/lint/typecheck/build: not run; no package manifest or application exists. This is not M00 acceptance evidence.
 - Delivery: setup commit SHA and origin/develop are verified after commit; next checkpoint records the prior verified SHA rather than a self-reference.
 - Limitations: instructions guide future active sessions; this setup does not install a background runner. Deferred AI/cloud operations remain explicitly gated.
+
+- Delivery observed: `git -c core.sshCommand='ssh -F /dev/null' push origin HEAD:develop` exited 0; `git rev-parse HEAD` and `git ls-remote --exit-code origin refs/heads/develop` both returned `2d93f0b25c550dac6c62ee80090f445b54a12fb3` (exit 0). Checkpoint-only follow-up is verified separately after its push.
