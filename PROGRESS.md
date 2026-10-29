@@ -1,34 +1,34 @@
 # Execution checkpoint
 
-- Updated at: 2026-10-29 (setup; exact verification time in docs/evidence/automation-setup.md)
+- Updated at: 2026-10-29T17:52:53.926715+00:00
 - Active release: foundation
-- Overall status: NOT_STARTED
-- Current milestone/subtask: M00 / M00.01 (next; implementation not started)
-- Last completed subtask: none
-- Last implementation commit: none; repository has initial documents and Git push test only
-- Last verified remote checkpoint: 2d93f0b25c550dac6c62ee80090f445b54a12fb3 (automation setup; exact local/remote SHA comparison passed)
-- Automation setup delivery: verified; checkpoint-only follow-up commit must also be pushed and verified before implementation
-- Worktree: automation documentation changes; pre-existing .codex/ is intentionally excluded from staging
-- Last verification: documentation consistency checks; see docs/evidence/automation-setup.md
+- Overall status: IN_PROGRESS
+- Current milestone/subtask: M01 / M01.01 (next, pending M00 delivery)
+- Last completed subtask: M00.06
+- Last implementation commit: M00 verified changes awaiting commit; reconcile git log on resume
+- Last verified remote checkpoint: e933209cd3763e81ee8de11927db4b68e7e5e93a (setup delivery reverified)
+- Worktree: M00 bootstrap code/docs only; unrelated .codex/ preserved and excluded
+- Last verification: npm ci, lint, typecheck, 14 unit tests, API/web build, checkpoint check, resume drill passed; docs/evidence/M00.md
 - Current failure/blocker: none
-- Next executable action: after setup delivery, on resume inspect Git/remote and documents, set M00 IN_PROGRESS and reconcile M00.01–M00.02 artifacts before implementing remaining bootstrap work
-- Background processes: none started by setup; recheck on resume
-- Migration/seed state: no application or database artifacts exist
+- Next executable action: push verified M00 commit, compare origin/develop SHA with HEAD, record delivery, then set M01 IN_PROGRESS and start M01.01
+- Background processes: none left running; recheck on resume
+- Migration/seed state: no database created; M01 implements Compose and migrations
 - Cloud/model spend: not started; no paid actions authorized
 
 ## Subtask execution records
 
 | ID | State | Evidence | Notes |
 |---|---|---|---|
-| Automation setup (outside milestone plan) | COMPLETE | docs/evidence/automation-setup.md | Documentation commit pushed and local/remote SHA matched |
-| M00.01–M00.06 | NOT_STARTED | None yet | Existing instructions/checkpoint are inputs, not proof that the full bootstrap gate passed |
+| Automation setup | COMPLETE | docs/evidence/automation-setup.md | Setup and checkpoint delivery confirmed |
+| M00.01 | COMPLETE | docs/evidence/M00.md | Existing repository/remote reconciled |
+| M00.02 | COMPLETE | docs/evidence/M00.md | Instructions, checkpoint and decisions installed |
+| M00.03 | COMPLETE | docs/evidence/M00.md | Locked compatible workspace bootstrap |
+| M00.04 | COMPLETE | docs/evidence/M00.md | Formatting/lint/types/environment/build verified |
+| M00.05 | COMPLETE | docs/evidence/M00.md | Checkpoint/status validation and negative tests passed |
+| M00.06 | COMPLETE | docs/evidence/M00.md | Temporary checkpoint resume drill passed and restored |
 
 ## Handoff / unfinished work
 
-All foundation and AI milestone subtasks remain unchecked. Preserve the architecture and acceptance requirements in IMPLEMENTATION_SPEC.md. No package manifest, runtime scripts or application code currently exist; application tests, lint, type checks and builds cannot run during documentation setup and are required during M00 onward.
+M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. Integration/contracts/browser/database/Compose/infrastructure commands currently fail explicitly because their capabilities are assigned to later milestones, not because a suite passed. No application security or database acceptance is claimed by the bootstrap.
 
-The user-owned AGENTS.md additions present before setup were retained and extended. Do not stage or modify .codex/ as part of documentation setup. Never rerun or duplicate the previous codex-push-test commit.
-
-The default SSH configuration previously failed with a permissions error on /etc/ssh/ssh_config.d/20-systemd-ssh-proxy.conf. The successful authenticated transport was git -c core.sshCommand='ssh -F /dev/null'. Use that command-scoped configuration if needed; do not change machine permissions or disable authentication/host checking.
-
-A commit cannot contain its own SHA. After verifying the setup push, record its SHA here as the preceding verified checkpoint in the next milestone commit. If interrupted before recording it, inspect Git log and compare local HEAD to origin/develop directly.
+Use repository-local npm cache (.npmrc); the default home cache is read-only. The default system SSH configuration previously failed permissions; command-scoped `git -c core.sshCommand='ssh -F /dev/null'` authenticated successfully without altering machine configuration. Never stage unrelated .codex/. Record the actual pushed M00 SHA in the next milestone checkpoint.

@@ -14,7 +14,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 
 | Milestone | State | Acceptance criteria | Evidence |
 |---|---|---|---|
-| M00 | NOT_STARTED | All M00 subtasks and its Gate below | docs/evidence/M00.md (create during execution) |
+| M00 | COMPLETE | All M00 subtasks and its Gate below | docs/evidence/M00.md (create during execution) |
 | M01 | NOT_STARTED | All M01 subtasks and its Gate below | docs/evidence/M01.md (create during execution) |
 | M02 | NOT_STARTED | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
 | M03 | NOT_STARTED | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
@@ -76,12 +76,12 @@ Root npm scripts: `dev`, `build`, `lint`, `typecheck`, `test:unit`, `test:integr
 
 Depends on: none.
 
-- [ ] M00.01 Create local repository if none exists; inspect existing files first; preserve user changes. Retain both canonical source documents at repository root without losing scope. Verify the configured origin/develop delivery path; record unavailable remote as a delivery blocker.
-- [ ] M00.02 Install root AGENTS.md with the protocol above, create PROGRESS.md, docs/DECISIONS.md, docs/evidence/M00.md and stable task IDs.
-- [ ] M00.03 Create npm workspace skeleton and packages/apps directories; record concrete framework choices, compatible supported runtime/dependency versions and rationale in ADR-001. Read official docs when resolving current APIs; do not pin guessed versions.
-- [ ] M00.04 Add formatting/lint/type configuration, .gitignore, .env.example, README quickstart, lockfile, explicit port conventions, and environment schema. No real secrets in files.
-- [ ] M00.05 Implement status/checkpoint scripts and docs-validation tests, including missing progress/evidence and malformed task references. Scripts report current work without auto-marking it complete.
-- [ ] M00.06 Perform a resume drill: write a simulated in-progress checkpoint, invoke status, reconcile it, and record the actual next task. Remove fake history; keep drill evidence. Commit bootstrap if available.
+- [x] M00.01 Create local repository if none exists; inspect existing files first; preserve user changes. Retain both canonical source documents at repository root without losing scope. Verify the configured origin/develop delivery path; record unavailable remote as a delivery blocker.
+- [x] M00.02 Install root AGENTS.md with the protocol above, create PROGRESS.md, docs/DECISIONS.md, docs/evidence/M00.md and stable task IDs.
+- [x] M00.03 Create npm workspace skeleton and packages/apps directories; record concrete framework choices, compatible supported runtime/dependency versions and rationale in ADR-001. Read official docs when resolving current APIs; do not pin guessed versions.
+- [x] M00.04 Add formatting/lint/type configuration, .gitignore, .env.example, README quickstart, lockfile, explicit port conventions, and environment schema. No real secrets in files.
+- [x] M00.05 Implement status/checkpoint scripts and docs-validation tests, including missing progress/evidence and malformed task references. Scripts report current work without auto-marking it complete.
+- [x] M00.06 Perform a resume drill: write a simulated in-progress checkpoint, invoke status, reconcile it, and record the actual next task. Remove fake history; keep drill evidence. Commit bootstrap if available.
 
 Gate: clean dependency install, lint/type bootstrap checks and checkpoint checks pass; an unrelated new session can discover exactly what to do from repository files.
 

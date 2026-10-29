@@ -1,0 +1,47 @@
+{
+  "name": "team-knowledge-assistant",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.1 <23",
+    "npm": ">=9"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "npm run build --workspace @tka/api && npm run build --workspace @tka/web",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "node scripts/pending.mjs M01-integration",
+    "test:contracts": "node scripts/pending.mjs M01-contracts",
+    "test:e2e": "node scripts/pending.mjs M02-browser",
+    "db:migrate": "node scripts/pending.mjs M01-migrations",
+    "db:seed": "node scripts/pending.mjs M09-seed",
+    "checkpoint:check": "node scripts/checkpoint.mjs",
+    "status": "node scripts/status.mjs",
+    "infra:validate": "node scripts/pending.mjs M10-infrastructure",
+    "demo:up": "node scripts/pending.mjs M01-compose",
+    "demo:down": "node scripts/pending.mjs M01-compose",
+    "verify:foundation": "npm run lint && npm run typecheck && npm run test:unit && npm run test:integration && npm run test:contracts && npm run test:e2e && npm run build && npm run checkpoint:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "eslint": "10.13.0",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}

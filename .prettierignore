@@ -1,0 +1,10 @@
+node_modules
+.cache
+dist
+package-lock.json
+AGENTS.md
+IMPLEMENTATION_SPEC.md
+MILESTONES.md
+PROGRESS.md
+docs/evidence
+.codex

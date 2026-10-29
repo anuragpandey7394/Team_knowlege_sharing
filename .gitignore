@@ -1,0 +1,17 @@
+node_modules/
+dist/
+coverage/
+.cache/
+.env
+.env.*
+!.env.example
+playwright-report/
+test-results/
+*.tsbuildinfo
+*.log
+*.tfstate*
+.terraform/
+*.tfplan
+*.sql.gz
+__pycache__/
+.venv/
