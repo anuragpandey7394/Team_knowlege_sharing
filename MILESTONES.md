@@ -2,54 +2,45 @@
 
 Version: 1.0 · 29 October 2026 · Companion: `IMPLEMENTATION_SPEC.md`
 
-## 1. How to start
+## 1. Authority and startup
 
-Create a new local Git repository, place this file at `docs/MILESTONES.md` and the specification at `docs/IMPLEMENTATION_SPEC.md`. Start Codex in that repository with:
-
-> Read docs/IMPLEMENTATION_SPEC.md and docs/MILESTONES.md. Execute foundation milestones M00–M10 in order. First install the root AGENTS.md and durable checkpoint protocol from M00. Implement and verify every subtask, update the task ledger and evidence after each completed subtask, and continue without routine confirmation. Do not provision AWS resources, call a paid model, publish a remote repository, or implement deferred AI milestones. When interrupted, leave a recoverable checkpoint. Never mark unverified work complete.
-
-After M00, the user can type **resume** in a new Codex session opened in the same repository. Root AGENTS.md must make that command sufficient. A new machine still needs the repository, required tools/secrets and any uncommitted checkpoint files; a word alone cannot reconstruct lost disk state or restart an expired runtime automatically.
-
-This document is the authoritative task ledger. Every task starts unchecked. Use `[x]` only with evidence. Record `in_progress`, `blocked` and reasons in `docs/PROGRESS.md`; do not invent extra checkbox states. Dependencies are sequential by milestone unless explicitly independent. Each milestone must implement the actual vertical flow, not placeholder pages.
+Read root `AGENTS.md`, `IMPLEMENTATION_SPEC.md`, `MILESTONES.md`, `PROGRESS.md` and existing `docs/evidence/` before implementation. These existing root documents stay canonical. Root AGENTS.md contains the installed execution protocol; do not replace it with an older template. The current request configures and pushes documentation only. On a subsequent resume, start M00 and execute foundation M00–M10 sequentially without routine prompts. AI M11–M14 and paid/cloud actions remain gated.
 
 ## 2. Durable execution protocol
 
-### Root AGENTS.md content to install in M00
+### State and delivery ledger
 
-Copy this block into root AGENTS.md; replace no requirements with vague references:
+Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change state when work starts, blocks, or passes all subtasks and gates. Subtask checkboxes require evidence. COMPLETE records verified acceptance; delivery requires a pushed commit whose SHA matches local HEAD and origin/develop. Keep delivery SHA and pending push/blocker details in PROGRESS.md. Do not start later milestones until delivery is verified. Never skip a blocked dependency.
 
-```markdown
-# Codex project operating instructions
+| Milestone | State | Acceptance criteria | Evidence |
+|---|---|---|---|
+| M00 | NOT_STARTED | All M00 subtasks and its Gate below | docs/evidence/M00.md (create during execution) |
+| M01 | NOT_STARTED | All M01 subtasks and its Gate below | docs/evidence/M01.md (create during execution) |
+| M02 | NOT_STARTED | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
+| M03 | NOT_STARTED | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
+| M04 | NOT_STARTED | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
+| M05 | NOT_STARTED | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
+| M06 | NOT_STARTED | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
+| M07 | NOT_STARTED | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
+| M08 | NOT_STARTED | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
+| M09 | NOT_STARTED | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
+| M10 | NOT_STARTED | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
+| M11 | NOT_STARTED | All M11 subtasks and its Gate below | docs/evidence/M11.md (create during execution) |
+| M12 | NOT_STARTED | All M12 subtasks and its Gate below | docs/evidence/M12.md (create during execution) |
+| M13 | NOT_STARTED | All M13 subtasks and its Gate below | docs/evidence/M13.md (create during execution) |
+| M14 | NOT_STARTED | All M14 subtasks and its Gate below | docs/evidence/M14.md (create during execution) |
 
-Read docs/IMPLEMENTATION_SPEC.md, docs/MILESTONES.md and docs/PROGRESS.md before any implementation. The current task ledger and repository files are authoritative, not chat memory.
-
-When the user says `resume`, `continue`, or equivalent:
-1. Read these files and the latest docs/evidence entries. Inspect git status/diff/log and active local processes without discarding any changes.
-2. Reconcile the last checkpoint with actual files, migrations and verification. A checkbox alone is not proof. Do not rerun destructive seed/reset commands against an unknown database.
-3. Inspect the last in-progress subtask. Reproduce its last failing or focused check; if incomplete, continue it. Reopen claimed completed work when relevant checks fail or evidence does not match its files.
-4. Select the first unchecked, unblocked foundation subtask whose dependencies are complete. Implement, verify, record evidence, update the ledger and checkpoint, and continue automatically.
-5. Stop only at the completed foundation gate, a genuine blocker requiring unavailable credentials/environment/user decision, or a boundary forbidding the next action. Report the blocker precisely and continue independent authorized work if available.
-
-Authorized scope: local implementation, dependency installation, migrations in the dedicated development/test DB, synthetic seed data, tests, builds, local containers, repository-local documentation, and scoped commits. Preserve pre-existing/user changes. Never use git reset --hard, force-push, delete unrelated files, or reset an unknown database. Do not publish remotely or send real messages. Mailpit is the local mail sink.
-
-Cloud provisioning/destruction, paid model calls and deferred AI milestones are outside the foundation execution scope. Terraform format/validate and offline policy tests are allowed; do not apply. Do not silently bypass platform approvals. Missing tooling is not permission to weaken required verification.
-
-After every verified subtask and before ending: update docs/MILESTONES.md checkboxes, docs/PROGRESS.md, and docs/evidence. Record exact task ID, outcome, relevant files, commands, exit codes, environment, limitations and next action. Redact secrets and sensitive content. Checkpoint in-progress work honestly. Commit completed coherent work when local Git permits; record when commits are unavailable. Never claim a commit or test that did not happen.
-
-Use project verification scripts. Fix relevant failures before marking done. No empty tests, success-on-failure wrappers, skipped required suites, invented screenshots, fake AI claims, or marking cloud work complete after validate alone. Mock AI remains clearly labelled. Use maintained compatible dependencies and lockfiles. Keep org isolation enforced server-side on every resource and future tool.
-
-Use deterministic defaults from the specification for routine choices. Record architecture decisions in docs/DECISIONS.md. Ask only for material unresolved product/cost/security decisions or required credentials. Continue milestones without repeated approval.
-```
+Each milestone section below supplies implementation subtasks and its acceptance Gate. Required verification commands are in the matrix below; implement missing scripts as part of the assigned milestone, never treat an absent command as success. Evidence files are created when execution begins, not fabricated in advance.
 
 ### Progress/checkpoint file to create
 
-`docs/PROGRESS.md` must always contain:
+`PROGRESS.md` must always contain:
 
 ```markdown
 # Execution checkpoint
 - Updated at: <UTC timestamp>
 - Active release: foundation
-- Overall status: not_started | in_progress | blocked | foundation_complete
+- Overall status: NOT_STARTED | IN_PROGRESS | BLOCKED | COMPLETE
 - Current milestone/subtask: <ID>
 - Last completed subtask: <ID or none>
 - Last implementation commit: <actual SHA or uncommitted>
@@ -85,8 +76,8 @@ Root npm scripts: `dev`, `build`, `lint`, `typecheck`, `test:unit`, `test:integr
 
 Depends on: none.
 
-- [ ] M00.01 Create local repository if none exists; inspect existing files first; preserve user changes. Put both source documents in docs without losing scope. Record unavailable remote as deferred, not a blocker to local work.
-- [ ] M00.02 Install root AGENTS.md with the protocol above, create docs/PROGRESS.md, docs/DECISIONS.md, docs/evidence/M00.md and stable task IDs.
+- [ ] M00.01 Create local repository if none exists; inspect existing files first; preserve user changes. Retain both canonical source documents at repository root without losing scope. Verify the configured origin/develop delivery path; record unavailable remote as a delivery blocker.
+- [ ] M00.02 Install root AGENTS.md with the protocol above, create PROGRESS.md, docs/DECISIONS.md, docs/evidence/M00.md and stable task IDs.
 - [ ] M00.03 Create npm workspace skeleton and packages/apps directories; record concrete framework choices, compatible supported runtime/dependency versions and rationale in ADR-001. Read official docs when resolving current APIs; do not pin guessed versions.
 - [ ] M00.04 Add formatting/lint/type configuration, .gitignore, .env.example, README quickstart, lockfile, explicit port conventions, and environment schema. No real secrets in files.
 - [ ] M00.05 Implement status/checkpoint scripts and docs-validation tests, including missing progress/evidence and malformed task references. Scripts report current work without auto-marking it complete.
@@ -229,7 +220,7 @@ Depends on: M09.
 - [ ] M10.07 Verify from a clean checkout/clean disposable environment: install, start dependencies, migrate, seed, run app, run verify:foundation and container smoke. Validate all README commands; record actual results.
 - [ ] M10.08 Final scope audit against IMPLEMENTATION_SPEC: map requirements to routes/UI/tests, list deferred vs blocked vs complete, update OpenAPI/ADRs/progress. No incomplete foundation subtask may be hidden by declaring overall complete.
 - [ ] M10.09 Perform final resume drill: interrupt an innocuous local check, reopen using repository instructions, reconcile checkpoint, rerun affected check and finish without chat memory. Record proof and limitations.
-- [ ] M10.10 Mark foundation_complete only after all required gates. Provide concise handoff with verification commands, evidence, limitations and next AI milestone. Do not begin M11 automatically.
+- [ ] M10.10 Mark overall status COMPLETE (active release: foundation) only after all required gates. Provide concise handoff with verification commands, evidence, limitations and next AI milestone. Do not begin M11 automatically.
 
 Gate: ready-to-attach foundation delivered, cloud definitions validated as available, no claim of deployed AWS or functioning real AI. Record any missing tool credential/environment check as blocked, not passed.
 
@@ -281,7 +272,7 @@ Gate: actual verified AWS run and teardown, or clearly documented blocked cloud 
 
 ## 5. Completion rules and blocker handling
 
-A subtask is done only when implementation, relevant tests, docs and evidence agree. A milestone is done only when every required subtask and its gate passes. Update checkboxes only after checking outputs. A dependency can be bypassed only with a documented reason that does not invalidate the dependent gate.
+A subtask is done only when implementation, relevant tests, docs and evidence agree. A milestone is done only when every required subtask and its gate passes. Update checkboxes only after checking outputs. Do not bypass milestone dependencies or skip blocked milestones.
 
 Examples:
 - Browser unavailable: install supported tooling if possible; otherwise mark browser verification blocked. Do not substitute an HTML inspection for a browser pass.
@@ -290,6 +281,30 @@ Examples:
 - Actual test failure: fix cause and rerun focused checks; do not weaken the requirement/test to make the ledger green.
 - User code changes between sessions: preserve them, inspect scope, rerun affected checks, update checkpoint. Ask only when resolving genuine conflicts risks overwriting their work.
 - Disconnection mid-migration: inspect migration table/schema before retry; never blindly reset data.
-- Resume after foundation_complete: report completion and next gated AI milestone; do not incur cost because the user merely typed resume.
+- Resume after foundation COMPLETE: report completion and next gated AI milestone; do not incur cost because the user merely typed resume.
 
 Every end-of-session response should state completed IDs, current blocker if any, latest verification and the next executable step. The durable files must contain the detailed handoff so a disconnected session does not require the prior response.
+
+## 6. Required verification command matrix
+
+Run from the repository root using the dedicated local development/test services. Common application checks are `npm run lint`, `npm run typecheck`, `npm run test:unit`, `npm run build`, `npm run checkpoint:check`. Run all applicable earlier regression suites as functionality grows. Required scripts must fail on missing prerequisites or failed checks. Record actual command output and exit codes; this matrix is a plan, not evidence of execution.
+
+| Milestone | Required commands in addition to common checks | Additional acceptance proof |
+|---|---|---|
+| M00 | `npm ci`; `node scripts/status.mjs` | Docs validation negative tests and real resume drill |
+| M01 | `npm run demo:up`; `npm run db:migrate`; `npm run test:integration`; `npm run test:contracts` | Healthy PostgreSQL/Mailpit, readiness failure/recovery, empty DB migrations, OpenAPI |
+| M02 | `npm run test:integration`; `npm run test:e2e` | Real Mailpit registration/reset, session and CSRF negative tests |
+| M03 | `npm run test:integration`; `npm run test:e2e` | Cross-org isolation, invite replay and concurrent last-Admin tests |
+| M04 | `npm run test:integration`; `npm run test:e2e` | Save conflict recovery, malicious rich text and hidden draft tests |
+| M05 | `npm run test:integration`; `npm run test:e2e` | Publish races/idempotency, immutable history, archive/search/browser flow |
+| M06 | `npm run test:integration`; `npm run test:e2e` | Comment capability/revision matrix and provenance |
+| M07 | `npm run test:integration`; `npm run test:contracts` | Lease recovery, stale-job races, disabled/mock configuration tests |
+| M08 | `npm run test:integration`; `npm run test:contracts`; `npm run test:e2e` | Private chat, org switch, disabled/mock flows and exact citations |
+| M09 | `npm run db:seed`; `npm run verify:foundation` | Real disposable backup restore, migration upgrade, secret/advisory review and measured five-client baseline; record exact tooling commands in evidence |
+| M10 | `npm ci`; `npm run demo:up`; `npm run db:migrate`; `npm run db:seed`; `npm run verify:foundation`; `npm run infra:validate`; `npm run demo:down` | Clean disposable checkout, container smoke, Terraform fmt/validate/offline policies, final resume drill and scope audit |
+| M11 | `npm run test:integration`; `npm run test:contracts`; `python3 -m pytest services/ai/tests` (implement with service) | Explicit AI authorization, verified pricing/budget/access, ingestion races and measured paid sample |
+| M12 | `npm run test:integration`; `npm run test:contracts`; `npm run test:e2e`; `python3 -m pytest services/ai/tests` | Grounding evaluation, revocation/stale retrieval and citation proof |
+| M13 | `npm run test:integration`; `npm run test:contracts`; `python3 -m pytest services/ai/tests` | Read-only MCP authorization, bounded agent and injection tests |
+| M14 | `npm run verify:foundation`; `npm run infra:validate`; `python3 -m pytest services/ai/tests` (including evaluation cases) | At least 30 labelled cases, measured AI concurrency, separately authorized AWS smoke/teardown |
+
+For deferred AI milestones, define exact Python/evaluation/deployment commands and acceptance thresholds in this ledger before changing to IN_PROGRESS; service implementation and approved cloud configuration do not exist yet. No cloud apply or paid call is authorized by this table. Every milestone also requires its full Gate and per-subtask evidence, even where a manual measurement or drill supplements scripted checks.

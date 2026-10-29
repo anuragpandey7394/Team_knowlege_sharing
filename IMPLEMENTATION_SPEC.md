@@ -6,7 +6,7 @@ Version: 1.0 · Date: 29 October 2026 · Status: agreed scope plus explicit impl
 
 Build a finished, multi-organization technical knowledge application. New developers use it to onboard; existing developers use it to understand and operate unfamiliar services. Knowledge includes setup/run instructions, architecture, API endpoints, team structure, project information, and optional contacts. Users author knowledge; later AI retrieves evidence and answers questions. This is not a task tracker.
 
-This document is the requirements authority. `MILESTONES.md` is the execution and verification ledger. Copy both to `docs/` in a new Git repository. Codex must create the root `AGENTS.md` and progress files exactly as directed in the milestone document before implementing application code. No unseen chat history is needed to execute this plan.
+This document is the requirements authority. `MILESTONES.md` is the execution and verification ledger. Keep both existing documents at repository root; durable evidence belongs in `docs/evidence/`. Codex must create the root `AGENTS.md` and progress files exactly as directed in the milestone document before implementing application code. No unseen chat history is needed to execute this plan.
 
 Precedence: latest explicit user instruction > repository AGENTS.md within its scope/platform rules > this specification > milestone implementation defaults. Resolve contradictions by recording a decision; never silently discard a requirement. Label any material scope change and obtain direction when it changes user-visible behavior, incurs cost, or weakens security. Routine library and UI choices are delegated to Codex.
 
@@ -23,7 +23,7 @@ Python AI service, actual embeddings/indexing, RAG, Bedrock answer generation, c
 ### Constraints
 
 - Four-week target; available engineering hours are unknown. Milestones and quality gates govern completion; do not claim a guaranteed schedule.
-- New repository. Do not invent a remote URL or create a remote repository without an available authorized destination. Local Git setup and commits are permitted; remote publishing is a separate step.
+- New repository. Do not invent a remote URL or create a remote repository without an available authorized destination. Local Git setup and commits are permitted; verified commits to the existing origin/develop are explicitly authorized by the execution workflow. Creating a different remote remains a separate step.
 - React/TypeScript web, Node.js/TypeScript API, PostgreSQL, Docker Compose, Terraform, GitHub Actions; separate Python AI service later.
 - Develop/test locally first. User laptop: ASUS, approximately 8 GB RAM. Do not require a local LLM or heavyweight orchestration.
 - Total AWS and model testing budget: INR 500, not per month. No continuous hosting. Paid provisioning and model calls are deferred.
