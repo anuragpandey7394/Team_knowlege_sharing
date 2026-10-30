@@ -1,3 +1,4 @@
+import { Organizations, OrganizationRoute, Invitation } from "./organizations";
 import { AuthPage, Account, RequireAuth } from "./auth";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -64,6 +65,30 @@ createRoot(root).render(
         <main id="content">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route
+              path="/organizations"
+              element={
+                <RequireAuth>
+                  <Organizations />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/organizations/:orgId"
+              element={
+                <RequireAuth>
+                  <OrganizationRoute />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/invite"
+              element={
+                <RequireAuth>
+                  <Invitation />
+                </RequireAuth>
+              }
+            />
             {[
               "register",
               "login",

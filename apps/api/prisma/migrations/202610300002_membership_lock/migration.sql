@@ -1,0 +1,3 @@
+BEGIN;
+ALTER TABLE "Organization" ADD COLUMN "membershipRevision" INTEGER NOT NULL DEFAULT 0;
+COMMIT;

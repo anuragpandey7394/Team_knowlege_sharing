@@ -1,3 +1,4 @@
+import { rateLimit } from "./rate-limit.js";
 import { randomBytes } from "node:crypto";
 import { hash, verify, Algorithm } from "@node-rs/argon2";
 import type { FastifyInstance } from "fastify";
@@ -61,51 +62,13 @@ export async function registerAuth(
     "synthetic-password-timing-equalizer",
     passwordOptions,
   );
-  async function limit(key: string, maximum: number) {
-    const now = new Date();
-    const count = await transaction(db, async (tx) => {
-      const record = await tx.rateLimit.findUnique({ where: { key } });
-      if (!record || record.resetsAt <= now) {
-        await tx.rateLimit.upsert({
-          where: { key },
-          create: {
-            key,
-            attempts: 1,
-            resetsAt: new Date(
-              now.getTime() + env.AUTH_RATE_WINDOW_SECONDS * 1000,
-            ),
-          },
-          update: {
-            attempts: 1,
-            resetsAt: new Date(
-              now.getTime() + env.AUTH_RATE_WINDOW_SECONDS * 1000,
-            ),
-          },
-        });
-        return 1;
-      }
-      return (
-        await tx.rateLimit.update({
-          where: { key },
-          data: { attempts: { increment: 1 } },
-        })
-      ).attempts;
-    });
-    if (count > maximum)
-      throw new ApiError(
-        429,
-        "RATE_LIMITED",
-        "Too many attempts. Try again later.",
-      );
-  }
   async function rate(
     kind: string,
     ip: string,
     identity: string,
     maximum: number,
   ) {
-    await limit(`${kind}:ip:${hashToken(ip)}`, maximum * 10);
-    await limit(`${kind}:identity:${hashToken(identity)}`, maximum);
+    await rateLimit(db, env, kind, ip, identity, maximum);
   }
   async function issue(
     userId: string,

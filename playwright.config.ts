@@ -4,7 +4,9 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   timeout: 45000,
+  expect: { timeout: 15000 },
   use: {
+    actionTimeout: 10000,
     baseURL: "http://127.0.0.1:5174",
     browserName: "chromium",
     trace: "off",

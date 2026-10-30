@@ -11,13 +11,14 @@ export async function mutate<T>(
   path: string,
   body: unknown,
   schema: z.ZodType<T>,
+  method: "POST" | "PATCH" | "DELETE" = "POST",
 ): Promise<T> {
   const csrf = await apiRequest(
     "/api/v1/auth/csrf",
     z.object({ csrfToken: z.string() }),
   );
   return apiRequest(path, schema, {
-    method: "POST",
+    method,
     headers: {
       "content-type": "application/json",
       "x-csrf-token": csrf.csrfToken,
@@ -34,9 +35,16 @@ export function useAuth() {
 }
 export function RequireAuth({ children }: { children: ReactNode }) {
   const auth = useAuth();
+  const location = useLocation();
   if (auth.isPending) return <LoadingState />;
   if (auth.error instanceof ApiClientError && auth.error.status === 401)
-    return <Navigate to="/login" state={{ expired: true }} replace />;
+    return (
+      <Navigate
+        to="/login"
+        state={{ expired: true, returnTo: location.pathname + location.hash }}
+        replace
+      />
+    );
   if (auth.isError)
     return (
       <ErrorState
@@ -141,7 +149,14 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
         const user = await mutate("/api/v1/auth/login", body, authUserSchema);
         client.clear();
         client.setQueryData(["auth"], user);
-        navigate("/account");
+        const returnTo = location.state?.returnTo;
+        navigate(
+          typeof returnTo === "string" &&
+            returnTo.startsWith("/") &&
+            !returnTo.startsWith("//")
+            ? returnTo
+            : "/account",
+        );
       } else {
         const response = await mutate(
           `/api/v1/auth/${mode}`,

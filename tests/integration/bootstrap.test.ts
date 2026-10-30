@@ -55,7 +55,11 @@ describe("real PostgreSQL API bootstrap", () => {
       headers: { cookie: first.cookie },
     });
     expect(own.statusCode).toBe(200);
-    expect(own.json()).toEqual({ id: first.org.id, name: first.org.name });
+    expect(own.json()).toEqual({
+      id: first.org.id,
+      name: first.org.name,
+      role: "READER",
+    });
     const forged = await app.inject({
       url: `/api/v1/organizations/${second.org.id}`,
       headers: {

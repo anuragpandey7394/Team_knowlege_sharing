@@ -46,3 +46,54 @@ export const authUserSchema = z.object({
   verified: z.boolean(),
 });
 export type AuthUser = z.infer<typeof authUserSchema>;
+
+export const roleSchema = z.enum(["READER", "REVIEWER", "EDITOR", "ADMIN"]);
+export const organizationInputSchema = z.strictObject({
+  name: z.string().trim().min(2).max(100),
+});
+export const organizationSummarySchema = organizationSchema.extend({
+  role: roleSchema,
+});
+export const organizationsSchema = z.object({
+  items: z.array(organizationSummarySchema),
+  total: z.number().int(),
+});
+export const memberParamsSchema = organizationParamsSchema.extend({
+  userId: z.uuid(),
+});
+export const memberSchema = z.object({
+  userId: z.uuid(),
+  displayName: z.string(),
+  email: z.email(),
+  role: roleSchema,
+});
+export const membersSchema = z.object({
+  items: z.array(memberSchema),
+  total: z.number().int(),
+});
+export const roleInputSchema = z.strictObject({ role: roleSchema });
+export const inviteInputSchema = z.strictObject({
+  email: emailSchema,
+  role: roleSchema,
+});
+export const inviteParamsSchema = organizationParamsSchema.extend({
+  inviteId: z.uuid(),
+});
+export const inviteSchema = z.object({
+  id: z.uuid(),
+  email: z.email(),
+  role: roleSchema,
+  expiresAt: z.string(),
+  acceptedAt: z.string().nullable(),
+  revokedAt: z.string().nullable(),
+});
+export const invitesSchema = z.object({
+  items: z.array(inviteSchema),
+  total: z.number().int(),
+});
+export const inviteInspectionSchema = z.object({
+  organizationId: z.uuid(),
+  organizationName: z.string(),
+  role: roleSchema,
+  expiresAt: z.string(),
+});

@@ -1,3 +1,4 @@
+import { registerOrganizations } from "./organizations.js";
 import { registerAuth } from "./auth.js";
 import { requireCsrf } from "./csrf.js";
 import type { Writable } from "node:stream";
@@ -16,7 +17,7 @@ import {
   errorSchema,
   healthSchema,
   organizationParamsSchema,
-  organizationSchema,
+  organizationSummarySchema,
 } from "../../../packages/contracts/src/index.js";
 import type { Environment } from "../../../packages/config/src/index.js";
 import type { Database } from "./database.js";
@@ -136,7 +137,7 @@ export async function createServer(
         params: organizationParamsSchema,
         querystring: z.strictObject({}),
         response: {
-          200: organizationSchema,
+          200: organizationSummarySchema,
           401: errorSchema,
           403: errorSchema,
           404: errorSchema,
@@ -146,6 +147,7 @@ export async function createServer(
     async (request) => getTenantOrganization(db, request, request.params.orgId),
   );
   await registerAuth(app, db, env);
+  await registerOrganizations(app, db, env);
   app.addHook("onClose", async () => db.$disconnect());
   await app.ready();
   return app;

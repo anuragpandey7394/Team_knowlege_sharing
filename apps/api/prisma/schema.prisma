@@ -50,6 +50,7 @@ model AuthToken {
   @@index([expiresAt])
 }
 model Organization {
+  membershipRevision Int @default(0)
   id String @id @default(uuid()) @db.Uuid
   name String @db.VarChar(100)
   creatorId String @db.Uuid

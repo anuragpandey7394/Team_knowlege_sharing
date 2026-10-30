@@ -15,7 +15,7 @@ export class AuthClient {
   }
   async request(
     path: string,
-    method: "GET" | "POST" = "GET",
+    method: "GET" | "POST" | "PATCH" | "DELETE" = "GET",
     body?: unknown,
     headers: Record<string, string> = {},
   ) {
@@ -26,7 +26,7 @@ export class AuthClient {
       headers: {
         origin: this.origin,
         cookie: this.cookieHeader(),
-        ...(method === "POST"
+        ...(method !== "GET"
           ? {
               "content-type": "application/json",
               "x-csrf-token": this.csrfToken,
@@ -47,12 +47,16 @@ export class AuthClient {
     }
     return response;
   }
-  async post(path: string, body: unknown) {
+  async post(
+    path: string,
+    body: unknown,
+    method: "POST" | "PATCH" | "DELETE" = "POST",
+  ) {
     const csrf = await this.request("/api/v1/auth/csrf");
     if (csrf.statusCode !== 200)
       throw new Error(`CSRF bootstrap failed: ${csrf.statusCode}`);
     this.csrfToken = csrf.json().csrfToken;
-    return this.request(path, "POST", body);
+    return this.request(path, method, body);
   }
 }
 export async function mailToken(

@@ -105,3 +105,22 @@ nav[aria-label="Account options"] {
   gap: 1rem;
   margin-top: 1.5rem;
 }
+
+select {
+  font: inherit;
+  border: 1px solid #8a99ad;
+  border-radius: 0.35rem;
+  padding: 0.6rem;
+  max-width: 100%;
+}
+.member-list {
+  list-style: none;
+  padding: 0;
+}
+.member-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid #d6dce5;
+}
+.member-list form {
+  margin-bottom: 0.75rem;
+}

@@ -17,7 +17,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M00 | COMPLETE | All M00 subtasks and its Gate below | docs/evidence/M00.md (create during execution) |
 | M01 | COMPLETE | All M01 subtasks and its Gate below | docs/evidence/M01.md (create during execution) |
 | M02 | COMPLETE | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
-| M03 | NOT_STARTED | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
+| M03 | COMPLETE | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
 | M04 | NOT_STARTED | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
 | M05 | NOT_STARTED | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
 | M06 | NOT_STARTED | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
@@ -117,12 +117,12 @@ Gate: authentication works from UI and API using actual mail sink and DB; no moc
 
 Depends on: M02.
 
-- [ ] M03.01 Implement organization create/list/update and membership uniqueness. Creation atomically installs first Admin.
-- [ ] M03.02 Implement invite create/list/revoke/resend/inspect/accept; exact verified email match, selected role, expiry, replay and duplicate acceptance protections. Tokens never exposed by member listing.
-- [ ] M03.03 Implement member directory, role changes/removal, last-Admin protection under concurrent changes and immediate membership revalidation on requests. Restrict admin actions server-side.
-- [ ] M03.04 Build create/select organization, organization switcher, members/invitations/settings UI with role-appropriate controls and clear failures.
-- [ ] M03.05 Clear tenant-specific web caches and active conversation on organization switch; isolate query keys by organization/user. Test a user with different roles across two organizations.
-- [ ] M03.06 Test unauthorized organization IDs, invite email mismatch/expiry/revocation, concurrent final-Admin changes, revoked member session, Reader modifying role, and enumeration leakage.
+- [x] M03.01 Implement organization create/list/update and membership uniqueness. Creation atomically installs first Admin.
+- [x] M03.02 Implement invite create/list/revoke/resend/inspect/accept; exact verified email match, selected role, expiry, replay and duplicate acceptance protections. Tokens never exposed by member listing.
+- [x] M03.03 Implement member directory, role changes/removal, last-Admin protection under concurrent changes and immediate membership revalidation on requests. Restrict admin actions server-side.
+- [x] M03.04 Build create/select organization, organization switcher, members/invitations/settings UI with role-appropriate controls and clear failures.
+- [x] M03.05 Clear tenant-specific web caches and active conversation on organization switch; isolate query keys by organization/user. Test a user with different roles across two organizations.
+- [x] M03.06 Test unauthorized organization IDs, invite email mismatch/expiry/revocation, concurrent final-Admin changes, revoked member session, Reader modifying role, and enumeration leakage.
 
 Gate: two organizations are usable, memberships independent, invitations work via Mailpit, forged cross-org requests fail and last-Admin invariant holds.
 
