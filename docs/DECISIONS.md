@@ -25,3 +25,18 @@ Accepted 2026-10-29. Use Prisma 7.10.1 with matching client/pg adapter, driver-m
 - https://github.com/turkerdev/fastify-type-provider-zod
 
 PostgreSQL 17 Alpine and Mailpit image digests are pinned from successful pulls. Existing port 5432 was occupied; bind this project's host-development DB on loopback 55432 rather than disrupting unrelated services. Container-to-container PostgreSQL remains 5432. Base Compose has no DB publication; separate host/full local profiles control bindings. Named project volumes survive down. No hosted claim is made by the development full-app profile.
+
+## ADR-003 — Authentication and reproducible browser verification
+
+Accepted 2026-10-30. Use @node-rs/argon2 2.2.2 Argon2id, default 19 MiB/two passes/one lane with configurable bounded memory/time cost. Passwords accept 12–128 characters. This follows the reviewed OWASP password storage guidance and the maintained library API. Opaque 32-byte session/action tokens are hashed at rest. Verification defaults to 24 hours, reset to 30 minutes, sessions to seven days; earlier action tokens are consumed on resend and all sessions revoked on reset. Serializable database transactions retry serialization conflicts without bypassing invariants.
+
+CSRF uses HMAC-signed tokens bound to the session (or a separate anonymous HttpOnly nonce before login), exact origin validation and a server-side CSRF hash for active sessions. Cookies are HttpOnly/SameSite=Lax and Secure in production. Production rejects the development signing secret and plain HTTP origin. Tokens stay in link fragments until explicit submission, avoiding request URL/referrer logging. No credentials in browser storage. PostgreSQL rate-limit counters are shared by API instances; IP limits do not trust browser headers. The local mail adapter retries only connection-stage failures before SMTP delivery can have occurred.
+
+Playwright 1.64.1 uses actual Chromium, an isolated migrated test schema, actual UI/API and the Mailpit inbox. No authentication/network mocks. The harness uses separate API/web ports 3002/5174, cleans only its random schema, and stores only the schema identifier in ignored .cache. Browser/download/cache/temp paths remain repository-local. Tests assert real expiry by expiring the synthetic test session in that isolated database.
+
+References reviewed:
+
+- https://github.com/napi-rs/node-rs/tree/main/packages/argon2
+- https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+- https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+- https://playwright.dev/docs/test-webserver

@@ -81,3 +81,27 @@ button:disabled {
     padding: 1rem;
   }
 }
+
+form {
+  display: grid;
+  gap: 1rem;
+  max-width: 28rem;
+}
+label {
+  display: grid;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+input {
+  font: inherit;
+  border: 1px solid #8a99ad;
+  border-radius: 0.35rem;
+  padding: 0.6rem;
+  width: 100%;
+}
+nav[aria-label="Account options"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}

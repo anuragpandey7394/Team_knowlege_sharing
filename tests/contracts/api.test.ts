@@ -1,3 +1,4 @@
+import { registerSchema } from "../../packages/contracts/src/index";
 import { describe, expect, it } from "vitest";
 import {
   paginationSchema,
@@ -23,4 +24,23 @@ describe("public API schemas", () => {
       organizationSchema.safeParse({ id: "fake", name: "Bad" }).success,
     ).toBe(false);
   });
+});
+
+it("normalizes identity and rejects malformed authentication input", () => {
+  const base = {
+    email: "  USER@Example.test  ",
+    displayName: "  Example User  ",
+    password: "A synthetic passphrase 42",
+  };
+  expect(registerSchema.parse(base)).toMatchObject({
+    email: "user@example.test",
+    displayName: "Example User",
+  });
+  for (const input of [
+    { ...base, password: "short" },
+    { ...base, password: "x".repeat(129) },
+    { ...base, displayName: " " },
+    { ...base, role: "ADMIN" },
+  ])
+    expect(registerSchema.safeParse(input).success).toBe(false);
 });

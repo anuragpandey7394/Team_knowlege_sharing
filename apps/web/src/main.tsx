@@ -1,3 +1,4 @@
+import { AuthPage, Account, RequireAuth } from "./auth";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
@@ -35,10 +36,13 @@ function Home() {
         ) : (
           <p role="status">Knowledge service connected.</p>
         )}
-        <EmptyState>
-          Authentication and organization setup arrive in the next milestones.
-        </EmptyState>
+        <EmptyState>Create an account or sign in to continue.</EmptyState>
       </Panel>
+      <p>
+        <Link to="/login">Sign in</Link> ·{" "}
+        <Link to="/register">Create account</Link> ·{" "}
+        <Link to="/account">Your account</Link>
+      </p>
       <p className="badge">AI not connected</p>
     </>
   );
@@ -60,6 +64,41 @@ createRoot(root).render(
         <main id="content">
           <Routes>
             <Route path="/" element={<Home />} />
+            {[
+              "register",
+              "login",
+              "resend-verification",
+              "forgot-password",
+              "reset-password",
+              "verify-email",
+            ].map((mode) => (
+              <Route
+                key={mode}
+                path={`/${mode}`}
+                element={
+                  <AuthPage
+                    key={mode}
+                    mode={
+                      mode as
+                        | "register"
+                        | "login"
+                        | "resend-verification"
+                        | "forgot-password"
+                        | "reset-password"
+                        | "verify-email"
+                    }
+                  />
+                }
+              />
+            ))}
+            <Route
+              path="/account"
+              element={
+                <RequireAuth>
+                  <Account />
+                </RequireAuth>
+              }
+            />
             <Route
               path="*"
               element={

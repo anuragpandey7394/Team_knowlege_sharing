@@ -16,7 +16,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 |---|---|---|---|
 | M00 | COMPLETE | All M00 subtasks and its Gate below | docs/evidence/M00.md (create during execution) |
 | M01 | COMPLETE | All M01 subtasks and its Gate below | docs/evidence/M01.md (create during execution) |
-| M02 | NOT_STARTED | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
+| M02 | COMPLETE | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
 | M03 | NOT_STARTED | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
 | M04 | NOT_STARTED | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
 | M05 | NOT_STARTED | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
@@ -103,13 +103,13 @@ Gate: containers healthy; readiness changes correctly with DB availability; migr
 
 Depends on: M01.
 
-- [ ] M02.01 Implement registration, email normalization, display name/password validation and secure hashing. Never return password hashes. Duplicate registration avoids unnecessary identity disclosure.
-- [ ] M02.02 Implement verification issue/resend/consume with hashed, expiring, single-use tokens and transactional consumption; send via Mailpit adapter. Block organization actions before verification.
-- [ ] M02.03 Implement login/logout/me, PostgreSQL session storage, expiry/revocation, secure cookies, CSRF bootstrap/protection, origin checks and rate limits. Rate-limit configuration must remain correct if API scales; use shared persistence or document/enforce single-instance demo limitation.
-- [ ] M02.04 Implement forgot/reset-password with generic responses, token expiry, one-time use, earlier-token invalidation and session revocation after reset.
-- [ ] M02.05 Build registration/login/verification/resend/forgot/reset screens, signed-in route guard and session-expired UX. Local Mailpit instructions must enable complete manual flow without copied secrets in logs.
-- [ ] M02.06 Add negative integration tests: invalid/expired/reused token, wrong password, unverified access, cookie policy, CSRF rejection, reset session invalidation and throttling. Verify sensitive logs are redacted.
-- [ ] M02.07 Add real browser tests for registration through inbox verification, login/logout, reset and expired session recovery.
+- [x] M02.01 Implement registration, email normalization, display name/password validation and secure hashing. Never return password hashes. Duplicate registration avoids unnecessary identity disclosure.
+- [x] M02.02 Implement verification issue/resend/consume with hashed, expiring, single-use tokens and transactional consumption; send via Mailpit adapter. Block organization actions before verification.
+- [x] M02.03 Implement login/logout/me, PostgreSQL session storage, expiry/revocation, secure cookies, CSRF bootstrap/protection, origin checks and rate limits. Rate-limit configuration must remain correct if API scales; use shared persistence or document/enforce single-instance demo limitation.
+- [x] M02.04 Implement forgot/reset-password with generic responses, token expiry, one-time use, earlier-token invalidation and session revocation after reset.
+- [x] M02.05 Build registration/login/verification/resend/forgot/reset screens, signed-in route guard and session-expired UX. Local Mailpit instructions must enable complete manual flow without copied secrets in logs.
+- [x] M02.06 Add negative integration tests: invalid/expired/reused token, wrong password, unverified access, cookie policy, CSRF rejection, reset session invalidation and throttling. Verify sensitive logs are redacted.
+- [x] M02.07 Add real browser tests for registration through inbox verification, login/logout, reset and expired session recovery.
 
 Gate: authentication works from UI and API using actual mail sink and DB; no mocked authentication in security evidence.
 

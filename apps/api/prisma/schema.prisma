@@ -83,3 +83,10 @@ model Invitation {
   inviter User @relation(fields: [inviterId], references: [id])
   @@index([organizationId, email])
 }
+
+model RateLimit {
+  key String @id @db.VarChar(150)
+  attempts Int @default(1)
+  resetsAt DateTime @db.Timestamptz(3)
+  @@index([resetsAt])
+}

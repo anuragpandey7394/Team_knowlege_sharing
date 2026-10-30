@@ -1,3 +1,5 @@
+import { registerAuth } from "./auth.js";
+import { requireCsrf } from "./csrf.js";
 import type { Writable } from "node:stream";
 import { randomUUID } from "node:crypto";
 import Fastify from "fastify";
@@ -69,6 +71,10 @@ export async function createServer(
     if (request.headers.origin && request.headers.origin !== env.WEB_ORIGIN)
       throw new ApiError(403, "ORIGIN_REJECTED", "Origin not allowed");
   });
+  app.addHook("preValidation", async (request) => {
+    if (!["GET", "HEAD", "OPTIONS"].includes(request.method))
+      await requireCsrf(db, request, env);
+  });
   app.setErrorHandler((error, request, reply) => {
     if (error instanceof ApiError)
       return reply.code(error.status).send({
@@ -139,6 +145,7 @@ export async function createServer(
     },
     async (request) => getTenantOrganization(db, request, request.params.orgId),
   );
+  await registerAuth(app, db, env);
   app.addHook("onClose", async () => db.$disconnect());
   await app.ready();
   return app;
