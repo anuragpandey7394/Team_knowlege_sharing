@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client"
+  output = "../src/generated/prisma"
+}
+datasource db {
+  provider = "postgresql"
+}
+enum Role {
+  READER
+  REVIEWER
+  EDITOR
+  ADMIN
+}
+enum TokenPurpose {
+  VERIFY_EMAIL
+  RESET_PASSWORD
+}
+model User {
+  id String @id @default(uuid()) @db.Uuid
+  email String @unique @db.VarChar(254)
+  displayName String @db.VarChar(100)
+  passwordHash String
+  verifiedAt DateTime? @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  sessions Session[]
+  tokens AuthToken[]
+  memberships Membership[]
+  createdOrganizations Organization[]
+  invitations Invitation[]
+}
+model Session {
+  id String @id @default(uuid()) @db.Uuid
+  tokenHash String @unique @db.VarChar(64)
+  csrfHash String @db.VarChar(64)
+  userId String @db.Uuid
+  expiresAt DateTime @db.Timestamptz(3)
+  revokedAt DateTime? @db.Timestamptz(3)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, expiresAt])
+}
+model AuthToken {
+  id String @id @default(uuid()) @db.Uuid
+  tokenHash String @unique @db.VarChar(64)
+  userId String @db.Uuid
+  purpose TokenPurpose
+  expiresAt DateTime @db.Timestamptz(3)
+  consumedAt DateTime? @db.Timestamptz(3)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, purpose])
+  @@index([expiresAt])
+}
+model Organization {
+  id String @id @default(uuid()) @db.Uuid
+  name String @db.VarChar(100)
+  creatorId String @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  creator User @relation(fields: [creatorId], references: [id])
+  memberships Membership[]
+  invitations Invitation[]
+}
+model Membership {
+  organizationId String @db.Uuid
+  userId String @db.Uuid
+  role Role
+  joinedAt DateTime @default(now()) @db.Timestamptz(3)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@id([organizationId, userId])
+  @@index([userId])
+}
+model Invitation {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  email String @db.VarChar(254)
+  role Role
+  tokenHash String @unique @db.VarChar(64)
+  inviterId String @db.Uuid
+  expiresAt DateTime @db.Timestamptz(3)
+  acceptedAt DateTime? @db.Timestamptz(3)
+  revokedAt DateTime? @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  inviter User @relation(fields: [inviterId], references: [id])
+  @@index([organizationId, email])
+}

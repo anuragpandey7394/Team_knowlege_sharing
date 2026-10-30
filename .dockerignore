@@ -1,0 +1,14 @@
+.git
+.codex
+.agents
+node_modules
+**/node_modules
+**/dist
+.cache
+**/generated
+.env
+.env.*
+!.env.example
+playwright-report
+test-results
+coverage

@@ -15,3 +15,4 @@ test-results/
 *.sql.gz
 __pycache__/
 .venv/
+apps/api/src/generated/

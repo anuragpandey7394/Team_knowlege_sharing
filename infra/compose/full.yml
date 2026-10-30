@@ -1,0 +1,32 @@
+services:
+  mailpit:
+    ports: ["127.0.0.1:8025:8025"]
+  app:
+    build:
+      context: ../..
+      dockerfile: infra/compose/Dockerfile.dev
+    init: true
+    environment:
+      DATABASE_URL: postgresql://tka:tka_local_only@postgres:5432/tka_dev
+      TEST_DATABASE_URL: postgresql://tka:tka_local_only@postgres:5432/tka_test
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+      WEB_ORIGIN: http://localhost:5173
+      DEV_HOST: 0.0.0.0
+      API_HOST: 0.0.0.0
+      AI_PROVIDER: disabled
+    ports: ["127.0.0.1:5173:5173", "127.0.0.1:3001:3001"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      mailpit: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          CMD,
+          node,
+          -e,
+          "Promise.all(['http://localhost:3001/health/ready','http://localhost:5173'].map(u=>fetch(u))).then(rs=>process.exit(rs.every(r=>r.ok)?0:1)).catch(()=>process.exit(1))",
+        ]
+      start_period: 120s
+      interval: 5s
+      retries: 30

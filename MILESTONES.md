@@ -15,7 +15,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | Milestone | State | Acceptance criteria | Evidence |
 |---|---|---|---|
 | M00 | COMPLETE | All M00 subtasks and its Gate below | docs/evidence/M00.md (create during execution) |
-| M01 | NOT_STARTED | All M01 subtasks and its Gate below | docs/evidence/M01.md (create during execution) |
+| M01 | COMPLETE | All M01 subtasks and its Gate below | docs/evidence/M01.md (create during execution) |
 | M02 | NOT_STARTED | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
 | M03 | NOT_STARTED | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
 | M04 | NOT_STARTED | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
@@ -89,13 +89,13 @@ Gate: clean dependency install, lint/type bootstrap checks and checkpoint checks
 
 Depends on: M00.
 
-- [ ] M01.01 Add Compose PostgreSQL and Mailpit services, health checks, named local volumes, separate test database and .env configuration. Provide full-app profile and lightweight host-dev profile. Avoid public DB binding in hosted configurations.
-- [ ] M01.02 Build API bootstrap, configuration validation, structured redacted logging, request IDs, consistent errors, safe CORS/origin policy, health/liveness/readiness and graceful shutdown.
-- [ ] M01.03 Create initial migrations for identity/organizations, then knowledge/jobs/chat entities as needed by later tasks. Add composite tenant keys/indexes, constraints and transactional migration discipline. Document DB invariants before writing dependent routes.
-- [ ] M01.04 Establish shared contracts/OpenAPI and typed web API client; request validation and pagination/error schemas. Reject unknown/oversized or malformed input consistently.
-- [ ] M01.05 Implement central capability policy and organization-scoped repository/query helpers; test role matrix and unknown role denial. Do not accept client org/user context as trusted.
-- [ ] M01.06 Add real PostgreSQL integration harness with disposable isolated data, clock/token helpers, SMTP test sink and deterministic fixtures. Prevent tests/seed from targeting a non-test DB accidentally.
-- [ ] M01.07 Build web shell, routing, query client, design tokens, accessible components and generic loading/error/empty states; proxy API locally.
+- [x] M01.01 Add Compose PostgreSQL and Mailpit services, health checks, named local volumes, separate test database and .env configuration. Provide full-app profile and lightweight host-dev profile. Avoid public DB binding in hosted configurations.
+- [x] M01.02 Build API bootstrap, configuration validation, structured redacted logging, request IDs, consistent errors, safe CORS/origin policy, health/liveness/readiness and graceful shutdown.
+- [x] M01.03 Create initial migrations for identity/organizations, then knowledge/jobs/chat entities as needed by later tasks. Add composite tenant keys/indexes, constraints and transactional migration discipline. Document DB invariants before writing dependent routes.
+- [x] M01.04 Establish shared contracts/OpenAPI and typed web API client; request validation and pagination/error schemas. Reject unknown/oversized or malformed input consistently.
+- [x] M01.05 Implement central capability policy and organization-scoped repository/query helpers; test role matrix and unknown role denial. Do not accept client org/user context as trusted.
+- [x] M01.06 Add real PostgreSQL integration harness with disposable isolated data, clock/token helpers, SMTP test sink and deterministic fixtures. Prevent tests/seed from targeting a non-test DB accidentally.
+- [x] M01.07 Build web shell, routing, query client, design tokens, accessible components and generic loading/error/empty states; proxy API locally.
 
 Gate: containers healthy; readiness changes correctly with DB availability; migrations work from empty DB; OpenAPI loads; policy unit tests and initial API integration checks pass.
 

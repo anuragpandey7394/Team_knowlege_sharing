@@ -1,0 +1,31 @@
+name: tka-local
+services:
+  postgres:
+    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    environment:
+      POSTGRES_USER: tka
+      POSTGRES_PASSWORD: tka_local_only
+      POSTGRES_DB: tka_dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-test-db.sql:/docker-entrypoint-initdb.d/01-test.sql:ro
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U tka -d tka_dev"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  mailpit:
+    image: axllent/mailpit@sha256:0790692be935ea4420d085694f7985b1f692ca6a8771ab0e0bd8ba75ac180498
+    environment:
+      MP_DATABASE: /data/mailpit.db
+      MP_MAX_MESSAGES: 500
+    volumes:
+      - mail-data:/data
+    healthcheck:
+      test: [CMD, /mailpit, readyz]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  postgres-data:
+  mail-data:

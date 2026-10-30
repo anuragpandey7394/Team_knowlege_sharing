@@ -8,6 +8,7 @@ export default tseslint.config(
       ".cache/**",
       ".codex/**",
       "coverage/**",
+      "apps/api/src/generated/**",
     ],
   },
   js.configs.recommended,
