@@ -124,3 +124,62 @@ select {
 .member-list form {
   margin-bottom: 0.75rem;
 }
+
+.knowledge-layout {
+  display: grid;
+  grid-template-columns: minmax(15rem, 22rem) minmax(0, 1fr);
+  gap: 2rem;
+}
+.editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.tiptap {
+  min-height: 14rem;
+  background: white;
+  border: 1px solid #8a99ad;
+  border-radius: 0.4rem;
+  padding: 1rem;
+}
+.rich-text,
+.tiptap {
+  overflow-wrap: anywhere;
+}
+.rich-text pre,
+.tiptap pre {
+  background: #e8edf6;
+  padding: 1rem;
+  overflow: auto;
+}
+.rich-text table,
+.tiptap table {
+  border-collapse: collapse;
+  max-width: 100%;
+}
+.rich-text th,
+.rich-text td,
+.tiptap th,
+.tiptap td {
+  border: 1px solid #8a99ad;
+  padding: 0.5rem;
+  min-width: 3rem;
+}
+[role="alertdialog"] {
+  position: fixed;
+  inset: 25% 15% auto;
+  padding: 2rem;
+  background: white;
+  border: 3px solid #a44500;
+  z-index: 20;
+}
+@media (max-width: 800px) {
+  .knowledge-layout {
+    grid-template-columns: 1fr;
+  }
+  .knowledge-layout > aside {
+    max-height: 45vh;
+    overflow: auto;
+  }
+}

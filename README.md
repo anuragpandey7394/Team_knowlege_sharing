@@ -67,3 +67,11 @@ Authentication defaults in .env.example: session seven days, verification 24 hou
 From Your account, open Your organizations. A verified user can create an organization and becomes its first Admin. Use Current organization to switch contexts. Admins can rename the organization, invite an exact email with a selected role, change roles, remove members, and revoke/resend invitations. Readers and other non-admins see the directory without administrative controls. The server checks permissions on every request, including existing sessions after removal. The final Admin cannot be removed or demoted.
 
 To join, sign in/register with the exact invited address, verify it via Mailpit, and open the invitation from the local inbox. If sign-in was needed, the invitation route is retained for the login return. An invitation is one-use, expires in seven days and becomes invalid when revoked or replaced by resend. An Admin can issue a fresh invitation if a link is unavailable. Organization switching clears tenant query caches and remounts the workspace; it does not carry member/role data into the next organization. Collections use bounded pagination.
+
+## Spaces and shared drafts (M04)
+
+Open Browse knowledge from an organization. Editors/Admins can create/rename spaces, create root/child pages, and edit a shared draft with Tiptap headings, lists, bold/italic, safe links, code and tables. Save draft explicitly or wait for the short autosave debounce; the status shows Saved/Saving/Error. Reader/Reviewer members cannot see unpublished draft titles or body.
+
+Tree branches load with bounded pagination. Use New child or Move current page under a displayed page; moving to the space root is explicit. Cross-space/tenant parents, cycles, excessive depth and stale structural revisions are rejected. Dirty navigation offers Keep editing or Leave without saving.
+
+A conflicting save keeps your local edits. Load latest for comparison, merge deliberately in your editor, then choose Save my merged draft. A failed network request also preserves edits and permits retry. Do not close/reload a dirty tab without saving: local edits are intentionally not stored in browser storage. Publication, immutable history and search arrive in M05; the shared draft is not a published page.

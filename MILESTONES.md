@@ -18,7 +18,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M01 | COMPLETE | All M01 subtasks and its Gate below | docs/evidence/M01.md (create during execution) |
 | M02 | COMPLETE | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
 | M03 | COMPLETE | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
-| M04 | IN_PROGRESS | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
+| M04 | COMPLETE | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
 | M05 | NOT_STARTED | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
 | M06 | NOT_STARTED | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
 | M07 | NOT_STARTED | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
@@ -130,12 +130,12 @@ Gate: two organizations are usable, memberships independent, invitations work vi
 
 Depends on: M03.
 
-- [ ] M04.01 Implement space creation/list/update and page tree with bounded child pagination, stable ordering and tenant-safe relationships. No per-space ACL settings.
-- [ ] M04.02 Implement unpublished page creation/shared draft read/save with expected revision, server-side editor schema validation, text extraction and size limits.
-- [ ] M04.03 Integrate existing rich editor: headings, lists, emphasis, links, tables, code blocks. Sanitize render and reject unsafe URLs/nodes. No image/embed upload UI.
-- [ ] M04.04 Build tree navigation and page editor: explicit Save, debounced autosave, saved/error indicator, dirty navigation warning and page metadata. Preserve current unsaved edits after network/409 errors.
-- [ ] M04.05 Implement move within space with cycle/depth prevention and optimistic concurrency. Do not expose unpublished draft titles/body in Reader/Reviewer responses/tree/search.
-- [ ] M04.06 Add concurrent save test: two editors load same revision, first succeeds, second receives 409 and can recover without data loss. Test cross-tenant parent/space ID and malicious rich text.
+- [x] M04.01 Implement space creation/list/update and page tree with bounded child pagination, stable ordering and tenant-safe relationships. No per-space ACL settings.
+- [x] M04.02 Implement unpublished page creation/shared draft read/save with expected revision, server-side editor schema validation, text extraction and size limits.
+- [x] M04.03 Integrate existing rich editor: headings, lists, emphasis, links, tables, code blocks. Sanitize render and reject unsafe URLs/nodes. No image/embed upload UI.
+- [x] M04.04 Build tree navigation and page editor: explicit Save, debounced autosave, saved/error indicator, dirty navigation warning and page metadata. Preserve current unsaved edits after network/409 errors.
+- [x] M04.05 Implement move within space with cycle/depth prevention and optimistic concurrency. Do not expose unpublished draft titles/body in Reader/Reviewer responses/tree/search.
+- [x] M04.06 Add concurrent save test: two editors load same revision, first succeeds, second receives 409 and can recover without data loss. Test cross-tenant parent/space ID and malicious rich text.
 
 Gate: authorized authors can create/edit nested technical pages; read-only members cannot discover drafts; code/table content renders safely; stale edits never silently overwrite.
 

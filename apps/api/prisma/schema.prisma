@@ -27,6 +27,9 @@ model User {
   memberships Membership[]
   createdOrganizations Organization[]
   invitations Invitation[]
+  createdPages Page[]
+  editedDrafts PageDraft[]
+  publishedVersions PageVersion[]
 }
 model Session {
   id String @id @default(uuid()) @db.Uuid
@@ -58,6 +61,7 @@ model Organization {
   creator User @relation(fields: [creatorId], references: [id])
   memberships Membership[]
   invitations Invitation[]
+  spaces Space[]
 }
 model Membership {
   organizationId String @db.Uuid
@@ -90,4 +94,70 @@ model RateLimit {
   attempts Int @default(1)
   resetsAt DateTime @db.Timestamptz(3)
   @@index([resetsAt])
+}
+
+model Space {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  name String @db.VarChar(100)
+  description String @default("") @db.VarChar(1000)
+  treeRevision Int @default(0)
+  archivedAt DateTime? @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  organization Organization @relation(fields: [organizationId], references: [id])
+  pages Page[]
+  @@unique([organizationId, id])
+}
+model Page {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  spaceId String @db.Uuid
+  parentId String? @db.Uuid
+  creatorId String @db.Uuid
+  revision Int @default(0)
+  archivedAt DateTime? @db.Timestamptz(3)
+  publishedVersionId String? @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  space Space @relation(fields: [organizationId, spaceId], references: [organizationId, id])
+  creator User @relation(fields: [creatorId], references: [id])
+  parent Page? @relation("PageTree", fields: [organizationId, spaceId, parentId], references: [organizationId, spaceId, id], onDelete: Restrict, onUpdate: Restrict)
+  children Page[] @relation("PageTree")
+  draft PageDraft?
+  versions PageVersion[] @relation("PageVersions")
+  publishedVersion PageVersion? @relation("PublishedVersion", fields: [organizationId, id, publishedVersionId], references: [organizationId, pageId, id], onDelete: Restrict, onUpdate: Restrict)
+  @@unique([organizationId, id])
+  @@unique([organizationId, spaceId, id])
+  @@index([organizationId, spaceId, parentId, createdAt, id])
+}
+model PageDraft {
+  pageId String @id @db.Uuid
+  organizationId String @db.Uuid
+  title String @db.VarChar(200)
+  body Json
+  text String
+  revision Int @default(0)
+  updatedById String @db.Uuid
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  page Page @relation(fields: [organizationId, pageId], references: [organizationId, id])
+  updatedBy User @relation(fields: [updatedById], references: [id])
+  @@unique([organizationId, pageId])
+  @@index([organizationId])
+}
+model PageVersion {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  pageId String @db.Uuid
+  number Int
+  title String @db.VarChar(200)
+  body Json
+  text String
+  publisherId String @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  page Page @relation("PageVersions", fields: [organizationId, pageId], references: [organizationId, id], onDelete: Restrict, onUpdate: Restrict)
+  currentFor Page[] @relation("PublishedVersion")
+  publisher User @relation(fields: [publisherId], references: [id])
+  @@unique([organizationId, pageId, id])
+  @@unique([organizationId, pageId, number])
 }

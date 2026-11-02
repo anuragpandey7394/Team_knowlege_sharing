@@ -1,8 +1,15 @@
+import { KnowledgeRoute } from "./knowledge";
 import { Organizations, OrganizationRoute, Invitation } from "./organizations";
 import { AuthPage, Account, RequireAuth } from "./auth";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Link,
+  Route,
+  Routes,
+} from "react-router-dom";
 import {
   QueryClient,
   QueryClientProvider,
@@ -50,92 +57,122 @@ function Home() {
 }
 const root = document.getElementById("root");
 if (!root) throw new Error("Missing application root");
+function Application() {
+  return (
+    <>
+      <a className="skip-link" href="#content">
+        Skip to content
+      </a>
+      <header>
+        <Link to="/" className="brand">
+          Team Knowledge
+        </Link>
+      </header>
+      <main id="content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/organizations/:orgId/knowledge"
+            element={
+              <RequireAuth>
+                <KnowledgeRoute />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/organizations/:orgId/spaces/:spaceId"
+            element={
+              <RequireAuth>
+                <KnowledgeRoute />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/organizations/:orgId/pages/:pageId/edit"
+            element={
+              <RequireAuth>
+                <KnowledgeRoute />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/organizations"
+            element={
+              <RequireAuth>
+                <Organizations />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/organizations/:orgId"
+            element={
+              <RequireAuth>
+                <OrganizationRoute />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/invite"
+            element={
+              <RequireAuth>
+                <Invitation />
+              </RequireAuth>
+            }
+          />
+          {[
+            "register",
+            "login",
+            "resend-verification",
+            "forgot-password",
+            "reset-password",
+            "verify-email",
+          ].map((mode) => (
+            <Route
+              key={mode}
+              path={`/${mode}`}
+              element={
+                <AuthPage
+                  key={mode}
+                  mode={
+                    mode as
+                      | "register"
+                      | "login"
+                      | "resend-verification"
+                      | "forgot-password"
+                      | "reset-password"
+                      | "verify-email"
+                  }
+                />
+              }
+            />
+          ))}
+          <Route
+            path="/account"
+            element={
+              <RequireAuth>
+                <Account />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <>
+                <h1>Page not found</h1>
+                <Link to="/">Return home</Link>
+              </>
+            }
+          />
+        </Routes>
+      </main>
+    </>
+  );
+}
+const router = createBrowserRouter([{ path: "*", element: <Application /> }]);
 createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={client}>
-      <BrowserRouter>
-        <a className="skip-link" href="#content">
-          Skip to content
-        </a>
-        <header>
-          <Link to="/" className="brand">
-            Team Knowledge
-          </Link>
-        </header>
-        <main id="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/organizations"
-              element={
-                <RequireAuth>
-                  <Organizations />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/organizations/:orgId"
-              element={
-                <RequireAuth>
-                  <OrganizationRoute />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/invite"
-              element={
-                <RequireAuth>
-                  <Invitation />
-                </RequireAuth>
-              }
-            />
-            {[
-              "register",
-              "login",
-              "resend-verification",
-              "forgot-password",
-              "reset-password",
-              "verify-email",
-            ].map((mode) => (
-              <Route
-                key={mode}
-                path={`/${mode}`}
-                element={
-                  <AuthPage
-                    key={mode}
-                    mode={
-                      mode as
-                        | "register"
-                        | "login"
-                        | "resend-verification"
-                        | "forgot-password"
-                        | "reset-password"
-                        | "verify-email"
-                    }
-                  />
-                }
-              />
-            ))}
-            <Route
-              path="/account"
-              element={
-                <RequireAuth>
-                  <Account />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <>
-                  <h1>Page not found</h1>
-                  <Link to="/">Return home</Link>
-                </>
-              }
-            />
-          </Routes>
-        </main>
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>,
 );

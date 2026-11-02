@@ -97,3 +97,62 @@ export const inviteInspectionSchema = z.object({
   role: roleSchema,
   expiresAt: z.string(),
 });
+export const spaceParamsSchema = organizationParamsSchema.extend({
+  spaceId: z.uuid(),
+});
+export const pageParamsSchema = organizationParamsSchema.extend({
+  pageId: z.uuid(),
+});
+export const spaceInputSchema = z.strictObject({
+  name: z.string().trim().min(1).max(100),
+  description: z.string().max(1000).default(""),
+});
+export const spaceSchema = z.object({
+  id: z.uuid(),
+  name: z.string(),
+  description: z.string(),
+  revision: z.number().int(),
+});
+export const spacesSchema = z.object({
+  items: z.array(spaceSchema),
+  total: z.number().int(),
+});
+export const treeQuerySchema = paginationSchema.extend({
+  parentId: z.uuid().optional(),
+});
+export const pageCreateSchema = z.strictObject({
+  spaceId: z.uuid(),
+  parentId: z.uuid().nullable().default(null),
+  title: z.string().trim().min(1).max(200),
+});
+export const draftInputSchema = z.strictObject({
+  expectedRevision: z.number().int().min(0),
+  title: z.string().trim().min(1).max(200),
+  body: z.unknown(),
+});
+export const movePageSchema = z.strictObject({
+  expectedRevision: z.number().int().min(0),
+  parentId: z.uuid().nullable(),
+});
+export const pageSummarySchema = z.object({
+  id: z.uuid(),
+  spaceId: z.uuid(),
+  parentId: z.uuid().nullable(),
+  title: z.string(),
+  revision: z.number().int(),
+  published: z.boolean(),
+});
+export const treeSchema = z.object({
+  items: z.array(pageSummarySchema),
+  total: z.number().int(),
+});
+export const draftSchema = z.object({
+  page: pageSummarySchema,
+  title: z.string(),
+  body: z.unknown(),
+  text: z.string(),
+  revision: z.number().int(),
+  creator: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});

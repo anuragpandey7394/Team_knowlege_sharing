@@ -3,6 +3,9 @@ export function createMailAdapter(host: string, port: number) {
   const transport = nodemailer.createTransport({
     host,
     port,
+    pool: true,
+    maxConnections: 1,
+    maxMessages: 100,
     secure: false,
     connectionTimeout: 3000,
     socketTimeout: 3000,

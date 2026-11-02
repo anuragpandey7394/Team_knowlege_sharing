@@ -270,6 +270,9 @@ function OrganizationWorkspace({ orgId }: { orgId: string }) {
         </select>
       </label>
       <h1>{org.data.name}</h1>
+      <p>
+        <Link to={`/organizations/${orgId}/knowledge`}>Browse knowledge</Link>
+      </p>
       <p>Your role: {labels[org.data.role]}</p>
       {error && <ErrorState message={error} />}
       {notice && <p role="status">{notice}</p>}

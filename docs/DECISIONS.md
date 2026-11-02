@@ -40,3 +40,11 @@ References reviewed:
 - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 - https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
 - https://playwright.dev/docs/test-webserver
+
+## ADR-004 — Tenant-safe hierarchy and schema-validated rich text
+
+Accepted 2026-11-02. Preserve Tiptap 3.32.1 pinned in the existing manifests/lockfile. Share the StarterKit/TableKit schema between browser editing and server validation; reject unsupported nodes/attributes/marks, unsafe URL protocols, excessive nesting/size and malformed ProseMirror structure. React renders whitelisted nodes and escaped text, avoiding raw HTML. Composite parent/space foreign keys enforce tenant and space boundaries. A common Space revision write serializes hierarchy changes; conditional draft revisions reject stale content independently. React Router's data-router context enables useBlocker without changing the application framework. Failed saves retain local state and require explicit comparison/merge on conflict.
+
+Official references: https://tiptap.dev/docs/editor/getting-started/install/react and https://tiptap.dev/docs/editor/extensions/nodes/table; React Router useBlocker API already reviewed during setup. Browser rich-document replacement uses native sequential key events, since generic fill/insertText did not produce the intended ProseMirror model on a code/table selection; retention assertions remain unchanged. SMTP transport reuses one bounded connection to reduce transient connection setup failures, retaining bounded pre-connection retries.
+
+Dependency review found minimatch 10.2.6 advisory GHSA-g3hv-75wg-m249 (https://github.com/advisories/GHSA-g3hv-75wg-m249). Pin the patched 11.0.1 through npm overrides instead of accepting npm's suggested incompatible ESLint downgrade. Node 22 is supported; actual lint/parser/type/unit/contract checks validate the override. Do not use audit fix --force or lower the audit gate.
