@@ -1,16 +1,16 @@
 # Execution checkpoint
 
-- Updated at: 2026-10-30T06:27:30.993124+00:00
+- Updated at: 2026-11-02T16:20:34.101810+00:00
 - Active release: foundation
 - Overall status: IN_PROGRESS
-- Current milestone/subtask: M04 / M04.01 (next, after M03 delivery)
+- Current milestone/subtask: M04 / M04.01 (router blocker resolved; implementation pending documentation delivery)
 - Last completed subtask: M03.06
-- Last implementation commit: e0774430a2efdbb22133d6916954603f048f8126 (M02)
-- Last verified remote checkpoint: e0774430a2efdbb22133d6916954603f048f8126 (exact local/remote SHA match)
-- Worktree: verified M03 code/docs pending commit; unrelated .codex/ excluded
+- Last implementation commit: 227192376dc19fffb08f2713e60edcc9398eed5e (M03)
+- Last verified remote checkpoint: 227192376dc19fffb08f2713e60edcc9398eed5e (exact local/remote SHA match)
+- Worktree: documentation router-resolution changes plus preserved uncommitted Tiptap manifests/lockfile; unrelated .codex/ untouched
 - Last verification: M03 full lint/types/build, 21 unit, 20 real integration, 3 contract and 4 Chromium tests passed; docs/evidence/M03.md
-- Current failure/blocker: none
-- Next executable action: commit/push verified M03, compare exact remote SHA, record delivery then start M04
+- Current failure/blocker: none; mandatory development-router dependency removed by explicit user instruction on 2026-11-02
+- Next executable action: verify and push documentation-only router resolution, then implement M04 using available tools; retain existing Tiptap dependency changes
 - Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
 - Migration/seed state: tka_dev through 202610300002_membership_lock; disposable test schemas cleaned on normal teardown; no seed
 - Cloud/model spend: not started; no paid actions authorized
@@ -50,8 +50,10 @@
 
 ## Handoff / unfinished work
 
-M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 acceptance verified, delivery pending; M04–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
+M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 IN_PROGRESS (router blocker resolved); M05–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
 
 Use repository-local npm cache (.npmrc); the default home cache is read-only. The default system SSH configuration previously failed permissions; command-scoped `git -c core.sshCommand='ssh -F /dev/null'` authenticated successfully without altering machine configuration. Never stage unrelated .codex/. Record the actual pushed M00 SHA in the next milestone checkpoint.
 
 Timing preference: notify the user when any active implementation or verification job exceeds ten minutes, in addition to regular concise progress updates. Track active elapsed time separately from interruptions.
+
+Router resolution: user explicitly removed the development-router prerequisite on 2026-11-02. Historical blocker entries in docs/evidence/M04.md are retained as history, not active requirements. Prior milestone evidence reconciled against its delivered commit: M00 21/21 hashes, M01 42/42, M02 46/46, M03 54/54 match. No completed application work rebuilt.

@@ -18,7 +18,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M01 | COMPLETE | All M01 subtasks and its Gate below | docs/evidence/M01.md (create during execution) |
 | M02 | COMPLETE | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
 | M03 | COMPLETE | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
-| M04 | NOT_STARTED | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
+| M04 | IN_PROGRESS | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
 | M05 | NOT_STARTED | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
 | M06 | NOT_STARTED | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
 | M07 | NOT_STARTED | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
