@@ -221,3 +221,33 @@ export const searchResultSchema = z.object({
 });
 
 export const successSchema = z.object({ ok: z.literal(true) });
+export const commentInputSchema = z.strictObject({
+  text: z.string().trim().min(1).max(5000),
+});
+export const commentEditSchema = commentInputSchema.extend({
+  expectedRevision: z.number().int().min(1),
+});
+export const commentParamsSchema = pageParamsSchema.extend({
+  commentId: z.uuid(),
+});
+export const commentRevisionParamsSchema = commentParamsSchema.extend({
+  revisionId: z.uuid(),
+});
+export const commentSchema = z.object({
+  id: z.uuid(),
+  authorId: z.uuid(),
+  author: z.string(),
+  pageVersionId: z.uuid(),
+  pageVersionNumber: z.number().int(),
+  revision: z.number().int(),
+  revisionId: z.uuid(),
+  text: z.string().nullable(),
+  tombstoned: z.boolean(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  revisionAt: z.string(),
+});
+export const commentsSchema = z.object({
+  items: z.array(commentSchema),
+  total: z.number().int(),
+});

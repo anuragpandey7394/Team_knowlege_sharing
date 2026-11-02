@@ -1,3 +1,4 @@
+import { registerComments } from "./comments.js";
 import { registerArchiveSearch } from "./archive-search.js";
 import { registerPublication } from "./publication.js";
 import { registerKnowledge } from "./knowledge.js";
@@ -154,6 +155,7 @@ export async function createServer(
   await registerKnowledge(app, db);
   await registerPublication(app, db);
   await registerArchiveSearch(app, db);
+  await registerComments(app, db);
   app.addHook("onClose", async () => db.$disconnect());
   await app.ready();
   return app;

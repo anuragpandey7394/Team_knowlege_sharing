@@ -31,6 +31,7 @@ model User {
   editedDrafts PageDraft[]
   publishedVersions PageVersion[]
   auditEvents AuditEvent[]
+  comments Comment[]
 }
 model Session {
   id String @id @default(uuid()) @db.Uuid
@@ -129,6 +130,7 @@ model Page {
   children Page[] @relation("PageTree")
   draft PageDraft?
   versions PageVersion[] @relation("PageVersions")
+  comments Comment[]
   publishedVersion PageVersion? @relation("PublishedVersion", fields: [organizationId, id, publishedVersionId], references: [organizationId, pageId, id], onDelete: Restrict, onUpdate: Restrict)
   @@unique([organizationId, id])
   @@unique([organizationId, spaceId, id])
@@ -164,6 +166,7 @@ model PageVersion {
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   page Page @relation("PageVersions", fields: [organizationId, pageId], references: [organizationId, id], onDelete: Restrict, onUpdate: Restrict)
   currentFor Page[] @relation("PublishedVersion")
+  comments Comment[]
   publisher User @relation(fields: [publisherId], references: [id])
   @@unique([organizationId, pageId, id])
   @@unique([organizationId, pageId, number])
@@ -194,4 +197,33 @@ model AuditEvent {
   organization Organization @relation(fields: [organizationId], references: [id])
   actor User @relation(fields: [actorId], references: [id])
   @@index([organizationId, createdAt])
+}
+
+model Comment {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  pageId String @db.Uuid
+  pageVersionId String @db.Uuid
+  authorId String @db.Uuid
+  revision Int @default(1)
+  tombstonedAt DateTime? @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  page Page @relation(fields: [organizationId, pageId], references: [organizationId, id])
+  pageVersion PageVersion @relation(fields: [organizationId, pageId, pageVersionId], references: [organizationId, pageId, id])
+  author User @relation(fields: [authorId], references: [id])
+  revisions CommentRevision[]
+  @@unique([organizationId, id])
+  @@index([organizationId, pageId, createdAt, id])
+}
+model CommentRevision {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  commentId String @db.Uuid
+  number Int
+  text String @db.VarChar(5000)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  comment Comment @relation(fields: [organizationId, commentId], references: [organizationId, id])
+  @@unique([organizationId, commentId, number])
+  @@unique([organizationId, commentId, id])
 }

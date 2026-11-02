@@ -1,3 +1,4 @@
+import { Comments } from "./comments";
 import { useState, type FormEvent } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -141,6 +142,15 @@ export function PublishedPage() {
           Archive page and descendants
         </Button>
       )}
+      <Comments
+        key={`${orgId}:${pageId}:${versionId ?? "latest"}`}
+        orgId={orgId!}
+        pageId={pageId!}
+        versionNumber={data.number}
+        archived={data.archived}
+        historical={Boolean(versionId)}
+        role={org.data?.role}
+      />
       <Panel title="Version history">
         {history.isPending ? (
           <LoadingState />

@@ -1,18 +1,18 @@
 # Execution checkpoint
 
-- Updated at: 2026-11-02T17:08:56.196366+00:00
+- Updated at: 2026-11-02T17:14:49.363139+00:00
 - Active release: foundation
 - Overall status: IN_PROGRESS
-- Current milestone/subtask: M06 / M06.01 (after M05 delivery)
-- Last completed subtask: M05.07
-- Last implementation commit: 4ce186718e87ad0e14934884e9c4fddbb9616daf (M04)
-- Last verified remote checkpoint: 4ce186718e87ad0e14934884e9c4fddbb9616daf (M04; remote matched HEAD on resume)
-- Worktree: M05 verified changes pending scoped commit/push; unrelated .codex/ excluded
-- Last verification: M05 lint/types/build/checkpoint pass; 24 unit, 31 real integration, 3 contract, 7 Chromium tests pass; docs/evidence/M05.md
+- Current milestone/subtask: M07 / M07.01 (after M06 delivery)
+- Last completed subtask: M06.05
+- Last implementation commit: 84eb1dabc937a8796997e27ba3ab7dd9d8d6d7b1 (M05)
+- Last verified remote checkpoint: 84eb1dabc937a8796997e27ba3ab7dd9d8d6d7b1 (M05; exact remote/HEAD match)
+- Worktree: M06 verified changes pending commit/push; unrelated .codex/ excluded
+- Last verification: M06 lint/types/build/checkpoint pass; 24 unit, 35 real integration, 3 contract, 8 Chromium tests pass; docs/evidence/M06.md
 - Current failure/blocker: none
-- Next executable action: commit/push M05, verify exact SHA, then implement M06 comments
+- Next executable action: commit/push M06, verify SHA, then start M07 durable jobs
 - Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
-- Migration/seed state: tka_dev through 202611020003_search; disposable test schemas cleaned on normal teardown; no seed
+- Migration/seed state: tka_dev through 202611020004_comments; disposable test schemas cleaned on normal teardown; no seed
 - Cloud/model spend: not started; no paid actions authorized
 
 ## Subtask execution records
@@ -62,9 +62,15 @@
 | M05.06 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
 | M05.07 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
 
+| M06.01 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
+| M06.02 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
+| M06.03 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
+| M06.04 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
+| M06.05 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
+
 ## Handoff / unfinished work
 
-M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 delivered; M05 verified/delivery pending; M06–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
+M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 delivered; M05 delivered; M06 verified/delivery pending; M07–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
 
 Use repository-local npm cache (.npmrc); the default home cache is read-only. The default system SSH configuration previously failed permissions; command-scoped `git -c core.sshCommand='ssh -F /dev/null'` authenticated successfully without altering machine configuration. Never stage unrelated .codex/. Record the actual pushed M00 SHA in the next milestone checkpoint.
 

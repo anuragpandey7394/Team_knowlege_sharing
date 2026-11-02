@@ -20,7 +20,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M03 | COMPLETE | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
 | M04 | COMPLETE | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
 | M05 | COMPLETE | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
-| M06 | NOT_STARTED | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
+| M06 | COMPLETE | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
 | M07 | NOT_STARTED | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
 | M08 | NOT_STARTED | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
 | M09 | NOT_STARTED | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
@@ -157,11 +157,11 @@ Gate: full author-to-reader lifecycle works; exact-version evidence survives new
 
 Depends on: M05.
 
-- [ ] M06.01 Implement flat paginated comments on published pages, immutable revisions, page-version-at-post metadata and safe author timestamps.
-- [ ] M06.02 Enforce Reader read-only, Reviewer+ create, own edit/delete and Admin moderation. Use expected revision; tombstone deletion and preserve safe audit metadata.
-- [ ] M06.03 Build bottom-of-page comments, own edit/delete controls, Admin moderation and historical-version warning. No inline comments/replies/approval controls.
-- [ ] M06.04 Emit revisioned comment indexing events and invalidate deleted/edited comment eligibility. Define historical tombstone citation behavior without leaking removed text.
-- [ ] M06.05 Test role matrix, other-author edits, cross-org comment IDs, revision conflicts, safe rendering, archived page policy and removed-member author display.
+- [x] M06.01 Implement flat paginated comments on published pages, immutable revisions, page-version-at-post metadata and safe author timestamps.
+- [x] M06.02 Enforce Reader read-only, Reviewer+ create, own edit/delete and Admin moderation. Use expected revision; tombstone deletion and preserve safe audit metadata.
+- [x] M06.03 Build bottom-of-page comments, own edit/delete controls, Admin moderation and historical-version warning. No inline comments/replies/approval controls.
+- [x] M06.04 Emit revisioned comment indexing events and invalidate deleted/edited comment eligibility. Define historical tombstone citation behavior without leaking removed text.
+- [x] M06.05 Test role matrix, other-author edits, cross-org comment IDs, revision conflicts, safe rendering, archived page policy and removed-member author display.
 
 Gate: comments function as separate attributed advice; correct access and revision semantics are demonstrated by API and browser tests.
 
