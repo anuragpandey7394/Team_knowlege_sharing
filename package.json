@@ -30,7 +30,9 @@
     "demo:down": "node scripts/compose.mjs down",
     "verify:foundation": "npm run lint && npm run typecheck && npm run test:unit && npm run test:integration && npm run test:contracts && npm run test:e2e && npm run build && npm run checkpoint:check",
     "db:generate": "node scripts/prisma.mjs generate",
-    "browser:install": "node scripts/playwright.mjs install chromium"
+    "browser:install": "node scripts/playwright.mjs install chromium",
+    "worker": "node scripts/tsx.mjs apps/api/src/worker.ts",
+    "contracts:ai": "node scripts/tsx.mjs scripts/ai-contracts.ts && prettier --write services/ai/openapi.json"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

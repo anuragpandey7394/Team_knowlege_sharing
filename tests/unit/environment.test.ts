@@ -13,9 +13,20 @@ describe("environment boundaries", () => {
         ...database,
         NODE_ENV: "production",
         WEB_ORIGIN: "https://example.test",
+        CSRF_SECRET: "synthetic-hosted-csrf-secret-not-for-deployment",
         AI_PROVIDER: "mock",
       }),
     ).toThrow());
+  it("accepts disabled hosted configuration without connecting to a provider", () => {
+    expect(
+      parseEnvironment({
+        ...database,
+        NODE_ENV: "production",
+        WEB_ORIGIN: "https://example.test",
+        CSRF_SECRET: "synthetic-hosted-csrf-secret-not-for-deployment",
+      }).AI_PROVIDER,
+    ).toBe("disabled");
+  });
   it("rejects shared development/test DB", () =>
     expect(() =>
       parseEnvironment({

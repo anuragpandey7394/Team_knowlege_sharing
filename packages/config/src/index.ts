@@ -44,6 +44,8 @@ export const environmentSchema = z
       ),
     SMTP_HOST: z.string().min(1).default("127.0.0.1"),
     SMTP_PORT: port.default(1025),
+    INDEX_GENERATION: z.coerce.number().int().min(1).max(100000).default(1),
+    AI_SERVICE_TOKEN: z.string().min(32).optional(),
     AI_PROVIDER: z.enum(["disabled", "mock"]).default("disabled"),
   })
   .superRefine((env, context) => {

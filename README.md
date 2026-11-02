@@ -87,3 +87,11 @@ Search published pages uses PostgreSQL full-text search, optional named space se
 Reviewer, Editor and Admin members can add plain-text comments below a current published page, edit their own comments and delete their own comments. Admins can remove another author's comment with Moderate comment. Readers can read only. Comments are separate advice, labelled with author, timestamps, revision and page version when posted. Historical/archived page views are read-only and warn that the current comment may concern a different version.
 
 Permanent comment revision links preserve the exact earlier revision after edits. Deletion/moderation shows unavailable content for every reference, including historical revisions. It never reveals the removed body. Stale edits return a conflict and preserve the text in the edit form for review. No inline comments, replies, notifications or approvals are implemented.
+
+## Durable worker and AI contracts (M07)
+
+With `.env` configured from `.env.example`, run `npm run worker` in a separate terminal. It dispatches PostgreSQL outbox records to bounded durable jobs, handles retries/leases and shuts down on Ctrl-C. Run one low-concurrency worker for the laptop demo. Stop the worker before stopping PostgreSQL. Production bundle: `node apps/api/dist/worker.js` with environment injected. No model or AWS credentials are loaded. A missing required database configuration fails startup.
+
+AI_PROVIDER defaults to disabled. Publications remain readable/searchable while jobs settle in awaiting provider. Editor/Admin Retry indexing retains durable work and cannot attach a provider. Simulated indexing exists only in automated tests and is never eligible as a real index. Set INDEX_GENERATION when a future index definition changes, then explicitly retry/reindex current sources; old generation results never count as current.
+
+`packages/contracts/src/ai.ts` and `services/ai/openapi.json` define the deferred Python service shapes. Regenerate with `npm run contracts:ai`; the contract suite checks parity. AI_SERVICE_TOKEN is optional and absent by default; when connecting a future private service, inject a unique random token through the environment. Do not put a token in a URL, browser bundle or source control. See services/ai/README.md for the authenticated service boundary and deferred implementation scope.

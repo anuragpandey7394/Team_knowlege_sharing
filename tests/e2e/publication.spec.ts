@@ -20,6 +20,7 @@ test("publishes independent of drafts, preserves history and exposes archived ci
   await page
     .getByRole("button", { name: "Send invitation", exact: true })
     .click();
+  await expect(page.getByRole("status")).toContainText("Changes saved");
   await reader.goto(
     `/invite#token=${await mailToken(readerEmail, "Organization invitation")}`,
   );
@@ -92,6 +93,21 @@ test("publishes independent of drafts, preserves history and exposes archived ci
     reader.getByRole("link", { name: "Published setup", exact: true }),
   ).toBeVisible();
   await page.goto(publishedPath);
+  await expect(
+    page.getByRole("region", { name: "AI indexing status" }),
+  ).toContainText("awaiting provider");
+  const [retry] = await Promise.all([
+    page.waitForResponse(
+      (response) =>
+        response.url().includes("/index/page/") &&
+        response.request().method() === "POST",
+    ),
+    page.getByRole("button", { name: "Retry indexing", exact: true }).click(),
+  ]);
+  expect(retry.status()).toBe(200);
+  await expect(
+    page.getByRole("region", { name: "AI indexing status" }),
+  ).toContainText("no real index provider connected");
   await page
     .getByRole("button", { name: "Archive page and descendants", exact: true })
     .click();

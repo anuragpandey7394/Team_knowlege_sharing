@@ -1,3 +1,4 @@
+import { IndexStatus } from "./index-status";
 import { Comments } from "./comments";
 import { useState, type FormEvent } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
@@ -101,7 +102,16 @@ export function PublishedPage() {
           Version {data.number} · Published by {data.publisher} ·{" "}
           <time>{data.publishedAt}</time>
         </p>
-        <p>AI index: awaiting provider</p>
+        <IndexStatus
+          orgId={orgId!}
+          sourceId={pageId!}
+          canRetry={Boolean(
+            org.data &&
+            can(org.data.role, "edit") &&
+            !data.archived &&
+            !data.changed,
+          )}
+        />
         <RichText document={data.body as JSONContent} />
         <p>
           <Link

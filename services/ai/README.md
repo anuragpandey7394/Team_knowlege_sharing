@@ -1,3 +1,11 @@
-# Deferred AI service
+# Deferred Python AI service contract
 
-Foundation defines authenticated model-neutral contracts in M07. Python/FastAPI/model implementation remains gated at M11; no provider credentials or paid calls at bootstrap.
+M07 defines contracts only. There is no Python/FastAPI runtime, embedding model, retrieval engine, Bedrock call or MCP implementation here. Those require explicit M11+ authorization.
+
+The authoritative shared Zod contracts live in `packages/contracts/src/ai.ts`; `openapi.json` is a generated contract stub for IndexSource, Retrieve, AnswerRequest, AnswerEvent, AnswerResult and Citation. A future private service implements these shapes and is never directly called by a browser. Regenerate the stub using `npm run contracts:ai` and verify `npm run test:contracts`.
+
+API authenticates tenant/user through current PostgreSQL membership. A private service calls `POST /internal/v1/index-source` with `Authorization: Bearer $AI_SERVICE_TOKEN` and the IndexSourceRequest body. Configure a unique environment-secret token; it is absent by default and no example working hosted token is committed. The route rejects cookies, invalid service authentication, unverified/removed members, foreign sources, stale generations and inactive/superseded versions. Only this authenticated route is exempt from browser CSRF; all cookie mutations retain origin + CSRF checks. Never forward browser-supplied tenant headers as trusted context. Service scope must originate from the API, not model/tool arguments. Internal HTTP must remain on a private network; hosted TLS/secret injection is M10.
+
+A future provider adapter must preserve this service-auth boundary, exact source/version/locator identity, current source eligibility and owner-private chat boundaries. Do not allow an AI process to independently mutate application tables. Attach through API-defined contracts after M11 schema ownership is recorded in an ADR.
+
+The foundation worker uses durable jobs with three bounded attempts, exponential backoff, 15-second leases and 4-second heartbeat. Source eligibility is checked again when completing and when reading status. Source/version/generation keys isolate stale jobs. Disabled mode finishes in `awaiting_provider`; fake success exists only in tests, is stored as simulated, and never becomes eligible for real retrieval. Mock mode simulates chat only. A generation change requires explicit reindex/retry for current sources; it does not relabel old results as current. No AWS credential lookup occurs at startup.

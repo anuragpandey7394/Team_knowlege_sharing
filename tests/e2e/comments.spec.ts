@@ -19,6 +19,7 @@ test("reviewer advice is escaped, revised and moderated with tombstoned exact ci
     await page
       .getByRole("button", { name: "Send invitation", exact: true })
       .click();
+    await expect(page.getByRole("status")).toContainText("Changes saved");
     await reviewer.goto(
       `/invite#token=${await mailToken(email, "Organization invitation")}`,
     );

@@ -1,3 +1,4 @@
+import { registerIndexRoutes } from "./index-routes.js";
 import { registerComments } from "./comments.js";
 import { registerArchiveSearch } from "./archive-search.js";
 import { registerPublication } from "./publication.js";
@@ -77,7 +78,10 @@ export async function createServer(
       throw new ApiError(403, "ORIGIN_REJECTED", "Origin not allowed");
   });
   app.addHook("preValidation", async (request) => {
-    if (!["GET", "HEAD", "OPTIONS"].includes(request.method))
+    if (
+      request.routeOptions.url !== "/internal/v1/index-source" &&
+      !["GET", "HEAD", "OPTIONS"].includes(request.method)
+    )
       await requireCsrf(db, request, env);
   });
   app.setErrorHandler((error, request, reply) => {
@@ -156,6 +160,7 @@ export async function createServer(
   await registerPublication(app, db);
   await registerArchiveSearch(app, db);
   await registerComments(app, db);
+  await registerIndexRoutes(app, db, env);
   app.addHook("onClose", async () => db.$disconnect());
   await app.ready();
   return app;

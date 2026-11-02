@@ -21,7 +21,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M04 | COMPLETE | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
 | M05 | COMPLETE | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
 | M06 | COMPLETE | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
-| M07 | NOT_STARTED | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
+| M07 | COMPLETE | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
 | M08 | NOT_STARTED | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
 | M09 | NOT_STARTED | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
 | M10 | NOT_STARTED | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
@@ -169,13 +169,13 @@ Gate: comments function as separate attributed advice; correct access and revisi
 
 Depends on: M05 and M06.
 
-- [ ] M07.01 Implement outbox dispatcher and PostgreSQL durable worker with dedupe key, bounded retries/backoff, lease/heartbeat, graceful shutdown and expired-lease recovery. Use deterministic test clocks where possible.
-- [ ] M07.02 Implement per-source version/index-generation states and eligibility predicate. Publication supersedes previous retrieval immediately; old jobs cannot ready a newer source.
-- [ ] M07.03 Add fake adapter tests for success, transient failure, terminal failure, duplicate delivery, stale completion and crash/reclaim. Fake completion must not mark real AI indexing as ready in app configuration.
-- [ ] M07.04 Define shared IndexSource/Retrieve/AnswerRequest/AnswerEvent/AnswerResult/Citation schemas and internal authenticated service boundary. Add Python-service README/OpenAPI contract stub, not a model implementation.
-- [ ] M07.05 Implement disabled/mock provider ports with zero paid calls; mock mode only in explicit dev/test config. Reject mock mode in hosted production configuration. Validate exact source IDs and organization scope on mock fixtures.
-- [ ] M07.06 Expose safe index status and Editor/Admin retry actions; UI labels awaiting-provider accurately. Publish remains successful even when optional AI is unavailable.
-- [ ] M07.07 Test publish/edit/comment-delete/archive races, restart recovery and service disabled readiness. Record how future AI attaches without changing public web contracts.
+- [x] M07.01 Implement outbox dispatcher and PostgreSQL durable worker with dedupe key, bounded retries/backoff, lease/heartbeat, graceful shutdown and expired-lease recovery. Use deterministic test clocks where possible.
+- [x] M07.02 Implement per-source version/index-generation states and eligibility predicate. Publication supersedes previous retrieval immediately; old jobs cannot ready a newer source.
+- [x] M07.03 Add fake adapter tests for success, transient failure, terminal failure, duplicate delivery, stale completion and crash/reclaim. Fake completion must not mark real AI indexing as ready in app configuration.
+- [x] M07.04 Define shared IndexSource/Retrieve/AnswerRequest/AnswerEvent/AnswerResult/Citation schemas and internal authenticated service boundary. Add Python-service README/OpenAPI contract stub, not a model implementation.
+- [x] M07.05 Implement disabled/mock provider ports with zero paid calls; mock mode only in explicit dev/test config. Reject mock mode in hosted production configuration. Validate exact source IDs and organization scope on mock fixtures.
+- [x] M07.06 Expose safe index status and Editor/Admin retry actions; UI labels awaiting-provider accurately. Publish remains successful even when optional AI is unavailable.
+- [x] M07.07 Test publish/edit/comment-delete/archive races, restart recovery and service disabled readiness. Record how future AI attaches without changing public web contracts.
 
 Gate: durable state machines and contracts work with honest disabled behavior; no embeddings, semantic retrieval, Bedrock or MCP advertised as implemented.
 
