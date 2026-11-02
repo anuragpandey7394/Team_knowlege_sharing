@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useBlocker, useBeforeUnload } from "react-router-dom";
+import { Link, useBlocker, useBeforeUnload } from "react-router-dom";
 import { EditorContent, useEditor } from "@tiptap/react";
 import type { JSONContent } from "@tiptap/core";
 import { z } from "zod";
-import { draftSchema } from "../../../packages/contracts/src/index";
+import {
+  draftSchema,
+  publicationSchema,
+} from "../../../packages/contracts/src/index";
 import {
   editorExtensions,
   safeLink,
@@ -31,6 +34,8 @@ export function PageEditor({
   const [error, setError] = useState("");
   const [latest, setLatest] = useState<Draft | null>(null);
   const [link, setLink] = useState("");
+  const publicationKey = useRef({ revision: -1, key: "" });
+  const [published, setPublished] = useState("");
   const revision = useRef(initial.revision);
   const saving = useRef(false);
   const dirty = JSON.stringify([title, body]) !== baseline;
@@ -48,6 +53,33 @@ export function PageEditor({
     },
     onUpdate: ({ editor }) => setBody(editor.getJSON()),
   });
+  async function publish() {
+    if (dirty || busy) return;
+    setBusy(true);
+    setError("");
+    if (publicationKey.current.revision !== revision.current)
+      publicationKey.current = {
+        revision: revision.current,
+        key: crypto.randomUUID(),
+      };
+    try {
+      const result = await mutate(
+        `/api/v1/organizations/${orgId}/pages/${initial.page.id}/publish`,
+        {
+          expectedRevision: revision.current,
+          idempotencyKey: publicationKey.current.key,
+        },
+        publicationSchema,
+      );
+      setPublished(`Published version ${result.number}`);
+    } catch {
+      setError(
+        "Publication failed. Your draft is preserved. Review the saved revision and retry; ancestor pages must be published first.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
   async function save(expectedRevision = revision.current) {
     if (saving.current) return;
     saving.current = true;
@@ -212,6 +244,20 @@ export function PageEditor({
       >
         Save draft
       </Button>
+      <Button
+        disabled={dirty || busy || Boolean(latest)}
+        onClick={() => {
+          void publish();
+        }}
+      >
+        Publish saved draft
+      </Button>
+      {published && <p role="status">{published}</p>}
+      <p>
+        <Link to={`/organizations/${orgId}/pages/${initial.page.id}`}>
+          View published page
+        </Link>
+      </p>
       {error && (
         <>
           <ErrorState message={error} />

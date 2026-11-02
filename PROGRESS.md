@@ -1,18 +1,18 @@
 # Execution checkpoint
 
-- Updated at: 2026-11-02T16:50:51.412979+00:00
+- Updated at: 2026-11-02T17:08:56.196366+00:00
 - Active release: foundation
 - Overall status: IN_PROGRESS
-- Current milestone/subtask: M05 / M05.01 (next, after M04 delivery)
-- Last completed subtask: M04.06
-- Last implementation commit: 227192376dc19fffb08f2713e60edcc9398eed5e (M03)
-- Last verified remote checkpoint: b171004c5719887ff32b34ed463e8900a28e9a42 (documentation-only router resolution; remote matched HEAD)
-- Worktree: verified M04 implementation/docs pending scoped commit; unrelated .codex/ excluded
-- Last verification: M04 lint/types/build/checkpoint/audit pass; 24 unit, 26 real integration, 3 contract, 6 Chromium tests pass; docs/evidence/M04.md
+- Current milestone/subtask: M06 / M06.01 (after M05 delivery)
+- Last completed subtask: M05.07
+- Last implementation commit: 4ce186718e87ad0e14934884e9c4fddbb9616daf (M04)
+- Last verified remote checkpoint: 4ce186718e87ad0e14934884e9c4fddbb9616daf (M04; remote matched HEAD on resume)
+- Worktree: M05 verified changes pending scoped commit/push; unrelated .codex/ excluded
+- Last verification: M05 lint/types/build/checkpoint pass; 24 unit, 31 real integration, 3 contract, 7 Chromium tests pass; docs/evidence/M05.md
 - Current failure/blocker: none
-- Next executable action: commit/push M04, verify exact remote SHA, record delivery, then implement M05 publication/history/archive/search
+- Next executable action: commit/push M05, verify exact SHA, then implement M06 comments
 - Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
-- Migration/seed state: tka_dev through 202611020001_knowledge; disposable test schemas cleaned on normal teardown; no seed
+- Migration/seed state: tka_dev through 202611020003_search; disposable test schemas cleaned on normal teardown; no seed
 - Cloud/model spend: not started; no paid actions authorized
 
 ## Subtask execution records
@@ -54,9 +54,17 @@
 | M04.05 | COMPLETE | docs/evidence/M04.md | Verified; see final acceptance record |
 | M04.06 | COMPLETE | docs/evidence/M04.md | Verified; see final acceptance record |
 
+| M05.01 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
+| M05.02 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
+| M05.03 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
+| M05.04 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
+| M05.05 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
+| M05.06 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
+| M05.07 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
+
 ## Handoff / unfinished work
 
-M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 acceptance verified, delivery pending; M05–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
+M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 delivered; M05 verified/delivery pending; M06–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
 
 Use repository-local npm cache (.npmrc); the default home cache is read-only. The default system SSH configuration previously failed permissions; command-scoped `git -c core.sshCommand='ssh -F /dev/null'` authenticated successfully without altering machine configuration. Never stage unrelated .codex/. Record the actual pushed M00 SHA in the next milestone checkpoint.
 

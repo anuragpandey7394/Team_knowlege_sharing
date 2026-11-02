@@ -1,3 +1,4 @@
+import { ArchiveManager } from "./publication";
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -157,7 +158,10 @@ function Workspace({
     <>
       <p>
         <Link to={`/organizations/${orgId}`}>{org.data.name} settings</Link> ·{" "}
-        <Link to="/organizations">All organizations</Link>
+        <Link to="/organizations">All organizations</Link> ·{" "}
+        <Link to={`/organizations/${orgId}/search`}>
+          Search published pages
+        </Link>
       </p>
       <div className="knowledge-layout">
         <aside>
@@ -242,6 +246,13 @@ function Workspace({
         </aside>
         <section>
           {error && <ErrorState message={error} />}
+          {edit && (
+            <ArchiveManager
+              orgId={orgId}
+              space={space.data}
+              onChanged={refresh}
+            />
+          )}
           {space.data && (
             <>
               <h2>{space.data.name}</h2>

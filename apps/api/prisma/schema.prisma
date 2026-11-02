@@ -30,6 +30,7 @@ model User {
   createdPages Page[]
   editedDrafts PageDraft[]
   publishedVersions PageVersion[]
+  auditEvents AuditEvent[]
 }
 model Session {
   id String @id @default(uuid()) @db.Uuid
@@ -62,6 +63,8 @@ model Organization {
   memberships Membership[]
   invitations Invitation[]
   spaces Space[]
+  outboxEvents OutboxEvent[]
+  auditEvents AuditEvent[]
 }
 model Membership {
   organizationId String @db.Uuid
@@ -150,6 +153,10 @@ model PageVersion {
   organizationId String @db.Uuid
   pageId String @db.Uuid
   number Int
+  draftRevision Int
+  parentId String? @db.Uuid
+  spaceId String @db.Uuid
+  idempotencyKey String @db.Uuid
   title String @db.VarChar(200)
   body Json
   text String
@@ -160,4 +167,31 @@ model PageVersion {
   publisher User @relation(fields: [publisherId], references: [id])
   @@unique([organizationId, pageId, id])
   @@unique([organizationId, pageId, number])
+  @@unique([organizationId, pageId, idempotencyKey])
+}
+
+model OutboxEvent {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  sourceType String @db.VarChar(30)
+  sourceId String @db.Uuid
+  sourceVersionId String @db.Uuid
+  kind String @db.VarChar(50)
+  dedupeKey String @unique @db.VarChar(200)
+  state String @default("PENDING") @db.VarChar(30)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  organization Organization @relation(fields: [organizationId], references: [id])
+  @@index([organizationId, state, createdAt])
+}
+model AuditEvent {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  actorId String @db.Uuid
+  action String @db.VarChar(60)
+  resourceId String @db.Uuid
+  requestId String @db.VarChar(100)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  organization Organization @relation(fields: [organizationId], references: [id])
+  actor User @relation(fields: [actorId], references: [id])
+  @@index([organizationId, createdAt])
 }

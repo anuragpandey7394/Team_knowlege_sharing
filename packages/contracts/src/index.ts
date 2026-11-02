@@ -156,3 +156,68 @@ export const draftSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
 });
+
+export const publishInputSchema = z.strictObject({
+  expectedRevision: z.number().int().min(0),
+  idempotencyKey: z.uuid(),
+});
+export const publicationSchema = z.object({
+  pageId: z.uuid(),
+  versionId: z.uuid(),
+  number: z.number().int().positive(),
+  draftRevision: z.number().int(),
+  title: z.string(),
+  publishedAt: z.string(),
+});
+export const versionParamsSchema = pageParamsSchema.extend({
+  versionId: z.uuid(),
+});
+export const publishedPageSchema = z.object({
+  pageId: z.uuid(),
+  spaceId: z.uuid(),
+  parentId: z.uuid().nullable(),
+  versionId: z.uuid(),
+  currentVersionId: z.uuid(),
+  number: z.number().int(),
+  title: z.string(),
+  body: z.unknown(),
+  text: z.string(),
+  creator: z.string(),
+  publisher: z.string(),
+  createdAt: z.string(),
+  publishedAt: z.string(),
+  archived: z.boolean(),
+  changed: z.boolean(),
+  indexStatus: z.literal("awaiting-provider"),
+});
+export const historySchema = z.object({
+  items: z.array(publicationSchema.extend({ publisher: z.string() })),
+  total: z.number().int(),
+});
+export const archiveQuerySchema = paginationSchema.extend({
+  archived: z.enum(["true", "false"]).default("false"),
+});
+export const revisionInputSchema = z.strictObject({
+  expectedRevision: z.number().int().min(0),
+});
+export const restorePageSchema = revisionInputSchema.extend({
+  parentId: z.uuid().nullable().optional(),
+});
+export const searchQuerySchema = paginationSchema.extend({
+  q: z.string().trim().min(1).max(200),
+  spaceId: z.uuid().optional(),
+});
+export const searchResultSchema = z.object({
+  items: z.array(
+    z.object({
+      pageId: z.uuid(),
+      versionId: z.uuid(),
+      title: z.string(),
+      snippet: z.string(),
+      spaceId: z.uuid(),
+    }),
+  ),
+  total: z.number().int(),
+});
+
+export const successSchema = z.object({ ok: z.literal(true) });

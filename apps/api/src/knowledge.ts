@@ -9,7 +9,7 @@ import {
   spaceInputSchema,
   spaceSchema,
   spacesSchema,
-  paginationSchema,
+  archiveQuerySchema,
   treeQuerySchema,
   treeSchema,
   pageCreateSchema,
@@ -56,12 +56,13 @@ export async function activePage(
   if (!page) throw new ApiError(404, "NOT_FOUND", "Page not found");
   return page;
 }
-async function parentDepth(
+export async function parentDepth(
   tx: Tx,
   orgId: string,
   spaceId: string,
   parentId: string | null,
   excluded?: string,
+  publishedAncestors = false,
 ) {
   let depth = 1;
   let next = parentId;
@@ -76,6 +77,12 @@ async function parentDepth(
       where: { id: next, organizationId: orgId, spaceId, archivedAt: null },
     });
     if (!parent) throw new ApiError(404, "NOT_FOUND", "Parent page not found");
+    if (publishedAncestors && !parent.publishedVersionId)
+      throw new ApiError(
+        409,
+        "UNPUBLISHED_PARENT",
+        "Published pages require published ancestors",
+      );
     if (++depth > 10)
       throw new ApiError(409, "TREE_DEPTH", "Maximum page depth is ten");
     next = parent.parentId;
@@ -178,13 +185,21 @@ export async function registerKnowledge(
     {
       schema: {
         params: organizationParamsSchema,
-        querystring: paginationSchema,
+        querystring: archiveQuerySchema,
         response: { 200: spacesSchema, ...errors },
       },
     },
     async (request) => {
-      await requireTenant(db, request, request.params.orgId);
-      const where = { organizationId: request.params.orgId, archivedAt: null };
+      await requireTenant(
+        db,
+        request,
+        request.params.orgId,
+        request.query.archived === "true" ? "edit" : "read",
+      );
+      const where = {
+        organizationId: request.params.orgId,
+        archivedAt: request.query.archived === "true" ? { not: null } : null,
+      };
       const [rows, total] = await db.$transaction([
         db.space.findMany({
           where,
@@ -463,6 +478,7 @@ export async function registerKnowledge(
           page.spaceId,
           request.body.parentId,
           pageId,
+          Boolean(page.publishedVersionId),
         );
         if (
           depth + (await subtreeHeight(tx, orgId, page.spaceId, pageId)) - 1 >

@@ -19,7 +19,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M02 | COMPLETE | All M02 subtasks and its Gate below | docs/evidence/M02.md (create during execution) |
 | M03 | COMPLETE | All M03 subtasks and its Gate below | docs/evidence/M03.md (create during execution) |
 | M04 | COMPLETE | All M04 subtasks and its Gate below | docs/evidence/M04.md (create during execution) |
-| M05 | NOT_STARTED | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
+| M05 | COMPLETE | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
 | M06 | NOT_STARTED | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
 | M07 | NOT_STARTED | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
 | M08 | NOT_STARTED | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
@@ -143,13 +143,13 @@ Gate: authorized authors can create/edit nested technical pages; read-only membe
 
 Depends on: M04.
 
-- [ ] M05.01 Implement publish transaction: expected draft revision, immutable version, incremented version number, latest pointer, audit entry and deduplicated outbox event. Add publication idempotency.
-- [ ] M05.02 Build Reader published page view, creator/publisher metadata and version history/detail/diff. Draft changes leave published content unchanged.
-- [ ] M05.03 Implement exact-version route and citation resolver with authorization and changed/archived labels; resolve only valid tenant-owned page/version combinations.
-- [ ] M05.04 Implement page-subtree and space archive/restore, preserving versions and preventing inaccessible-parent restores. Immediately exclude from normal lists/search/future retrieval; no hard delete.
-- [ ] M05.05 Implement PostgreSQL full-text search over current published titles/body, optional space filter, pagination, escaped snippets and useful empty states. New publication updates ordinary search independently of AI.
-- [ ] M05.06 Test two publications/history immutability, duplicate publish, publish/save race, archive subtree, restore parent constraints, search injection, draft leakage, revoked-member history and cross-org version URLs.
-- [ ] M05.07 Browser flow: Editor drafts/publishes, Reader sees version 1 while version 2 is draft, then sees version 2; historical version 1 remains accessible and labelled correctly.
+- [x] M05.01 Implement publish transaction: expected draft revision, immutable version, incremented version number, latest pointer, audit entry and deduplicated outbox event. Add publication idempotency.
+- [x] M05.02 Build Reader published page view, creator/publisher metadata and version history/detail/diff. Draft changes leave published content unchanged.
+- [x] M05.03 Implement exact-version route and citation resolver with authorization and changed/archived labels; resolve only valid tenant-owned page/version combinations.
+- [x] M05.04 Implement page-subtree and space archive/restore, preserving versions and preventing inaccessible-parent restores. Immediately exclude from normal lists/search/future retrieval; no hard delete.
+- [x] M05.05 Implement PostgreSQL full-text search over current published titles/body, optional space filter, pagination, escaped snippets and useful empty states. New publication updates ordinary search independently of AI.
+- [x] M05.06 Test two publications/history immutability, duplicate publish, publish/save race, archive subtree, restore parent constraints, search injection, draft leakage, revoked-member history and cross-org version URLs.
+- [x] M05.07 Browser flow: Editor drafts/publishes, Reader sees version 1 while version 2 is draft, then sees version 2; historical version 1 remains accessible and labelled correctly.
 
 Gate: full author-to-reader lifecycle works; exact-version evidence survives new publications; search works without AI; published states and outbox are transactionally consistent.
 

@@ -20,7 +20,7 @@ npm run dev
 
 Web: http://localhost:5173, API reserved: http://localhost:3001, PostgreSQL reserved: 127.0.0.1:55432, SMTP: 127.0.0.1:1025, Mailpit inbox: http://localhost:8025. M01 serves the web shell and API bootstrap with database readiness. Authentication arrives in M02. Stop development with Ctrl-C. Never point tests or seeds at a shared/production database. `.env.example` contains only synthetic local defaults; `.env` is ignored.
 
-Integration and contract suites run against PostgreSQL and Mailpit. Browser, seed and infrastructure commands remain explicit failures until their respective milestones implement the real checks. `verify:foundation` fails until all required suites exist and pass. No success-on-missing-tools behavior.
+Integration and contract suites run against PostgreSQL and Mailpit. Seed and infrastructure commands remain explicit failures until their respective milestones implement the real checks. `verify:foundation` fails until all required suites exist and pass. No success-on-missing-tools behavior.
 
 ## Resume and evidence
 
@@ -74,4 +74,10 @@ Open Browse knowledge from an organization. Editors/Admins can create/rename spa
 
 Tree branches load with bounded pagination. Use New child or Move current page under a displayed page; moving to the space root is explicit. Cross-space/tenant parents, cycles, excessive depth and stale structural revisions are rejected. Dirty navigation offers Keep editing or Leave without saving.
 
-A conflicting save keeps your local edits. Load latest for comparison, merge deliberately in your editor, then choose Save my merged draft. A failed network request also preserves edits and permits retry. Do not close/reload a dirty tab without saving: local edits are intentionally not stored in browser storage. Publication, immutable history and search arrive in M05; the shared draft is not a published page.
+A conflicting save keeps your local edits. Load latest for comparison, merge deliberately in your editor, then choose Save my merged draft. A failed network request also preserves edits and permits retry. Do not close/reload a dirty tab without saving: local edits are intentionally not stored in browser storage. Publish the saved draft explicitly to make it visible to Readers.
+
+## Publication, history, archive and search (M05)
+
+Choose Publish saved draft after saving. The server checks the exact saved revision; publication does not change when the shared draft is later edited. Publish ancestors first. View published page shows creator, publisher, dates and version. Its permanent version link resolves the same immutable content after later publications, subject to current membership. Version history supports comparison of any selected version with the displayed version using plain-text removed/added content.
+
+Search published pages uses PostgreSQL full-text search, optional named space selection and pagination. It reflects publication immediately and works without AI. AI status remains awaiting provider. Archive page and descendants removes that subtree from navigation/search. Historical permanent links remain available with an Archived label. Archive and restore in the editing workspace lists archived pages/spaces; restore the space and parent first or explicitly restore a page at root. Restoring a page leaves its descendants archived until individually restored. No hard deletion or old-version restore is offered.

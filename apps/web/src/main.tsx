@@ -1,3 +1,4 @@
+import { PublishedPage, ManualSearch } from "./publication";
 import { KnowledgeRoute } from "./knowledge";
 import { Organizations, OrganizationRoute, Invitation } from "./organizations";
 import { AuthPage, Account, RequireAuth } from "./auth";
@@ -92,6 +93,28 @@ function Application() {
             element={
               <RequireAuth>
                 <KnowledgeRoute />
+              </RequireAuth>
+            }
+          />
+          {[
+            "/organizations/:orgId/pages/:pageId",
+            "/organizations/:orgId/pages/:pageId/versions/:versionId",
+          ].map((path) => (
+            <Route
+              key={path}
+              path={path}
+              element={
+                <RequireAuth>
+                  <PublishedPage />
+                </RequireAuth>
+              }
+            />
+          ))}
+          <Route
+            path="/organizations/:orgId/search"
+            element={
+              <RequireAuth>
+                <ManualSearch />
               </RequireAuth>
             }
           />
