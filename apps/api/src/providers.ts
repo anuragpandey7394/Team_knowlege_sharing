@@ -61,6 +61,16 @@ export async function* answer(
   const content =
     "Simulation only: AI is not connected. This deterministic response tests chat plumbing and makes no factual claim about your knowledge.";
   for (const text of [content.slice(0, 60), content.slice(60)]) {
+    await new Promise<void>((resolve) => {
+      const timer = setTimeout(done, 500);
+      function done() {
+        clearTimeout(timer);
+        signal.removeEventListener("abort", done);
+        resolve();
+      }
+      signal.addEventListener("abort", done, { once: true });
+      if (signal.aborted) done();
+    });
     if (signal.aborted) {
       yield { type: "error", requestId: request.requestId, code: "CANCELLED" };
       return;

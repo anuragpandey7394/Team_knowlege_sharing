@@ -1,3 +1,4 @@
+import { ChatRoute } from "./chat";
 import { PublishedPage, ManualSearch } from "./publication";
 import { KnowledgeRoute } from "./knowledge";
 import { Organizations, OrganizationRoute, Invitation } from "./organizations";
@@ -118,6 +119,20 @@ function Application() {
               </RequireAuth>
             }
           />
+          {[
+            "/organizations/:orgId/chat",
+            "/organizations/:orgId/chat/:conversationId",
+          ].map((path) => (
+            <Route
+              key={path}
+              path={path}
+              element={
+                <RequireAuth>
+                  <ChatRoute />
+                </RequireAuth>
+              }
+            />
+          ))}
           <Route
             path="/organizations"
             element={

@@ -161,7 +161,8 @@ function Workspace({
         <Link to="/organizations">All organizations</Link> ·{" "}
         <Link to={`/organizations/${orgId}/search`}>
           Search published pages
-        </Link>
+        </Link>{" "}
+        · <Link to={`/organizations/${orgId}/chat`}>Private chat</Link>
       </p>
       <div className="knowledge-layout">
         <aside>

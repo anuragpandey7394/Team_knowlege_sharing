@@ -252,3 +252,4 @@ export const commentsSchema = z.object({
   total: z.number().int(),
 });
 export * from "./ai.js";
+export * from "./chat.js";

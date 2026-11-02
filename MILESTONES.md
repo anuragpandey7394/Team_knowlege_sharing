@@ -22,7 +22,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M05 | COMPLETE | All M05 subtasks and its Gate below | docs/evidence/M05.md (create during execution) |
 | M06 | COMPLETE | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
 | M07 | COMPLETE | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
-| M08 | NOT_STARTED | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
+| M08 | COMPLETE | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
 | M09 | NOT_STARTED | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
 | M10 | NOT_STARTED | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
 | M11 | NOT_STARTED | All M11 subtasks and its Gate below | docs/evidence/M11.md (create during execution) |
@@ -183,12 +183,12 @@ Gate: durable state machines and contracts work with honest disabled behavior; n
 
 Depends on: M03, M05, M07.
 
-- [ ] M08.01 Implement owner-private conversations/messages, organization scope and optional fixed space scope; list/create/history/delete. Admins cannot inspect others' chats by default.
-- [ ] M08.02 Build chat UI with organization-wide default, space selection before creation, persistent history, pending/error/retry/cancel states and source panel rendering.
-- [ ] M08.03 Implement message request ID/idempotency, disabled-provider response, mock stream contract, disconnect handling and scoped source links. Conversation retry cannot create duplicate assistant messages.
-- [ ] M08.04 Show permanent simulation banner for mocks; disabled mode clearly states AI is not connected. No fabricated factual answer or false Ready state.
-- [ ] M08.05 Test direct cross-user conversation/message IDs (same org and different org), mismatched space, changed membership, switched organization, cancellation and stream errors.
-- [ ] M08.06 Browser-test disabled and deterministic mock flows, source-version navigation and isolation after switching organizations.
+- [x] M08.01 Implement owner-private conversations/messages, organization scope and optional fixed space scope; list/create/history/delete. Admins cannot inspect others' chats by default.
+- [x] M08.02 Build chat UI with organization-wide default, space selection before creation, persistent history, pending/error/retry/cancel states and source panel rendering.
+- [x] M08.03 Implement message request ID/idempotency, disabled-provider response, mock stream contract, disconnect handling and scoped source links. Conversation retry cannot create duplicate assistant messages.
+- [x] M08.04 Show permanent simulation banner for mocks; disabled mode clearly states AI is not connected. No fabricated factual answer or false Ready state.
+- [x] M08.05 Test direct cross-user conversation/message IDs (same org and different org), mismatched space, changed membership, switched organization, cancellation and stream errors.
+- [x] M08.06 Browser-test disabled and deterministic mock flows, source-version navigation and isolation after switching organizations.
 
 Gate: frontend/backend chat plumbing is complete and honest; no real model required. Real AI feature acceptance remains pending.
 

@@ -271,7 +271,8 @@ function OrganizationWorkspace({ orgId }: { orgId: string }) {
       </label>
       <h1>{org.data.name}</h1>
       <p>
-        <Link to={`/organizations/${orgId}/knowledge`}>Browse knowledge</Link>
+        <Link to={`/organizations/${orgId}/knowledge`}>Browse knowledge</Link> ·{" "}
+        <Link to={`/organizations/${orgId}/chat`}>Private chat</Link>
       </p>
       <p>Your role: {labels[org.data.role]}</p>
       {error && <ErrorState message={error} />}

@@ -32,6 +32,7 @@ model User {
   publishedVersions PageVersion[]
   auditEvents AuditEvent[]
   comments Comment[]
+  conversations Conversation[]
 }
 model Session {
   id String @id @default(uuid()) @db.Uuid
@@ -67,6 +68,7 @@ model Organization {
   outboxEvents OutboxEvent[]
   jobs Job[]
   indexStates IndexState[]
+  conversations Conversation[]
   auditEvents AuditEvent[]
 }
 model Membership {
@@ -113,6 +115,7 @@ model Space {
   updatedAt DateTime @updatedAt @db.Timestamptz(3)
   organization Organization @relation(fields: [organizationId], references: [id])
   pages Page[]
+  conversations Conversation[]
   @@unique([organizationId, id])
 }
 model Page {
@@ -263,4 +266,37 @@ model IndexState {
   organization Organization @relation(fields: [organizationId], references: [id])
   @@unique([organizationId, sourceType, sourceId, sourceVersionId, generation])
   @@index([organizationId, sourceType, sourceId])
+}
+
+model Conversation {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  ownerId String @db.Uuid
+  spaceId String? @db.Uuid
+  title String @db.VarChar(100)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  organization Organization @relation(fields: [organizationId], references: [id])
+  owner User @relation(fields: [ownerId], references: [id])
+  space Space? @relation(fields: [organizationId, spaceId], references: [organizationId, id])
+  messages Message[]
+  @@unique([organizationId, id])
+  @@index([organizationId, ownerId, updatedAt, id])
+}
+model Message {
+  id String @id @default(uuid()) @db.Uuid
+  organizationId String @db.Uuid
+  conversationId String @db.Uuid
+  requestId String @db.Uuid
+  attemptToken String? @db.Uuid
+  role String @db.VarChar(20)
+  content String
+  state String @db.VarChar(20)
+  providerMode String @db.VarChar(20)
+  citations Json @default("[]")
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  conversation Conversation @relation(fields: [organizationId, conversationId], references: [organizationId, id], onDelete: Cascade)
+  @@unique([organizationId, conversationId, requestId, role])
+  @@index([organizationId, conversationId, createdAt, id])
 }

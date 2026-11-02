@@ -1,3 +1,4 @@
+import { registerChat } from "./chat.js";
 import { registerIndexRoutes } from "./index-routes.js";
 import { registerComments } from "./comments.js";
 import { registerArchiveSearch } from "./archive-search.js";
@@ -161,6 +162,7 @@ export async function createServer(
   await registerArchiveSearch(app, db);
   await registerComments(app, db);
   await registerIndexRoutes(app, db, env);
+  await registerChat(app, db, env);
   app.addHook("onClose", async () => db.$disconnect());
   await app.ready();
   return app;
