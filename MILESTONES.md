@@ -24,7 +24,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M07 | COMPLETE | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
 | M08 | COMPLETE | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
 | M09 | COMPLETE | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
-| M10 | IN_PROGRESS | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
+| M10 | COMPLETE | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
 | M11 | NOT_STARTED | All M11 subtasks and its Gate below | docs/evidence/M11.md (create during execution) |
 | M12 | NOT_STARTED | All M12 subtasks and its Gate below | docs/evidence/M12.md (create during execution) |
 | M13 | NOT_STARTED | All M13 subtasks and its Gate below | docs/evidence/M13.md (create during execution) |
@@ -220,7 +220,7 @@ Depends on: M09.
 - [x] M10.07 Verify from a clean checkout/clean disposable environment: install, start dependencies, migrate, seed, run app, run verify:foundation and container smoke. Validate all README commands; record actual results.
 - [x] M10.08 Final scope audit against IMPLEMENTATION_SPEC: map requirements to routes/UI/tests, list deferred vs blocked vs complete, update OpenAPI/ADRs/progress. No incomplete foundation subtask may be hidden by declaring overall complete.
 - [x] M10.09 Perform final resume drill: interrupt an innocuous local check, reopen using repository instructions, reconcile checkpoint, rerun affected check and finish without chat memory. Record proof and limitations.
-- [ ] M10.10 Mark overall status COMPLETE (active release: foundation) only after all required gates. Provide concise handoff with verification commands, evidence, limitations and next AI milestone. Do not begin M11 automatically.
+- [x] M10.10 Mark overall status COMPLETE (active release: foundation) only after all required gates. Provide concise handoff with verification commands, evidence, limitations and next AI milestone. Do not begin M11 automatically.
 
 Gate: ready-to-attach foundation delivered, cloud definitions validated as available, no claim of deployed AWS or functioning real AI. Record any missing tool credential/environment check as blocked, not passed.
 

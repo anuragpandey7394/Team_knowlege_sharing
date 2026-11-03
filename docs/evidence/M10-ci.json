@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-11-03T06:52:31.596212+00:00",
+  "testedCommit": "47366c4e776ff30ae092e3ba15402cab7e580b51",
+  "runId": 41592133269,
+  "jobId": 125771035033,
+  "url": "https://github.com/anuragpandey7394/Team_knowlege_sharing/actions/runs/41592133269",
+  "outcome": "SUCCESS",
+  "requiredSteps": [
+    "locked install",
+    "Chromium/native dependencies",
+    "fresh migrations and seed",
+    "verify:foundation",
+    "infra:validate",
+    "test:containers"
+  ],
+  "limitations": [
+    "GitHub-hosted local services and mocked Terraform plans; no AWS or real AI validation"
+  ]
+}

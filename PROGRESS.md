@@ -1,17 +1,17 @@
 # Execution checkpoint
 
-- Updated at: 2026-11-03T06:47:23.044453+00:00
+- Updated at: 2026-11-03T06:52:31.596212+00:00
 - Active release: foundation
-- Overall status: IN_PROGRESS
-- Current milestone/subtask: M10 / M10.10
-- Last completed subtask: M10.09 (M10.01–09 all verified)
-- Last implementation commit: 834cf3a5ecde625ac08b9fc0d87f3466b1a6c3c2 (local M10 packaging checkpoint; not yet pushed)
-- Last verified remote checkpoint: 7818d50e2fb1a700bcb8b0b5afc777b48559128a (exact remote/HEAD match; remote CI success)
-- Worktree: M10 evidence and verified dev launcher fix pending commit; unrelated .codex/ excluded
-- Last verification: Clean clone 834cf3a aggregate passed (26 unit/54 integration/8 contracts/10+1 browser, upgrade/restore/capacity/security); fresh infra 2/2 and TLS container smoke; corrected dev launcher and full Compose profile passed; docs/evidence/M10.md
+- Overall status: COMPLETE
+- Current milestone/subtask: M10 / M10.10 (foundation gate complete)
+- Last completed subtask: M10.10
+- Last implementation commit: 47366c4e776ff30ae092e3ba15402cab7e580b51 (M10 verified implementation)
+- Last verified remote checkpoint: 47366c4e776ff30ae092e3ba15402cab7e580b51 (exact origin/develop/HEAD match and successful remote CI run 41592133269)
+- Worktree: Final documentation checkpoint; unrelated .codex/ preserved and excluded
+- Last verification: Clean checkout full aggregate (26 unit/54 integration/8 contracts/10+1 browser), upgrade/restore/capacity/security, corrected README dev/full Compose profile, infra 2/2 and TLS containers; remote CI SUCCESS; docs/evidence/M10.md
 - Current failure/blocker: none
-- Next executable action: commit clean-checkout evidence and launcher fix, push origin/develop, verify exact SHA and remote CI before final foundation checkpoint
-- Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
+- Next executable action: Foundation complete. Await explicit AI-phase authorization before M11; do not provision AWS or make paid calls.
+- Background processes: Original tka-local PostgreSQL on 55432 and Mailpit on 1025/8025 healthy; no app/worker process intentionally running; generated clean project/volumes removed
 - Migration/seed state: tka_dev through 202611020007_chat_attempts; reserved synthetic seed present: 2 orgs/20 memberships/200 pages; no database reset
 - Cloud/model spend: not started; no paid actions authorized
 
@@ -46,14 +46,12 @@
 | M03.04 | COMPLETE | docs/evidence/M03.md | Verified; see subtask evidence |
 | M03.05 | COMPLETE | docs/evidence/M03.md | Verified; see subtask evidence |
 | M03.06 | COMPLETE | docs/evidence/M03.md | Verified; see subtask evidence |
-
 | M04.01 | COMPLETE | docs/evidence/M04.md | Verified; see final acceptance record |
 | M04.02 | COMPLETE | docs/evidence/M04.md | Verified; see final acceptance record |
 | M04.03 | COMPLETE | docs/evidence/M04.md | Verified; see final acceptance record |
 | M04.04 | COMPLETE | docs/evidence/M04.md | Verified; see final acceptance record |
 | M04.05 | COMPLETE | docs/evidence/M04.md | Verified; see final acceptance record |
 | M04.06 | COMPLETE | docs/evidence/M04.md | Verified; see final acceptance record |
-
 | M05.01 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
 | M05.02 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
 | M05.03 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
@@ -61,13 +59,11 @@
 | M05.05 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
 | M05.06 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
 | M05.07 | COMPLETE | docs/evidence/M05.md | Verified; final acceptance record |
-
 | M06.01 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
 | M06.02 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
 | M06.03 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
 | M06.04 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
 | M06.05 | COMPLETE | docs/evidence/M06.md | Verified; final acceptance record |
-
 | M07.01 | COMPLETE | docs/evidence/M07.md | Verified; final acceptance record |
 | M07.02 | COMPLETE | docs/evidence/M07.md | Verified; final acceptance record |
 | M07.03 | COMPLETE | docs/evidence/M07.md | Verified; final acceptance record |
@@ -75,14 +71,12 @@
 | M07.05 | COMPLETE | docs/evidence/M07.md | Verified; final acceptance record |
 | M07.06 | COMPLETE | docs/evidence/M07.md | Verified; final acceptance record |
 | M07.07 | COMPLETE | docs/evidence/M07.md | Verified; final acceptance record |
-
 | M08.01 | COMPLETE | docs/evidence/M08.md | Verified; final acceptance record |
 | M08.02 | COMPLETE | docs/evidence/M08.md | Verified; final acceptance record |
 | M08.03 | COMPLETE | docs/evidence/M08.md | Verified; final acceptance record |
 | M08.04 | COMPLETE | docs/evidence/M08.md | Verified; final acceptance record |
 | M08.05 | COMPLETE | docs/evidence/M08.md | Verified; final acceptance record |
 | M08.06 | COMPLETE | docs/evidence/M08.md | Verified; final acceptance record |
-
 | M09.01 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
 | M09.02 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
 | M09.03 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
@@ -91,21 +85,23 @@
 | M09.06 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
 | M09.07 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
 | M09.08 | COMPLETE | docs/evidence/M09.md | Remote CI succeeded at 7818d50 |
+| M10.01 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.02 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.03 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.04 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.05 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.06 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.07 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.08 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.09 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
+| M10.10 | COMPLETE | docs/evidence/M10.md | Verified; final local/remote acceptance records |
 
 ## Handoff / unfinished work
 
-M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 delivered; M05 delivered; M06 delivered; M07 delivered; M08 delivered; M09 delivered including successful remote CI; M10 in progress; M11–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
+Foundation M00–M10 is complete and delivered to origin/develop. M10 final documentation checkpoint records the preceding verified implementation SHA above and is independently compared against the remote after push. See docs/HANDOFF.md for scope/routes/tests, docs/DEPLOYMENT.md for production packaging and gated AWS design, docs/BACKUP.md for recovery, and docs/evidence/M10.md for exact verification and limitations.
 
-Use repository-local npm cache (.npmrc); the default home cache is read-only. The default system SSH configuration previously failed permissions; command-scoped `git -c core.sshCommand='ssh -F /dev/null'` authenticated successfully without altering machine configuration. Never stage unrelated .codex/. Record the actual pushed M00 SHA in the next milestone checkpoint.
+M11–M14 remain NOT_STARTED and require explicit AI-phase authorization. No real model, semantic index, Python service, MCP knowledge tools or bounded AI agent is attached yet. No cloud resources were created or paid calls made. Local Mailpit is the mail sink. Ordinary foundation knowledge/search/auth/chat-shell functionality is verified without a model/cloud account.
 
-Timing preference: notify the user when any active implementation or verification job exceeds ten minutes, in addition to regular concise progress updates. Track active elapsed time separately from interruptions.
+Unrelated .codex/ remains untracked and preserved. Use repository-local cache (.npmrc); SSH delivery uses command-scoped `git -c core.sshCommand='ssh -F /dev/null'` without altering machine configuration. Do not reset existing databases. Original development volumes were preserved; disposable verification projects and their volumes were removed. Synthetic local data/credentials must not be used for hosted data.
 
-Router resolution: user explicitly removed the development-router prerequisite on 2026-11-02. Historical blocker entries in docs/evidence/M04.md are retained as history, not active requirements. Prior milestone evidence reconciled against its delivered commit: M00 21/21 hashes, M01 42/42, M02 46/46, M03 54/54 match. No completed application work rebuilt.
-
-Timing finding: no stuck background build was observed. Current persistent PostgreSQL/Mailpit are intentional services. Report command time, total implementation/debugging time and persistent-service uptime distinctly; notify active jobs over ten minutes. Focused regression reproduction precedes full suites.
-
-## M10 verified subtasks
-
-M10.01–06 and M10.09 passed local checks; details and limits in docs/evidence/M10.md. M10.07 clean-checkout and M10.08 audit remain pending. M10 delivery has not been claimed.
-
-M10.07–08 clean-checkout/audit passed; M10.10 remains pending remote CI and delivery verification. The corrected dev launcher has its exact tested SHA-256 in docs/evidence/M10-dev.json.
+Resume must reconcile the actual Git state and this completed foundation boundary; it must not start M11 automatically. Timing preference: notify when an active implementation/verification job exceeds ten minutes. No unattended background executor exists.
