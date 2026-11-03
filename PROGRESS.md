@@ -1,16 +1,16 @@
 # Execution checkpoint
 
-- Updated at: 2026-11-03T05:57:27.694123+00:00
+- Updated at: 2026-11-03T06:08:43.058673+00:00
 - Active release: foundation
 - Overall status: IN_PROGRESS
 - Current milestone/subtask: M09 / M09.08 (remote CI repair)
 - Last completed subtask: M09.07
-- Last implementation commit: 36b1701674dc4532ab5909bc2e650651b158bea6 (M09 CI syntax repair)
-- Last verified remote checkpoint: 36b1701674dc4532ab5909bc2e650651b158bea6 (CI syntax repair; exact remote/HEAD match)
+- Last implementation commit: 8172bae770b1bc6e19a1bb507674b133c91d6c2e (M09 clean seed repair)
+- Last verified remote checkpoint: 8172bae770b1bc6e19a1bb507674b133c91d6c2e (CI seed repair; exact remote/HEAD match)
 - Worktree: M09 CI repair; M10 packaging not started; unrelated .codex/ excluded
 - Last verification: M09 aggregate passed: 26 unit, 54 integration, 7 contracts, 10 disabled + 1 mock browser, builds, upgrade/restore/capacity/security; docs/evidence/M09.md
-- Current failure/blocker: remote CI reached seed; clean-source missing Prisma client reproduced and self-generation fix verified locally; remote rerun pending
-- Next executable action: push clean-seed CI repair and confirm remote run; then M10.01
+- Current failure/blocker: remote CI passed all 54 assertions but chat teardown timed out; explicit test connection cleanup under verification
+- Next executable action: push verified chat teardown repair and confirm complete CI run; then M10.01
 - Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
 - Migration/seed state: tka_dev through 202611020007_chat_attempts; reserved synthetic seed present: 2 orgs/20 memberships/200 pages; no database reset
 - Cloud/model spend: not started; no paid actions authorized

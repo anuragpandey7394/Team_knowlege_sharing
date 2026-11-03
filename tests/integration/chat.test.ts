@@ -1,3 +1,4 @@
+import { request as httpRequest } from "node:http";
 import { beforeAll, afterAll, expect, it } from "vitest";
 import { randomUUID } from "node:crypto";
 import { createTestDatabase } from "../helpers/database";
@@ -235,23 +236,43 @@ it("marks a disconnected real HTTP stream cancelled and recovers on retry", asyn
   const id = await conversation(),
     requestId = randomUUID();
   const csrf = await mockClient.request("/api/v1/auth/csrf");
-  const controller = new AbortController();
-  const response = await fetch(`${mockAddress}${base()}/${id}/messages`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      origin: h.env.WEB_ORIGIN,
-      cookie: mockClient.cookieHeader(),
-      "x-csrf-token": csrf.json().csrfToken,
-    },
-    body: JSON.stringify({ requestId, question: "Disconnect this simulation" }),
-    signal: controller.signal,
+  await new Promise<void>((resolve, reject) => {
+    let disconnected = false;
+    const request = httpRequest(
+      `${mockAddress}${base()}/${id}/messages`,
+      {
+        method: "POST",
+        agent: false,
+        headers: {
+          "content-type": "application/json",
+          origin: h.env.WEB_ORIGIN,
+          cookie: mockClient.cookieHeader(),
+          "x-csrf-token": csrf.json().csrfToken,
+        },
+      },
+      (response) => {
+        if (response.statusCode !== 200) {
+          request.destroy();
+          reject(new Error(`Unexpected stream status ${response.statusCode}`));
+          return;
+        }
+        response.once("data", () => {
+          disconnected = true;
+          request.destroy();
+          resolve();
+        });
+        response.on("error", (error) => {
+          if (!disconnected) reject(error);
+        });
+      },
+    );
+    request.on("error", (error) => {
+      if (!disconnected) reject(error);
+    });
+    request.end(
+      JSON.stringify({ requestId, question: "Disconnect this simulation" }),
+    );
   });
-  expect(response.status).toBe(200);
-  const reader = response.body!.getReader();
-  await reader.read();
-  controller.abort();
-  await expect(reader.read()).rejects.toThrow();
   let state = "PENDING";
   for (let i = 0; i < 80 && state === "PENDING"; i++) {
     state = (
