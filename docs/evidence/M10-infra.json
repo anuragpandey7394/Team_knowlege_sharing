@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-11-03T06:36:26.269Z",
+  "outcome": "PASS",
+  "terraform": "1.17.1",
+  "awsProvider": "6.71.0",
+  "archiveSha256": "4638628058e71a55212b1c563712eac03b902128f40740f3dc8174df12135061",
+  "resources": [
+    "aws_vpc",
+    "aws_subnet",
+    "aws_internet_gateway",
+    "aws_route_table",
+    "aws_route_table_association",
+    "aws_security_group",
+    "aws_instance"
+  ],
+  "checks": [
+    "fmt",
+    "init without backend",
+    "validate",
+    "mocked plan policies and negative public-CIDR case",
+    "resource allowlist and single-instance shape"
+  ],
+  "cloudResourcesCreated": false,
+  "limitations": [
+    "AWS provider is mocked in all policy test runs",
+    "No apply, real plan, AMI/account validation, price proof or real IAM/deployment test",
+    "Compute shutdown is a safeguard, not disk teardown or a hard spending cap"
+  ]
+}

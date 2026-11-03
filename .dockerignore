@@ -12,3 +12,7 @@ node_modules
 playwright-report
 test-results
 coverage
+**/.terraform
+**/*.tfstate*
+**/*.tfplan
+**/*.pem

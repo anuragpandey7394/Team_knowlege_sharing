@@ -15,6 +15,7 @@ type Reader = Pick<
 export async function sourceSnapshot(
   db: Reader,
   source: SourceIdentity,
+  requestId: string = randomUUID(),
 ): Promise<IndexSource | null> {
   if (source.sourceType === "page") {
     const version = await db.pageVersion.findFirst({
@@ -29,6 +30,7 @@ export async function sourceSnapshot(
     const page = version.page;
     return {
       ...source,
+      requestId,
       pageId: page.id,
       pageVersionId: version.id,
       spaceId: page.spaceId,
@@ -55,6 +57,7 @@ export async function sourceSnapshot(
   if (!comment || !revision) return null;
   return {
     ...source,
+    requestId,
     pageId: comment.pageId,
     pageVersionId: comment.pageVersionId,
     spaceId: comment.page.spaceId,

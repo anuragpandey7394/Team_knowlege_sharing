@@ -55,3 +55,7 @@ jobs:
         env:
           TKA_POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
         run: npm run verify:foundation
+      - name: Validate offline infrastructure definitions
+        run: npm run infra:validate
+      - name: Verify production containers with local TLS
+        run: npm run test:containers

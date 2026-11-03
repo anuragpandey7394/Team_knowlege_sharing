@@ -420,6 +420,24 @@ export async function registerChat(
             quote,
           });
         }
+        const history = await db.message.findMany({
+          where: {
+            organizationId: orgId,
+            conversationId,
+            conversation: { ownerId: prepared.actor.user.id },
+            state: "COMPLETE",
+            requestId: { not: requestId },
+          },
+          orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+          take: 12,
+        });
+        const priorTurns = history
+          .reverse()
+          .filter((m) => m.role === "user" || m.role === "assistant")
+          .map((m) => ({
+            role: m.role as "user" | "assistant",
+            content: m.content.slice(0, 4000),
+          }));
         for await (const event of answer(
           db,
           env,
@@ -432,6 +450,7 @@ export async function registerChat(
               ? { spaceId: prepared.conversation.spaceId }
               : {}),
             question,
+            priorTurns,
           },
           controller.signal,
           fixtures,
@@ -448,6 +467,15 @@ export async function registerChat(
             controller.abort();
             break;
           }
+          if (
+            event.type === "citation" &&
+            !(await sourceSnapshot(db, event.citation))?.current
+          )
+            throw new ApiError(
+              409,
+              "SOURCE_CHANGED",
+              "Source changed during simulation",
+            );
           if (event.type === "result") {
             const saved = await transaction(db, async (tx) => {
               await owned(tx, request, orgId, conversationId);

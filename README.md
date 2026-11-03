@@ -1,6 +1,6 @@
 # Team Knowledge Assistant
 
-Multi-organization knowledge authoring and published history, with model-neutral AI contracts. The foundation is under construction; MILESTONES.md is the authoritative completion ledger. No real AI or cloud resources are enabled.
+Multi-organization knowledge authoring and published history, with model-neutral AI contracts. MILESTONES.md is the authoritative completion ledger. No real AI or cloud resources are enabled.
 
 ## Local bootstrap
 
@@ -9,6 +9,10 @@ Use Node 22.22.1 (`nvm use` if installed), npm 9+, Docker with Compose for M01 o
 ```sh
 npm ci
 cp -n .env.example .env
+npm run demo:up
+npm run db:migrate
+npm run db:seed
+npm run browser:install
 npm run status
 npm run checkpoint:check
 npm run lint
@@ -18,9 +22,9 @@ npm run build
 npm run dev
 ```
 
-Web: http://localhost:5173, API reserved: http://localhost:3001, PostgreSQL reserved: 127.0.0.1:55432, SMTP: 127.0.0.1:1025, Mailpit inbox: http://localhost:8025. M01 serves the web shell and API bootstrap with database readiness. Authentication arrives in M02. Stop development with Ctrl-C. Never point tests or seeds at a shared/production database. `.env.example` contains only synthetic local defaults; `.env` is ignored.
+Web: http://localhost:5173, API reserved: http://localhost:3001, PostgreSQL reserved: 127.0.0.1:55432, SMTP: 127.0.0.1:1025, Mailpit inbox: http://localhost:8025. The app includes authentication, organizations, knowledge authoring, publication, comments and private disabled/mock chat. Stop development with Ctrl-C. Never point tests or seeds at a shared/production database. `.env.example` contains only synthetic local defaults; `.env` is ignored.
 
-Integration and contract suites run against PostgreSQL and Mailpit. Seed and infrastructure commands remain explicit failures until their respective milestones implement the real checks. `verify:foundation` fails until all required suites exist and pass. No success-on-missing-tools behavior.
+Integration and contract suites run against PostgreSQL and Mailpit. Seed and offline infrastructure commands perform real checks. `verify:foundation` fails on required verification errors. No success-on-missing-tools behavior.
 
 ## Resume and evidence
 
@@ -42,11 +46,11 @@ npm run test:contracts
 npm run demo:down
 ```
 
-Use `npm run demo:up -- --full` for the full local app container profile (isolated development image; installs at image build, migrates at startup). Stop it with `npm run demo:down -- --full` before switching profiles. The host-dev profile publishes only loopback PostgreSQL 55432, SMTP 1025 and inbox 8025. The full-app profile publishes loopback web/API/inbox and keeps PostgreSQL internal. These are local synthetic development profiles, not hosted production configurations. M10 adds production images/reverse proxy/HTTPS.
+Use `npm run demo:up -- --full` for the full local app container profile (isolated development image; installs at image build, migrates at startup). Stop it with `npm run demo:down -- --full` before switching profiles. The host-dev profile publishes only loopback PostgreSQL 55432, SMTP 1025 and inbox 8025. The full-app profile publishes loopback web/API/inbox and keeps PostgreSQL internal. These are local synthetic development profiles, not hosted production configurations. Production images/reverse proxy/HTTPS are documented in docs/DEPLOYMENT.md.
 
 Health endpoints are `/health/live` and `/health/ready`; OpenAPI is `/api/v1/openapi.json`. API listens on 127.0.0.1:3001 by default, web proxies `/api` and `/health`. Logs omit query strings and sensitive headers. Origin checks allow only WEB_ORIGIN, and unknown input is rejected. API database connection errors produce readiness 503 while liveness stays 200. Graceful SIGINT/SIGTERM shutdown closes connections.
 
-Integration tests migrate a new random schema within the explicit `tka_test` database, create synthetic fixtures, then drop only their schema. They never reset a shared database or delete all mail. The fixture session exists only to test M01 repository authorization; real sign-up/login acceptance belongs to M02. Prisma client is generated locally, ignored by Git, and bundled into the API build. See docs/DATABASE.md for invariant/migration safety rules.
+Integration tests migrate a new random schema within the explicit `tka_test` database, create synthetic fixtures, then drop only their schema. They never reset a shared database or delete all mail. Real sign-up/login acceptance uses Mailpit and browser flows independently of repository authorization fixtures. Prisma client is generated locally, ignored by Git, and bundled into the API build. See docs/DATABASE.md for invariant/migration safety rules.
 
 ## Authentication and browser tests (M02)
 
@@ -113,3 +117,14 @@ Local demo identities are `demo-atlas-0@example.test` through `demo-atlas-9@exam
 `npm run verify:foundation` runs static checks, unit/integration/contracts, both browser configurations, builds, checkpoints, forward migration proof, disposable backup restore, five ordinary authenticated clients and security/advisory checks. Start PostgreSQL/Mailpit, migrate and seed first. It requires full Git history for the M04 upgrade fixture and PostgreSQL client tools (or TKA_POSTGRES_CONTAINER for matching container tools). See docs/BACKUP.md and docs/SECURITY.md. No check substitutes a mock DB or silently succeeds on missing tooling.
 
 The capacity report records one short local run against synthetic data. It is not an SLA, an AI benchmark or a promise of hosted throughput. Synthetic screenshots and machine/config/latency limitations live in docs/evidence. After sign-in, verified users see the organization picker/create form on their account page and can open the dedicated Your organizations view.
+
+## Production packaging and foundation handoff (M10)
+
+```sh
+npm run verify:foundation
+npm run infra:validate
+npm run test:containers
+npm run demo:down
+```
+
+The offline Terraform check uses mocked plans only; the isolated container smoke validates local TLS and destroys only its generated test project/volume. It does not deploy AWS. See [deployment and teardown](docs/DEPLOYMENT.md), [backup/restore](docs/BACKUP.md), and [scope/evidence handoff](docs/HANDOFF.md). Docker/Compose, OpenSSL, Linux x86_64 and unzip are required for these local checks. M11–M14 remain deferred pending explicit authorization; no real AI is attached.

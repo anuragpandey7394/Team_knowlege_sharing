@@ -8,7 +8,7 @@ import {
 import type { Environment } from "../../../packages/config/src/index.js";
 import type { Database } from "./database.js";
 import { sourceSnapshot } from "./jobs.js";
-export type AnswerRequest = z.infer<typeof answerRequestSchema>;
+export type AnswerRequest = z.input<typeof answerRequestSchema>;
 export type AnswerEvent = z.infer<typeof answerEventSchema>;
 export async function* answer(
   db: Database,
@@ -42,9 +42,15 @@ export async function* answer(
     include: { user: true },
   });
   if (!member?.user.verifiedAt) throw new Error("Mock scope unavailable");
+  yield { type: "started", requestId: request.requestId };
+  yield {
+    type: "progress",
+    requestId: request.requestId,
+    stage: "validating_sources",
+  };
   for (const fixture of fixtures) {
     const citation = citationSchema.parse(fixture);
-    const source = await sourceSnapshot(db, citation);
+    const source = await sourceSnapshot(db, citation, request.requestId);
     if (
       citation.organizationId !== request.organizationId ||
       citation.generation !== env.INDEX_GENERATION ||
@@ -58,6 +64,7 @@ export async function* answer(
     )
       throw new Error("Invalid mock citation scope");
   }
+  yield { type: "progress", requestId: request.requestId, stage: "simulating" };
   const content =
     "Simulation only: AI is not connected. This deterministic response tests chat plumbing and makes no factual claim about your knowledge.";
   for (const text of [content.slice(0, 60), content.slice(60)]) {
@@ -77,6 +84,8 @@ export async function* answer(
     }
     yield { type: "delta", requestId: request.requestId, text };
   }
+  for (const citation of fixtures)
+    yield { type: "citation", requestId: request.requestId, citation };
   yield {
     type: "result",
     result: {
@@ -85,6 +94,8 @@ export async function* answer(
       content,
       citations: fixtures,
       simulated: true,
+      evidenceStatus: "insufficient",
+      warnings: ["Simulation only — AI not connected"],
     },
   };
 }

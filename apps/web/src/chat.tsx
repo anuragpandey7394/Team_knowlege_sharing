@@ -215,79 +215,84 @@ function Chat({
       {error && <ErrorState message={error} />}
       <div className="knowledge-layout">
         <aside>
-          <Panel title="Your conversations">
-            {list.isPending ? (
-              <LoadingState />
-            ) : list.isError ? (
-              <ErrorState message="Conversations unavailable." />
-            ) : (
-              <>
-                <ul>
-                  {list.data.items.map((c) => (
-                    <li key={c.id}>
-                      <Link to={`/organizations/${orgId}/chat/${c.id}`}>
-                        {c.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                {!list.data.total && (
-                  <EmptyState>No conversations yet.</EmptyState>
-                )}
+          <details open>
+            <summary>Chat navigation</summary>
+            <Panel title="Your conversations">
+              {list.isPending ? (
+                <LoadingState />
+              ) : list.isError ? (
+                <ErrorState message="Conversations unavailable." />
+              ) : (
+                <>
+                  <ul>
+                    {list.data.items.map((c) => (
+                      <li key={c.id}>
+                        <Link to={`/organizations/${orgId}/chat/${c.id}`}>
+                          {c.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  {!list.data.total && (
+                    <EmptyState>No conversations yet.</EmptyState>
+                  )}
+                  <Button
+                    disabled={!offset}
+                    onClick={() => setOffset(Math.max(0, offset - 20))}
+                  >
+                    Previous conversations
+                  </Button>
+                  <Button
+                    disabled={offset + 20 >= list.data.total}
+                    onClick={() => setOffset(offset + 20)}
+                  >
+                    Next conversations
+                  </Button>
+                </>
+              )}
+            </Panel>
+            <Panel title="New conversation">
+              <form onSubmit={create}>
+                <label>
+                  Conversation title
+                  <input
+                    name="title"
+                    required
+                    maxLength={100}
+                    defaultValue="New conversation"
+                  />
+                </label>
+                <label>
+                  Search scope
+                  <select name="spaceId">
+                    <option value="">Organization-wide</option>
+                    {spaces.data?.items.map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {s.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
                 <Button
-                  disabled={!offset}
-                  onClick={() => setOffset(Math.max(0, offset - 20))}
+                  type="button"
+                  disabled={!spaceOffset}
+                  onClick={() => setSpaceOffset(Math.max(0, spaceOffset - 20))}
                 >
-                  Previous conversations
+                  Previous spaces
                 </Button>
                 <Button
-                  disabled={offset + 20 >= list.data.total}
-                  onClick={() => setOffset(offset + 20)}
+                  type="button"
+                  disabled={
+                    !spaces.data || spaceOffset + 20 >= spaces.data.total
+                  }
+                  onClick={() => setSpaceOffset(spaceOffset + 20)}
                 >
-                  Next conversations
+                  More spaces
                 </Button>
-              </>
-            )}
-          </Panel>
-          <Panel title="New conversation">
-            <form onSubmit={create}>
-              <label>
-                Conversation title
-                <input
-                  name="title"
-                  required
-                  maxLength={100}
-                  defaultValue="New conversation"
-                />
-              </label>
-              <label>
-                Search scope
-                <select name="spaceId">
-                  <option value="">Organization-wide</option>
-                  {spaces.data?.items.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <Button
-                type="button"
-                disabled={!spaceOffset}
-                onClick={() => setSpaceOffset(Math.max(0, spaceOffset - 20))}
-              >
-                Previous spaces
-              </Button>
-              <Button
-                type="button"
-                disabled={!spaces.data || spaceOffset + 20 >= spaces.data.total}
-                onClick={() => setSpaceOffset(spaceOffset + 20)}
-              >
-                More spaces
-              </Button>
-              <Button>Create conversation</Button>
-            </form>
-          </Panel>
+                <Button>Create conversation</Button>
+              </form>
+            </Panel>
+          </details>
         </aside>
         <section>
           {!conversationId ? (

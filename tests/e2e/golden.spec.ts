@@ -24,6 +24,14 @@ test("seeded two-org golden navigation preserves roles, rich history, comments, 
   await page
     .getByRole("link", { name: "Browse knowledge", exact: true })
     .click();
+  await page.setViewportSize({ width: 390, height: 844 });
+  const navigation = page.getByText("Knowledge navigation", { exact: true });
+  await navigation.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("aside > details")).not.toHaveAttribute("open", "");
+  await page.keyboard.press("Enter");
+  await expect(page.locator("aside > details")).toHaveAttribute("open", "");
+  await page.setViewportSize({ width: 1280, height: 800 });
   await page
     .getByRole("link", { name: "Search published pages", exact: true })
     .click();

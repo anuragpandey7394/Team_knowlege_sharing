@@ -166,84 +166,87 @@ function Workspace({
       </p>
       <div className="knowledge-layout">
         <aside>
-          <Panel title="Spaces">
-            {spaces.isPending ? (
-              <LoadingState />
-            ) : spaces.isError ? (
-              <ErrorState message="Unable to load spaces." />
-            ) : (
-              <>
-                <ul>
-                  {spaces.data.items.map((item) => (
-                    <li key={item.id}>
-                      <Link to={`/organizations/${orgId}/spaces/${item.id}`}>
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                {!spaces.data.items.length && (
-                  <EmptyState>No spaces yet.</EmptyState>
-                )}
-                <Button
-                  disabled={!offset}
-                  onClick={() => setOffset(Math.max(0, offset - 20))}
-                >
-                  Previous spaces
-                </Button>
-                <Button
-                  disabled={offset + 20 >= spaces.data.total}
-                  onClick={() => setOffset(offset + 20)}
-                >
-                  Next spaces
-                </Button>
-              </>
-            )}
-          </Panel>
-          {edit && (
-            <Panel title="Create a space">
-              <form
-                onSubmit={(event) => {
-                  void createSpace(event);
-                }}
-              >
-                <label>
-                  Space name
-                  <input name="name" required maxLength={100} />
-                </label>
-                <label>
-                  Space description
-                  <input name="description" maxLength={1000} />
-                </label>
-                <Button disabled={busy}>Create space</Button>
-              </form>
-            </Panel>
-          )}
-          {spaceId && (
-            <Panel title="Page tree">
-              <TreeBranch
-                orgId={orgId}
-                spaceId={spaceId}
-                userId={userId}
-                edit={edit}
-                parentId={null}
-                depth={1}
-                onParent={setParent}
-                currentPage={pageId}
-                onMove={move}
-              />
-              {edit && pageId && (
-                <Button
-                  disabled={busy}
-                  onClick={() => {
-                    void move(null);
-                  }}
-                >
-                  Move current page to space root
-                </Button>
+          <details open>
+            <summary>Knowledge navigation</summary>
+            <Panel title="Spaces">
+              {spaces.isPending ? (
+                <LoadingState />
+              ) : spaces.isError ? (
+                <ErrorState message="Unable to load spaces." />
+              ) : (
+                <>
+                  <ul>
+                    {spaces.data.items.map((item) => (
+                      <li key={item.id}>
+                        <Link to={`/organizations/${orgId}/spaces/${item.id}`}>
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  {!spaces.data.items.length && (
+                    <EmptyState>No spaces yet.</EmptyState>
+                  )}
+                  <Button
+                    disabled={!offset}
+                    onClick={() => setOffset(Math.max(0, offset - 20))}
+                  >
+                    Previous spaces
+                  </Button>
+                  <Button
+                    disabled={offset + 20 >= spaces.data.total}
+                    onClick={() => setOffset(offset + 20)}
+                  >
+                    Next spaces
+                  </Button>
+                </>
               )}
             </Panel>
-          )}
+            {edit && (
+              <Panel title="Create a space">
+                <form
+                  onSubmit={(event) => {
+                    void createSpace(event);
+                  }}
+                >
+                  <label>
+                    Space name
+                    <input name="name" required maxLength={100} />
+                  </label>
+                  <label>
+                    Space description
+                    <input name="description" maxLength={1000} />
+                  </label>
+                  <Button disabled={busy}>Create space</Button>
+                </form>
+              </Panel>
+            )}
+            {spaceId && (
+              <Panel title="Page tree">
+                <TreeBranch
+                  orgId={orgId}
+                  spaceId={spaceId}
+                  userId={userId}
+                  edit={edit}
+                  parentId={null}
+                  depth={1}
+                  onParent={setParent}
+                  currentPage={pageId}
+                  onMove={move}
+                />
+                {edit && pageId && (
+                  <Button
+                    disabled={busy}
+                    onClick={() => {
+                      void move(null);
+                    }}
+                  >
+                    Move current page to space root
+                  </Button>
+                )}
+              </Panel>
+            )}
+          </details>
         </aside>
         <section>
           {error && <ErrorState message={error} />}

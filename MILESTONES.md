@@ -23,8 +23,8 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M06 | COMPLETE | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
 | M07 | COMPLETE | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
 | M08 | COMPLETE | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
-| M09 | IN_PROGRESS | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
-| M10 | NOT_STARTED | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
+| M09 | COMPLETE | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
+| M10 | IN_PROGRESS | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
 | M11 | NOT_STARTED | All M11 subtasks and its Gate below | docs/evidence/M11.md (create during execution) |
 | M12 | NOT_STARTED | All M12 subtasks and its Gate below | docs/evidence/M12.md (create during execution) |
 | M13 | NOT_STARTED | All M13 subtasks and its Gate below | docs/evidence/M13.md (create during execution) |
@@ -203,7 +203,7 @@ Depends on: M02–M08.
 - [x] M09.05 Implement backup/restore runbook and demonstrate restore into a disposable DB, including versions and memberships. Test migration from empty DB and forward upgrade from prior schema fixture.
 - [x] M09.06 Run browser end-to-end golden journey covering both organizations, roles, publish/history/comments/search/chat shell, invites/reset. Capture sanitized screenshots only for synthetic test data.
 - [x] M09.07 Run five concurrent ordinary authenticated clients against seeded data; record latency/error counts, machine/config, DB query behavior and limitations. Fix unbounded lists/N+1 issues. Do not describe this as AI concurrency validation.
-- [ ] M09.08 Implement verify:foundation aggregate and CI: install, lint, typecheck, unit/integration/contracts/browser/build and migration checks using PostgreSQL/Mailpit service containers. No paid AWS credentials in CI.
+- [x] M09.08 Implement verify:foundation aggregate and CI: install, lint, typecheck, unit/integration/contracts/browser/build and migration checks using PostgreSQL/Mailpit service containers. No paid AWS credentials in CI.
 
 Gate: zero known tenant leaks, required regressions pass, backup restored, measured local baseline documented, clean verification command completes without skipped required suites.
 
@@ -211,15 +211,15 @@ Gate: zero known tenant leaks, required regressions pass, backup restored, measu
 
 Depends on: M09.
 
-- [ ] M10.01 Add production multi-stage container builds, non-root processes where feasible, same-origin reverse proxy, health checks and Compose hosted profile. Never publish PostgreSQL externally.
-- [ ] M10.02 Implement Terraform for isolated, short-lived validation deployment with configurable region/instance/lifetime, tags and scoped state. Default design excludes NAT gateway/load balancer/RDS/Kubernetes; no resource creation now.
-- [ ] M10.03 Define least-privilege permissions, secret injection, HTTPS prerequisite, data volume/backup approach, no auto-start paid model calls, and optional Bedrock attachment contract. Do not include working secrets in examples.
-- [ ] M10.04 Add fmt/validate and offline policy tests for network exposure, encryption where applicable, project tags and absence of prohibited costly components. Record checks actually possible without cloud credentials; blockers remain explicit.
-- [ ] M10.05 Write deploy/smoke/backup/destroy/residual-resource inventory runbook with explicit paid-action gate, maximum test duration, configurable cleanup and cost-estimate worksheet. No exact AWS price claims without current official evidence. Budget alerts are not a hard cap.
-- [ ] M10.06 Document scaling path (API replicas, independent workers, pooled DB/managed DB later, index growth), single-node availability limitations, future connectors/ACLs and deferred AI page drafting.
+- [x] M10.01 Add production multi-stage container builds, non-root processes where feasible, same-origin reverse proxy, health checks and Compose hosted profile. Never publish PostgreSQL externally.
+- [x] M10.02 Implement Terraform for isolated, short-lived validation deployment with configurable region/instance/lifetime, tags and scoped state. Default design excludes NAT gateway/load balancer/RDS/Kubernetes; no resource creation now.
+- [x] M10.03 Define least-privilege permissions, secret injection, HTTPS prerequisite, data volume/backup approach, no auto-start paid model calls, and optional Bedrock attachment contract. Do not include working secrets in examples.
+- [x] M10.04 Add fmt/validate and offline policy tests for network exposure, encryption where applicable, project tags and absence of prohibited costly components. Record checks actually possible without cloud credentials; blockers remain explicit.
+- [x] M10.05 Write deploy/smoke/backup/destroy/residual-resource inventory runbook with explicit paid-action gate, maximum test duration, configurable cleanup and cost-estimate worksheet. No exact AWS price claims without current official evidence. Budget alerts are not a hard cap.
+- [x] M10.06 Document scaling path (API replicas, independent workers, pooled DB/managed DB later, index growth), single-node availability limitations, future connectors/ACLs and deferred AI page drafting.
 - [ ] M10.07 Verify from a clean checkout/clean disposable environment: install, start dependencies, migrate, seed, run app, run verify:foundation and container smoke. Validate all README commands; record actual results.
 - [ ] M10.08 Final scope audit against IMPLEMENTATION_SPEC: map requirements to routes/UI/tests, list deferred vs blocked vs complete, update OpenAPI/ADRs/progress. No incomplete foundation subtask may be hidden by declaring overall complete.
-- [ ] M10.09 Perform final resume drill: interrupt an innocuous local check, reopen using repository instructions, reconcile checkpoint, rerun affected check and finish without chat memory. Record proof and limitations.
+- [x] M10.09 Perform final resume drill: interrupt an innocuous local check, reopen using repository instructions, reconcile checkpoint, rerun affected check and finish without chat memory. Record proof and limitations.
 - [ ] M10.10 Mark overall status COMPLETE (active release: foundation) only after all required gates. Provide concise handoff with verification commands, evidence, limitations and next AI milestone. Do not begin M11 automatically.
 
 Gate: ready-to-attach foundation delivered, cloud definitions validated as available, no claim of deployed AWS or functioning real AI. Record any missing tool credential/environment check as blocked, not passed.

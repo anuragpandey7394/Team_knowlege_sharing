@@ -176,7 +176,7 @@ export async function registerIndexRoutes(
       });
       if (!member?.user.verifiedAt)
         throw new ApiError(404, "NOT_FOUND", "Source not found");
-      const snapshot = await sourceSnapshot(db, source);
+      const snapshot = await sourceSnapshot(db, source, request.id);
       if (!snapshot?.current)
         throw new ApiError(
           404,

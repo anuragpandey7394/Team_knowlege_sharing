@@ -25,7 +25,7 @@
     "db:seed": "npm run db:generate && node scripts/tsx.mjs scripts/seed.ts",
     "checkpoint:check": "node scripts/checkpoint.mjs",
     "status": "node scripts/status.mjs",
-    "infra:validate": "node scripts/pending.mjs M10-infrastructure",
+    "infra:validate": "node scripts/infra-validate.mjs",
     "demo:up": "node scripts/compose.mjs up",
     "demo:down": "node scripts/compose.mjs down",
     "verify:foundation": "npm run workflow:check && npm run lint && npm run typecheck && npm run test:unit && npm run test:integration && npm run test:contracts && npm run test:e2e && npm run build && npm run checkpoint:check && npm run db:upgrade:verify && npm run backup:verify && npm run test:capacity && npm run security:check",
@@ -37,7 +37,8 @@
     "db:upgrade:verify": "node scripts/tsx.mjs scripts/migration-verify.ts",
     "test:capacity": "node scripts/tsx.mjs scripts/capacity.ts",
     "security:check": "node scripts/security-check.mjs",
-    "workflow:check": "node scripts/workflow-check.mjs"
+    "workflow:check": "node scripts/workflow-check.mjs",
+    "test:containers": "node scripts/production-smoke.mjs"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

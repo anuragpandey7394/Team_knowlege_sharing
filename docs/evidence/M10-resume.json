@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-11-03T06:37:49.171797+00:00",
+  "interruptedHarmlessProcessExit": -15,
+  "statusExit": 0,
+  "checkpointExit": 0,
+  "observedNext": "M10.01",
+  "limitations": [
+    "A local controlled process interruption; not a machine crash or chat-independent human study"
+  ]
+}
