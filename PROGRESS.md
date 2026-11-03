@@ -5,12 +5,12 @@
 - Overall status: IN_PROGRESS
 - Current milestone/subtask: M09 / M09.08 (remote CI repair)
 - Last completed subtask: M09.07
-- Last implementation commit: bd7c6fc9d93059613256a134c0855bd4c191f157 (M09)
-- Last verified remote checkpoint: bd7c6fc9d93059613256a134c0855bd4c191f157 (M09; exact remote/HEAD match)
+- Last implementation commit: 36b1701674dc4532ab5909bc2e650651b158bea6 (M09 CI syntax repair)
+- Last verified remote checkpoint: 36b1701674dc4532ab5909bc2e650651b158bea6 (CI syntax repair; exact remote/HEAD match)
 - Worktree: M09 CI repair; M10 packaging not started; unrelated .codex/ excluded
 - Last verification: M09 aggregate passed: 26 unit, 54 integration, 7 contracts, 10 disabled + 1 mock browser, builds, upgrade/restore/capacity/security; docs/evidence/M09.md
-- Current failure/blocker: remote CI workflow rejected job.services in job-level env; step-level fix under verification
-- Next executable action: validate and push CI repair, confirm remote run; then M10.01
+- Current failure/blocker: remote CI reached seed; clean-source missing Prisma client reproduced and self-generation fix verified locally; remote rerun pending
+- Next executable action: push clean-seed CI repair and confirm remote run; then M10.01
 - Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
 - Migration/seed state: tka_dev through 202611020007_chat_attempts; reserved synthetic seed present: 2 orgs/20 memberships/200 pages; no database reset
 - Cloud/model spend: not started; no paid actions authorized
