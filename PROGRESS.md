@@ -1,16 +1,16 @@
 # Execution checkpoint
 
-- Updated at: 2026-11-03T05:53:29.883278+00:00
+- Updated at: 2026-11-03T05:57:27.694123+00:00
 - Active release: foundation
 - Overall status: IN_PROGRESS
-- Current milestone/subtask: M10 / M10.01 (after M09 delivery)
-- Last completed subtask: M09.08
-- Last implementation commit: ebf3a64ace54a65f932a3ac7ee60359612d8ebb1 (M08)
-- Last verified remote checkpoint: ebf3a64ace54a65f932a3ac7ee60359612d8ebb1 (M08; exact remote/HEAD match)
-- Worktree: M09 verified changes pending scoped commit/push; unrelated .codex/ excluded
+- Current milestone/subtask: M09 / M09.08 (remote CI repair)
+- Last completed subtask: M09.07
+- Last implementation commit: bd7c6fc9d93059613256a134c0855bd4c191f157 (M09)
+- Last verified remote checkpoint: bd7c6fc9d93059613256a134c0855bd4c191f157 (M09; exact remote/HEAD match)
+- Worktree: M09 CI repair; M10 packaging not started; unrelated .codex/ excluded
 - Last verification: M09 aggregate passed: 26 unit, 54 integration, 7 contracts, 10 disabled + 1 mock browser, builds, upgrade/restore/capacity/security; docs/evidence/M09.md
-- Current failure/blocker: none
-- Next executable action: commit/push M09 and verify remote SHA; start M10 packaging/offline infrastructure
+- Current failure/blocker: remote CI workflow rejected job.services in job-level env; step-level fix under verification
+- Next executable action: validate and push CI repair, confirm remote run; then M10.01
 - Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
 - Migration/seed state: tka_dev through 202611020007_chat_attempts; reserved synthetic seed present: 2 orgs/20 memberships/200 pages; no database reset
 - Cloud/model spend: not started; no paid actions authorized
@@ -90,11 +90,11 @@
 | M09.05 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
 | M09.06 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
 | M09.07 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
-| M09.08 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+| M09.08 | IN_PROGRESS | docs/evidence/M09.md | Workflow context repair; remote rerun pending |
 
 ## Handoff / unfinished work
 
-M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 delivered; M05 delivered; M06 delivered; M07 delivered; M08 delivered; M09 verified/delivery pending; M10–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
+M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 delivered; M05 delivered; M06 delivered; M07 delivered; M08 delivered; M09 application gate delivered; M09.08 remote CI reopened; M10–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
 
 Use repository-local npm cache (.npmrc); the default home cache is read-only. The default system SSH configuration previously failed permissions; command-scoped `git -c core.sshCommand='ssh -F /dev/null'` authenticated successfully without altering machine configuration. Never stage unrelated .codex/. Record the actual pushed M00 SHA in the next milestone checkpoint.
 

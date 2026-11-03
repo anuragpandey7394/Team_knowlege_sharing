@@ -23,7 +23,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M06 | COMPLETE | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
 | M07 | COMPLETE | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
 | M08 | COMPLETE | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
-| M09 | COMPLETE | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
+| M09 | IN_PROGRESS | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
 | M10 | NOT_STARTED | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
 | M11 | NOT_STARTED | All M11 subtasks and its Gate below | docs/evidence/M11.md (create during execution) |
 | M12 | NOT_STARTED | All M12 subtasks and its Gate below | docs/evidence/M12.md (create during execution) |
@@ -203,7 +203,7 @@ Depends on: M02–M08.
 - [x] M09.05 Implement backup/restore runbook and demonstrate restore into a disposable DB, including versions and memberships. Test migration from empty DB and forward upgrade from prior schema fixture.
 - [x] M09.06 Run browser end-to-end golden journey covering both organizations, roles, publish/history/comments/search/chat shell, invites/reset. Capture sanitized screenshots only for synthetic test data.
 - [x] M09.07 Run five concurrent ordinary authenticated clients against seeded data; record latency/error counts, machine/config, DB query behavior and limitations. Fix unbounded lists/N+1 issues. Do not describe this as AI concurrency validation.
-- [x] M09.08 Implement verify:foundation aggregate and CI: install, lint, typecheck, unit/integration/contracts/browser/build and migration checks using PostgreSQL/Mailpit service containers. No paid AWS credentials in CI.
+- [ ] M09.08 Implement verify:foundation aggregate and CI: install, lint, typecheck, unit/integration/contracts/browser/build and migration checks using PostgreSQL/Mailpit service containers. No paid AWS credentials in CI.
 
 Gate: zero known tenant leaks, required regressions pass, backup restored, measured local baseline documented, clean verification command completes without skipped required suites.
 

@@ -28,7 +28,7 @@
     "infra:validate": "node scripts/pending.mjs M10-infrastructure",
     "demo:up": "node scripts/compose.mjs up",
     "demo:down": "node scripts/compose.mjs down",
-    "verify:foundation": "npm run lint && npm run typecheck && npm run test:unit && npm run test:integration && npm run test:contracts && npm run test:e2e && npm run build && npm run checkpoint:check && npm run db:upgrade:verify && npm run backup:verify && npm run test:capacity && npm run security:check",
+    "verify:foundation": "npm run workflow:check && npm run lint && npm run typecheck && npm run test:unit && npm run test:integration && npm run test:contracts && npm run test:e2e && npm run build && npm run checkpoint:check && npm run db:upgrade:verify && npm run backup:verify && npm run test:capacity && npm run security:check",
     "db:generate": "node scripts/prisma.mjs generate",
     "browser:install": "node scripts/playwright.mjs install chromium",
     "worker": "node scripts/tsx.mjs apps/api/src/worker.ts",
@@ -36,7 +36,8 @@
     "backup:verify": "node scripts/tsx.mjs scripts/backup-verify.ts",
     "db:upgrade:verify": "node scripts/tsx.mjs scripts/migration-verify.ts",
     "test:capacity": "node scripts/tsx.mjs scripts/capacity.ts",
-    "security:check": "node scripts/security-check.mjs"
+    "security:check": "node scripts/security-check.mjs",
+    "workflow:check": "node scripts/workflow-check.mjs"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
