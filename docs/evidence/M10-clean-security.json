@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-11-03T06:43:55.539Z",
+  "outcome": "PASS",
+  "scannedProjectFiles": 176,
+  "secretPatternFiles": [],
+  "vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "limitations": [
+    "Pattern scan of Git-tracked/new project text; excludes ignored env/cache/build files and unrelated .codex/.agents",
+    "Advisory database snapshot at timestamp; not a proof of absence of unknown vulnerabilities"
+  ]
+}

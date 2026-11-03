@@ -1,0 +1,43 @@
+[
+  {
+    "migrationUpgrade": "PASS",
+    "priorMilestone": "M04",
+    "priorMigrations": 4,
+    "appliedMigrations": 10,
+    "preservedVersion": true,
+    "preservedMembership": true,
+    "immutableTrigger": true,
+    "fixture": "generated disposable schema in tka_test"
+  },
+  {
+    "backupRestore": "PASS",
+    "tables": 19,
+    "counts": {
+      "User": 20,
+      "Organization": 2,
+      "Membership": 20,
+      "Space": 6,
+      "Page": 200,
+      "PageDraft": 200,
+      "PageVersion": 210,
+      "Comment": 20,
+      "CommentRevision": 20,
+      "OutboxEvent": 230,
+      "Job": 0,
+      "IndexState": 0,
+      "Conversation": 0,
+      "Message": 0,
+      "AuditEvent": 210,
+      "Session": 0,
+      "AuthToken": 0,
+      "Invitation": 0,
+      "RateLimit": 0
+    },
+    "versionContentEquality": true,
+    "membershipEquality": true,
+    "immutableTrigger": true,
+    "archiveSha256": "9b81dc929796d28ca3533f43a61ed366cb5bb06d24ce253f59b9ef14f8f1cd43",
+    "archive": ".cache/backups/[disposable-name].dump",
+    "restoredDatabase": "generated disposable test DB"
+  }
+]

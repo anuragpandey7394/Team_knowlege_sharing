@@ -1,0 +1,102 @@
+{
+  "startedAt": "2026-11-03T06:39:37.921255+00:00",
+  "project": "tka-clean-674d1a47",
+  "steps": [
+    {
+      "command": "git clone --no-hardlinks --branch develop /home/anurag/github_projects/team_knowlege_sharing /home/anurag/github_projects/team_knowlege_sharing/.cache/tka-clean-674d1a47",
+      "context": "clone",
+      "exitCode": 0,
+      "durationSeconds": 0.15
+    },
+    {
+      "command": "npm ci",
+      "context": "install",
+      "exitCode": 0,
+      "durationSeconds": 31.69
+    },
+    {
+      "command": "cp -n .env.example .env",
+      "context": "env",
+      "exitCode": 0,
+      "durationSeconds": 0.0
+    },
+    {
+      "command": "npm run browser:install",
+      "context": "browser-install",
+      "exitCode": 0,
+      "durationSeconds": 88.09
+    },
+    {
+      "command": "npm run demo:down",
+      "context": "pause-original",
+      "exitCode": 0,
+      "durationSeconds": 1.36
+    },
+    {
+      "command": "npm run demo:up",
+      "context": "dependencies",
+      "exitCode": 0,
+      "durationSeconds": 3.65
+    },
+    {
+      "command": "npm run db:migrate",
+      "context": "migrate",
+      "exitCode": 0,
+      "durationSeconds": 3.21
+    },
+    {
+      "command": "npm run db:seed",
+      "context": "seed",
+      "exitCode": 0,
+      "durationSeconds": 4.69
+    },
+    {
+      "command": "npm run status",
+      "context": "status",
+      "exitCode": 0,
+      "durationSeconds": 0.39
+    },
+    {
+      "command": "npm run checkpoint:check",
+      "context": "checkpoint",
+      "exitCode": 0,
+      "durationSeconds": 0.39
+    },
+    {
+      "command": "npm run verify:foundation",
+      "context": "foundation",
+      "exitCode": 0,
+      "durationSeconds": 123.92
+    },
+    {
+      "command": "npm run infra:validate",
+      "context": "infrastructure",
+      "exitCode": 0,
+      "durationSeconds": 57.69
+    },
+    {
+      "command": "npm run test:containers",
+      "context": "containers",
+      "exitCode": 0,
+      "durationSeconds": 21.99
+    },
+    {
+      "command": "npm run demo:down",
+      "context": "stop-clean",
+      "exitCode": 0,
+      "durationSeconds": 1.23
+    },
+    {
+      "command": "npm run demo:up",
+      "context": "restore-original",
+      "exitCode": 0,
+      "durationSeconds": 3.61
+    }
+  ],
+  "limitations": [
+    "Local Linux/Docker clean clone, not AWS or real model validation"
+  ],
+  "outcome": "PASS",
+  "commit": "834cf3a5ecde625ac08b9fc0d87f3466b1a6c3c2",
+  "finishedAt": "2026-11-03T06:45:20.093301+00:00"
+}

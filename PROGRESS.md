@@ -1,16 +1,16 @@
 # Execution checkpoint
 
-- Updated at: 2026-11-03T06:38:42.265076+00:00
+- Updated at: 2026-11-03T06:47:23.044453+00:00
 - Active release: foundation
 - Overall status: IN_PROGRESS
-- Current milestone/subtask: M10 / M10.07
-- Last completed subtask: M10.09 (M10.07–08 pending)
-- Last implementation commit: 7818d50e2fb1a700bcb8b0b5afc777b48559128a (M09 HTTP cleanup repair)
+- Current milestone/subtask: M10 / M10.10
+- Last completed subtask: M10.09 (M10.01–09 all verified)
+- Last implementation commit: 834cf3a5ecde625ac08b9fc0d87f3466b1a6c3c2 (local M10 packaging checkpoint; not yet pushed)
 - Last verified remote checkpoint: 7818d50e2fb1a700bcb8b0b5afc777b48559128a (exact remote/HEAD match; remote CI success)
-- Worktree: M10 packaging/contracts/navigation/handoff in progress; unrelated .codex/ preserved
-- Last verification: 26 unit, 54 integration, 8 contracts, lint/type/build/security; local production TLS smoke and offline Terraform 2/2 policy tests passed; browser suite running
+- Worktree: M10 evidence and verified dev launcher fix pending commit; unrelated .codex/ excluded
+- Last verification: Clean clone 834cf3a aggregate passed (26 unit/54 integration/8 contracts/10+1 browser, upgrade/restore/capacity/security); fresh infra 2/2 and TLS container smoke; corrected dev launcher and full Compose profile passed; docs/evidence/M10.md
 - Current failure/blocker: none
-- Next executable action: finish browser regression, commit verified coherent work locally, run full clean-checkout acceptance
+- Next executable action: commit clean-checkout evidence and launcher fix, push origin/develop, verify exact SHA and remote CI before final foundation checkpoint
 - Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
 - Migration/seed state: tka_dev through 202611020007_chat_attempts; reserved synthetic seed present: 2 orgs/20 memberships/200 pages; no database reset
 - Cloud/model spend: not started; no paid actions authorized
@@ -107,3 +107,5 @@ Timing finding: no stuck background build was observed. Current persistent Postg
 ## M10 verified subtasks
 
 M10.01–06 and M10.09 passed local checks; details and limits in docs/evidence/M10.md. M10.07 clean-checkout and M10.08 audit remain pending. M10 delivery has not been claimed.
+
+M10.07–08 clean-checkout/audit passed; M10.10 remains pending remote CI and delivery verification. The corrected dev launcher has its exact tested SHA-256 in docs/evidence/M10-dev.json.

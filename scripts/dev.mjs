@@ -1,6 +1,14 @@
+import "dotenv/config";
+import { mkdirSync } from "node:fs";
+import { resolve } from "node:path";
 import { spawn } from "node:child_process";
+const temporaryDirectory = resolve(".cache/tmp");
+mkdirSync(temporaryDirectory, { recursive: true });
 const children = ["@tka/api", "@tka/web"].map((workspace) =>
-  spawn("npm", ["run", "dev", "--workspace", workspace], { stdio: "inherit" }),
+  spawn("npm", ["run", "dev", "--workspace", workspace], {
+    stdio: "inherit",
+    env: { ...process.env, TMPDIR: temporaryDirectory },
+  }),
 );
 function stop(signal = "SIGTERM") {
   for (const child of children) child.kill(signal);

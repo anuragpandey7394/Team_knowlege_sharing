@@ -20,7 +20,7 @@ Canonical scope: IMPLEMENTATION_SPEC.md. Canonical state: MILESTONES.md and PROG
 | Short-lived AWS definitions, policy and cost/deletion safeguards            | infra/terraform; docs/DEPLOYMENT.md                                                         | M10-infra.json: fmt/validate and two mocked plan tests; no real cloud plan/apply                                 |
 | Reproducible setup and resumability                                         | README.md, AGENTS.md, canonical ledger, CI foundation workflow                              | M10 clean-checkout and resume-drill records; remote CI recorded in M10 evidence                                  |
 
-M00–M09 are delivered; M10 remains in progress until its clean-checkout, final audit and delivery gates pass. No known foundation requirement is intentionally deferred. Any failing check remains a failure in the execution ledger.
+M00–M09 are delivered. M10 local clean-checkout and final scope-audit gates passed; delivery remains pending until its remote checkpoint and CI are verified. No known foundation requirement is intentionally deferred. Any failing check remains a failure in the execution ledger.
 
 M11–M14 are explicitly deferred: real Bedrock/embedding feasibility, ingestion/RAG, authenticated knowledge MCP tools, two versioned skills and one bounded read-only agent, evaluations and real AI deployment. The foundation Python file is a contract stub, mock sources are simulation fixtures, and index readiness is never claimed from a fake adapter. Future connectors, document ACLs and AI drafting are out of foundation scope. No cloud credential/model account is required for local foundation verification.
 

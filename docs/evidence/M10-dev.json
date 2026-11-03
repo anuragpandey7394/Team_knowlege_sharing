@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-11-03T06:46:14.894472+00:00",
+  "outcome": "PASS",
+  "baseCommit": "834cf3a5ecde625ac08b9fc0d87f3466b1a6c3c2",
+  "devLauncherSha256": "97e0450aa3a0b4c055dee5fcde50e1005a0c2f9e0901bc905257e045ae593b4a",
+  "steps": [
+    {
+      "command": "npm run demo:down",
+      "context": "pause-original",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run demo:up",
+      "context": "dependencies",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run dev",
+      "context": "README HTTP API/web readiness",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run demo:down",
+      "context": "stop-host",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run demo:up -- --full",
+      "context": "full-up",
+      "exitCode": 0
+    },
+    {
+      "command": "GET API readiness and web",
+      "context": "full profile",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run demo:down -- --full",
+      "context": "stop-clean",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run demo:up",
+      "context": "restore-original",
+      "exitCode": 0
+    }
+  ],
+  "finishedAt": "2026-11-03T06:46:38.668511+00:00"
+}

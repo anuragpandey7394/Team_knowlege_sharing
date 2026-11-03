@@ -217,8 +217,8 @@ Depends on: M09.
 - [x] M10.04 Add fmt/validate and offline policy tests for network exposure, encryption where applicable, project tags and absence of prohibited costly components. Record checks actually possible without cloud credentials; blockers remain explicit.
 - [x] M10.05 Write deploy/smoke/backup/destroy/residual-resource inventory runbook with explicit paid-action gate, maximum test duration, configurable cleanup and cost-estimate worksheet. No exact AWS price claims without current official evidence. Budget alerts are not a hard cap.
 - [x] M10.06 Document scaling path (API replicas, independent workers, pooled DB/managed DB later, index growth), single-node availability limitations, future connectors/ACLs and deferred AI page drafting.
-- [ ] M10.07 Verify from a clean checkout/clean disposable environment: install, start dependencies, migrate, seed, run app, run verify:foundation and container smoke. Validate all README commands; record actual results.
-- [ ] M10.08 Final scope audit against IMPLEMENTATION_SPEC: map requirements to routes/UI/tests, list deferred vs blocked vs complete, update OpenAPI/ADRs/progress. No incomplete foundation subtask may be hidden by declaring overall complete.
+- [x] M10.07 Verify from a clean checkout/clean disposable environment: install, start dependencies, migrate, seed, run app, run verify:foundation and container smoke. Validate all README commands; record actual results.
+- [x] M10.08 Final scope audit against IMPLEMENTATION_SPEC: map requirements to routes/UI/tests, list deferred vs blocked vs complete, update OpenAPI/ADRs/progress. No incomplete foundation subtask may be hidden by declaring overall complete.
 - [x] M10.09 Perform final resume drill: interrupt an innocuous local check, reopen using repository instructions, reconcile checkpoint, rerun affected check and finish without chat memory. Record proof and limitations.
 - [ ] M10.10 Mark overall status COMPLETE (active release: foundation) only after all required gates. Provide concise handoff with verification commands, evidence, limitations and next AI milestone. Do not begin M11 automatically.
 

@@ -1,0 +1,260 @@
+{
+  "timestamp": "2026-11-03T06:42:26.552Z",
+  "outcome": "PASS",
+  "source": "runtime OpenAPI enumeration",
+  "cases": 42,
+  "results": [
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/organizations/{orgId}",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/members",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/organizations/{orgId}/members/{userId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/organizations/{orgId}/members/{userId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/invitations",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/invitations",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/invitations/{inviteId}/resend",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/organizations/{orgId}/invitations/{inviteId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/spaces",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/spaces",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/spaces/{spaceId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/organizations/{orgId}/spaces/{spaceId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/spaces/{spaceId}/tree",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/pages",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/draft",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/draft",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/move",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/versions/{versionId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/versions",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/publish",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/archived-pages",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/spaces/{spaceId}/archive",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/archive",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/spaces/{spaceId}/restore",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/restore",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/search",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/comments",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/comments",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/comments/{commentId}/revisions/{revisionId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/comments/{commentId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/organizations/{orgId}/pages/{pageId}/comments/{commentId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/index/{sourceType}/{sourceId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/index/{sourceType}/{sourceId}/retry",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/conversations",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/conversations",
+      "foreignMembership": 404,
+      "forgedResource": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/conversations/{conversationId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/organizations/{orgId}/conversations/{conversationId}",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/organizations/{orgId}/conversations/{conversationId}/messages",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/conversations/{conversationId}/messages",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/organizations/{orgId}/conversations/{conversationId}/requests/{requestId}/cancel",
+      "foreignMembership": 404,
+      "forgedResource": 404
+    }
+  ]
+}
