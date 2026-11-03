@@ -1,18 +1,18 @@
 # Execution checkpoint
 
-- Updated at: 2026-11-02T17:40:44.616366+00:00
+- Updated at: 2026-11-03T05:53:29.883278+00:00
 - Active release: foundation
 - Overall status: IN_PROGRESS
-- Current milestone/subtask: M09 / M09.01 (after M08 delivery)
-- Last completed subtask: M08.06
-- Last implementation commit: 30ac1f07ca6f2e4c67700c0684e13abced351294 (M07)
-- Last verified remote checkpoint: 30ac1f07ca6f2e4c67700c0684e13abced351294 (M07; exact remote/HEAD match)
-- Worktree: M08 verified changes pending commit/push; unrelated .codex/ excluded
-- Last verification: M08 aggregate passed: lint/types, 25 unit, 49 integration, 7 contract, 9 disabled + 1 mock browser, API/worker/web builds and checkpoint; docs/evidence/M08.md
+- Current milestone/subtask: M10 / M10.01 (after M09 delivery)
+- Last completed subtask: M09.08
+- Last implementation commit: ebf3a64ace54a65f932a3ac7ee60359612d8ebb1 (M08)
+- Last verified remote checkpoint: ebf3a64ace54a65f932a3ac7ee60359612d8ebb1 (M08; exact remote/HEAD match)
+- Worktree: M09 verified changes pending scoped commit/push; unrelated .codex/ excluded
+- Last verification: M09 aggregate passed: 26 unit, 54 integration, 7 contracts, 10 disabled + 1 mock browser, builds, upgrade/restore/capacity/security; docs/evidence/M09.md
 - Current failure/blocker: none
-- Next executable action: commit/push M08, verify remote SHA, then M09 security/seed/backup/capacity
+- Next executable action: commit/push M09 and verify remote SHA; start M10 packaging/offline infrastructure
 - Background processes: project host Compose PostgreSQL on 55432 and Mailpit on 1025/8025; no app process left running
-- Migration/seed state: tka_dev through 202611020007_chat_attempts; disposable test schemas cleaned on normal teardown; no seed
+- Migration/seed state: tka_dev through 202611020007_chat_attempts; reserved synthetic seed present: 2 orgs/20 memberships/200 pages; no database reset
 - Cloud/model spend: not started; no paid actions authorized
 
 ## Subtask execution records
@@ -83,9 +83,18 @@
 | M08.05 | COMPLETE | docs/evidence/M08.md | Verified; final acceptance record |
 | M08.06 | COMPLETE | docs/evidence/M08.md | Verified; final acceptance record |
 
+| M09.01 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+| M09.02 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+| M09.03 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+| M09.04 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+| M09.05 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+| M09.06 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+| M09.07 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+| M09.08 | COMPLETE | docs/evidence/M09.md | Verified; final acceptance record |
+
 ## Handoff / unfinished work
 
-M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 delivered; M05 delivered; M06 delivered; M07 delivered; M08 verified/delivery pending; M09–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
+M00 acceptance passed. Do not duplicate it; reconcile pending commit/delivery first if interrupted. M01 acceptance and delivery verified. M02 delivered; M03 delivered; M04 delivered; M05 delivered; M06 delivered; M07 delivered; M08 delivered; M09 verified/delivery pending; M10–M14 remain NOT_STARTED. M11–M14 are deferred pending explicit AI authorization. M01 integration/contracts/database/Compose capabilities are implemented and verified. M02 real browser/auth tests now pass. Seed/infrastructure remain later milestones and fail explicitly until implemented.
 
 Use repository-local npm cache (.npmrc); the default home cache is read-only. The default system SSH configuration previously failed permissions; command-scoped `git -c core.sshCommand='ssh -F /dev/null'` authenticated successfully without altering machine configuration. Never stage unrelated .codex/. Record the actual pushed M00 SHA in the next milestone checkpoint.
 

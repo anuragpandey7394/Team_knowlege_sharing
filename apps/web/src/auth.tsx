@@ -1,3 +1,4 @@
+import { Organizations } from "./organizations";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -96,6 +97,14 @@ export function Account() {
       >
         Sign out
       </Button>
+      {auth.data?.verified && (
+        <>
+          <p>
+            <Link to="/organizations">Your organizations</Link>
+          </p>
+          <Organizations embedded />
+        </>
+      )}
     </>
   );
 }

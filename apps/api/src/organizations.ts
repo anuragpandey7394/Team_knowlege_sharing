@@ -1,3 +1,4 @@
+import { audit } from "./audit.js";
 import { randomBytes } from "node:crypto";
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
@@ -94,7 +95,7 @@ export async function registerOrganizations(
     async (request, reply) => {
       const organization = await transaction(db, async (tx) => {
         const actor = await requireVerifiedActor(tx, request);
-        return tx.organization.create({
+        const created = await tx.organization.create({
           data: {
             name: request.body.name,
             creatorId: actor.user.id,
@@ -102,6 +103,15 @@ export async function registerOrganizations(
           },
           select: { id: true, name: true },
         });
+        await audit(
+          tx,
+          request,
+          created.id,
+          actor.user.id,
+          "organization.created",
+          created.id,
+        );
+        return created;
       });
       return reply.code(201).send(organization);
     },
@@ -117,7 +127,20 @@ export async function registerOrganizations(
     },
     async (request) =>
       transaction(db, async (tx) => {
-        await requireTenant(tx, request, request.params.orgId, "admin");
+        const actor = await requireTenant(
+          tx,
+          request,
+          request.params.orgId,
+          "admin",
+        );
+        await audit(
+          tx,
+          request,
+          request.params.orgId,
+          actor.user.id,
+          "organization.renamed",
+          request.params.orgId,
+        );
         return tx.organization.update({
           where: { id: request.params.orgId },
           data: request.body,
@@ -172,7 +195,7 @@ export async function registerOrganizations(
       handler: async (request) =>
         transaction(db, async (tx) => {
           const { orgId, userId } = request.params;
-          await requireTenant(tx, request, orgId, "admin");
+          const actor = await requireTenant(tx, request, orgId, "admin");
           // Every membership change writes this common row, serializing final-Admin checks.
           await tx.organization.update({
             where: { id: orgId },
@@ -212,6 +235,14 @@ export async function registerOrganizations(
                 organizationId_userId: { organizationId: orgId, userId },
               },
             });
+          await audit(
+            tx,
+            request,
+            orgId,
+            actor.user.id,
+            role ? "membership.role_changed" : "membership.removed",
+            userId,
+          );
           return { message: "Membership updated." };
         }),
     });
@@ -324,6 +355,14 @@ export async function registerOrganizations(
               expiresAt: new Date(Date.now() + 7 * 86400000),
             },
           });
+          await audit(
+            tx,
+            request,
+            orgId,
+            current.user.id,
+            resend ? "invitation.resent" : "invitation.created",
+            invitation.id,
+          );
           const org = await tx.organization.findUniqueOrThrow({
             where: { id: orgId },
             select: { name: true },
@@ -363,7 +402,12 @@ export async function registerOrganizations(
     },
     async (request) =>
       transaction(db, async (tx) => {
-        await requireTenant(tx, request, request.params.orgId, "admin");
+        const actor = await requireTenant(
+          tx,
+          request,
+          request.params.orgId,
+          "admin",
+        );
         await tx.organization.update({
           where: { id: request.params.orgId },
           data: { membershipRevision: { increment: 1 } },
@@ -378,6 +422,14 @@ export async function registerOrganizations(
         });
         if (!updated.count)
           throw new ApiError(404, "NOT_FOUND", "Invitation not available");
+        await audit(
+          tx,
+          request,
+          request.params.orgId,
+          actor.user.id,
+          "invitation.revoked",
+          request.params.inviteId,
+        );
         return { message: "Invitation revoked." };
       }),
   );
@@ -444,6 +496,14 @@ export async function registerOrganizations(
               },
               update: {},
             });
+            await audit(
+              tx,
+              request,
+              invitation.organizationId,
+              actor.user.id,
+              "invitation.accepted",
+              invitation.id,
+            );
           }
           return {
             organizationId: invitation.organizationId,

@@ -1,8 +1,10 @@
+import { seedDemo } from "../apps/api/src/seed";
 import { writeFileSync } from "node:fs";
 import { createServer as createViteServer } from "vite";
 import { createTestDatabase } from "../tests/helpers/database";
 import { createServer } from "../apps/api/src/server";
 const harness = await createTestDatabase();
+await seedDemo(harness.db);
 const app = await createServer(
   harness.db,
   { ...harness.env, WEB_ORIGIN: "http://127.0.0.1:5174", API_PORT: 3002 },

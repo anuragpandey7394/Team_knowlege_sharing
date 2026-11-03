@@ -43,7 +43,9 @@ function failure(error: unknown) {
     ? error.message
     : "Request failed. Please retry.";
 }
-export function Organizations() {
+export function Organizations({
+  embedded = false,
+}: { embedded?: boolean } = {}) {
   const auth = useAuth();
   const navigate = useNavigate();
   const [offset, setOffset] = useState(0);
@@ -83,7 +85,7 @@ export function Organizations() {
     );
   return (
     <>
-      <h1>Your organizations</h1>
+      {embedded ? <h2>Your organizations</h2> : <h1>Your organizations</h1>}
       <Panel title="Choose an organization">
         {query.isPending ? (
           <LoadingState />

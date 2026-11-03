@@ -23,7 +23,7 @@ Allowed states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `COMPLETE`. Change stat
 | M06 | COMPLETE | All M06 subtasks and its Gate below | docs/evidence/M06.md (create during execution) |
 | M07 | COMPLETE | All M07 subtasks and its Gate below | docs/evidence/M07.md (create during execution) |
 | M08 | COMPLETE | All M08 subtasks and its Gate below | docs/evidence/M08.md (create during execution) |
-| M09 | NOT_STARTED | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
+| M09 | COMPLETE | All M09 subtasks and its Gate below | docs/evidence/M09.md (create during execution) |
 | M10 | NOT_STARTED | All M10 subtasks and its Gate below | docs/evidence/M10.md (create during execution) |
 | M11 | NOT_STARTED | All M11 subtasks and its Gate below | docs/evidence/M11.md (create during execution) |
 | M12 | NOT_STARTED | All M12 subtasks and its Gate below | docs/evidence/M12.md (create during execution) |
@@ -196,14 +196,14 @@ Gate: frontend/backend chat plumbing is complete and honest; no real model requi
 
 Depends on: M02–M08.
 
-- [ ] M09.01 Create repeatable seed: 2 organizations, 10 members each with all roles, 100 synthetic published pages each, nested spaces, architecture/API/setup examples, conflicting docs, optional/missing contacts and attributed comments. Synthetic users/credentials local-only.
-- [ ] M09.02 Complete endpoint-wide tenant isolation matrix for spaces/pages/drafts/versions/comments/jobs/search/conversations; test forged IDs and role revocation with active session.
-- [ ] M09.03 Apply security headers/CSP, CSRF protections, SQL parameterization, sanitization, secret scanning and safe logs. Review dependency advisories using available tooling; document actionable findings and fixes.
-- [ ] M09.04 Add audit coverage for administrative changes, publication, archives and moderation. Exclude secrets/body contents; verify actor/org/request traceability.
-- [ ] M09.05 Implement backup/restore runbook and demonstrate restore into a disposable DB, including versions and memberships. Test migration from empty DB and forward upgrade from prior schema fixture.
-- [ ] M09.06 Run browser end-to-end golden journey covering both organizations, roles, publish/history/comments/search/chat shell, invites/reset. Capture sanitized screenshots only for synthetic test data.
-- [ ] M09.07 Run five concurrent ordinary authenticated clients against seeded data; record latency/error counts, machine/config, DB query behavior and limitations. Fix unbounded lists/N+1 issues. Do not describe this as AI concurrency validation.
-- [ ] M09.08 Implement verify:foundation aggregate and CI: install, lint, typecheck, unit/integration/contracts/browser/build and migration checks using PostgreSQL/Mailpit service containers. No paid AWS credentials in CI.
+- [x] M09.01 Create repeatable seed: 2 organizations, 10 members each with all roles, 100 synthetic published pages each, nested spaces, architecture/API/setup examples, conflicting docs, optional/missing contacts and attributed comments. Synthetic users/credentials local-only.
+- [x] M09.02 Complete endpoint-wide tenant isolation matrix for spaces/pages/drafts/versions/comments/jobs/search/conversations; test forged IDs and role revocation with active session.
+- [x] M09.03 Apply security headers/CSP, CSRF protections, SQL parameterization, sanitization, secret scanning and safe logs. Review dependency advisories using available tooling; document actionable findings and fixes.
+- [x] M09.04 Add audit coverage for administrative changes, publication, archives and moderation. Exclude secrets/body contents; verify actor/org/request traceability.
+- [x] M09.05 Implement backup/restore runbook and demonstrate restore into a disposable DB, including versions and memberships. Test migration from empty DB and forward upgrade from prior schema fixture.
+- [x] M09.06 Run browser end-to-end golden journey covering both organizations, roles, publish/history/comments/search/chat shell, invites/reset. Capture sanitized screenshots only for synthetic test data.
+- [x] M09.07 Run five concurrent ordinary authenticated clients against seeded data; record latency/error counts, machine/config, DB query behavior and limitations. Fix unbounded lists/N+1 issues. Do not describe this as AI concurrency validation.
+- [x] M09.08 Implement verify:foundation aggregate and CI: install, lint, typecheck, unit/integration/contracts/browser/build and migration checks using PostgreSQL/Mailpit service containers. No paid AWS credentials in CI.
 
 Gate: zero known tenant leaks, required regressions pass, backup restored, measured local baseline documented, clean verification command completes without skipped required suites.
 

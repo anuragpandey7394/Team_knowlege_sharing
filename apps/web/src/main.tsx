@@ -51,7 +51,8 @@ function Home() {
       <p>
         <Link to="/login">Sign in</Link> ·{" "}
         <Link to="/register">Create account</Link> ·{" "}
-        <Link to="/account">Your account</Link>
+        <Link to="/account">Your account</Link> ·{" "}
+        <Link to="/organizations">Your organizations</Link>
       </p>
       <p className="badge">AI not connected</p>
     </>

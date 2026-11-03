@@ -75,6 +75,14 @@ export async function createServer(
   });
   app.addHook("onRequest", async (request, reply) => {
     reply.header("x-request-id", request.id);
+    reply.header("x-content-type-options", "nosniff");
+    reply.header("referrer-policy", "same-origin");
+    reply.header("x-frame-options", "DENY");
+    reply.header(
+      "content-security-policy",
+      "default-src 'none'; frame-ancestors 'none'; base-uri 'none'",
+    );
+    reply.header("cache-control", "no-store");
     if (request.headers.origin && request.headers.origin !== env.WEB_ORIGIN)
       throw new ApiError(403, "ORIGIN_REJECTED", "Origin not allowed");
   });

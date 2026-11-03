@@ -316,7 +316,12 @@ export function ManualSearch() {
         (search.isPending ? (
           <LoadingState />
         ) : search.isError ? (
-          <ErrorState message="Search unavailable. Check the space and retry." />
+          <ErrorState
+            message="Search unavailable. Check the space and retry."
+            onRetry={() => {
+              void search.refetch();
+            }}
+          />
         ) : (
           <>
             <p>{search.data.total} results</p>
